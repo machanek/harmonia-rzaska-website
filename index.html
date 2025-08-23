@@ -119,6 +119,48 @@
     </header>
 
     <!-- Hero Section - Fixed width version -->
+    <style>
+        /* TEMPORARY INLINE FALLBACK */
+        .hero {
+            width: 100% !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            padding: 2rem 0 !important;
+            margin-top: 80px !important;
+        }
+        .hero-inner {
+            width: 1380px !important;
+            max-width: calc(100% - 2rem) !important;
+            height: 585.781px !important;
+            position: relative !important;
+            background: #FFFFFF !important;
+            border-radius: 20px !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+            overflow: hidden !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+        @media (max-width: 1440px) {
+            .hero-inner {
+                width: 95% !important;
+                max-width: calc(95% - 2rem) !important;
+                height: auto !important;
+                min-height: 500px !important;
+            }
+        }
+        @media (max-width: 768px) {
+            .hero-inner {
+                width: 95% !important;
+                max-width: calc(95% - 2rem) !important;
+                min-height: 350px !important;
+            }
+            .hero {
+                padding: 1rem 0 !important;
+            }
+        }
+    </style>
     <section class="hero" id="hero">
         <div class="hero-inner">
             <div class="hero-slider" id="heroSlider">
