@@ -7,6 +7,10 @@
   NODE_VERSION = "18"
   RECAPTCHA_SECRET_KEY = "6Lc1sK8rAAAAAH0pAKxs0P6uPPCr4Y3a4JhkCifx"
 
+# Netlify Functions plugin for automatic dependency installation
+[[plugins]]
+  package = "@netlify/plugin-functions-install-core"
+
 # Form handling
 [[redirects]]
   from = "/success"
