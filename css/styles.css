@@ -278,6 +278,24 @@ p {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
+/* Desktop specific - ensure exact dimensions */
+@media (min-width: 1441px) {
+    .hero {
+        max-width: 1380px;
+        height: 585.781px;
+        width: 1380px;
+    }
+}
+
+/* Extra large screens - maintain fixed size */
+@media (min-width: 1920px) {
+    .hero {
+        max-width: 1380px;
+        height: 585.781px;
+        width: 1380px;
+    }
+}
+
 .hero-slider {
     position: absolute;
     top: 0;
@@ -395,6 +413,7 @@ p {
 @media (max-width: 1440px) {
     .hero {
         max-width: 95%;
+        width: auto;
         height: auto;
         min-height: 500px;
         margin: 2rem auto;
