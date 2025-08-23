@@ -1,0 +1,13 @@
+{
+  "id": 1,
+  "nr_budynku": "A",
+  "nr_lokalu": "1",
+  "pietro": 1,
+  "powierzchnia": 45.2,
+  "dodatki": "Balkon 8m²",
+  "cena": 285000,
+  "cena_m2": 6305,
+  "status": "wolny",
+  "plan_url": "https://example.com/plan-a1.jpg",
+  "opis": "Przestronne mieszkanie z balkonem, idealne dla młodej pary"
+}
