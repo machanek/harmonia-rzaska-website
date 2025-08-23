@@ -136,7 +136,8 @@ class HarmoniaApp {
         for (const filename of unitFiles) {
             try {
                 console.log(`📁 Ładowanie: ${filename}`);
-                const response = await fetch(`data/units/${filename}`);
+                const timestamp = Date.now();
+                const response = await fetch(`data/units/${filename}?t=${timestamp}`);
                 console.log(`📊 Status dla ${filename}:`, response.status, response.statusText);
                 
                 if (response.ok) {
@@ -978,7 +979,8 @@ window.testFetch = async () => {
     
     for (const file of testFiles) {
         try {
-            const response = await fetch(`data/units/${file}`);
+            const timestamp = Date.now();
+            const response = await fetch(`data/units/${file}?t=${timestamp}`);
             console.log(`📁 ${file}:`, response.status, response.statusText);
             if (response.ok) {
                 const data = await response.json();
