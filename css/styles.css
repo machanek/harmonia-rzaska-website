@@ -407,10 +407,10 @@ p {
 /* Responsive Design */
 @media (max-width: 1440px) {
     .hero {
-        width: 95%;
-        max-width: 95%;
-        height: auto;
-        min-height: 500px;
+        width: 95% !important;
+        max-width: 95% !important;
+        height: auto !important;
+        min-height: 500px !important;
     }
 
     .hero h1 {
@@ -424,9 +424,9 @@ p {
 
 @media (max-width: 1200px) {
     .hero {
-        width: 90%;
-        max-width: 90%;
-        min-height: 450px;
+        width: 90% !important;
+        max-width: 90% !important;
+        min-height: 450px !important;
     }
 
     .hero .container {
@@ -436,9 +436,9 @@ p {
 
 @media (max-width: 992px) {
     .hero {
-        width: 95%;
-        max-width: 95%;
-        min-height: 400px;
+        width: 95% !important;
+        max-width: 95% !important;
+        min-height: 400px !important;
     }
 
     .hero-content {
@@ -448,13 +448,13 @@ p {
 
 @media (max-width: 768px) {
     .hero {
-        width: 95%;
-        max-width: 95%;
-        min-height: 350px;
+        width: 95% !important;
+        max-width: 95% !important;
+        min-height: 350px !important;
     }
     
     .hero-wrapper {
-        margin: 1rem 0;
+        margin: 1rem 0 !important;
     }
 
     .hero .container {
@@ -468,14 +468,14 @@ p {
 
 @media (max-width: 480px) {
     .hero {
-        width: 98%;
-        max-width: 98%;
-        min-height: 300px;
-        border-radius: 12px;
+        width: 98% !important;
+        max-width: 98% !important;
+        min-height: 300px !important;
+        border-radius: 12px !important;
     }
     
     .hero-wrapper {
-        margin: 0.5rem 0;
+        margin: 0.5rem 0 !important;
     }
 
     .hero .container {
