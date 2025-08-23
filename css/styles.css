@@ -262,65 +262,30 @@ p {
    1380px szerokość, 585.781px wysokość
    ============================================== */
 
+/* Hero wrapper - centers the hero section */
+.hero-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
 /* Hero Section - Minimal version */
 .hero {
-    position: relative !important;
-    width: 1380px !important;
-    max-width: 1380px !important;
-    min-width: 1380px !important;
-    height: 585.781px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    background: var(--white) !important;
-    overflow: hidden !important;
-    border-radius: 20px !important;
-    margin: 2rem auto !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
-    /* Force the container to not expand */
-    box-sizing: border-box !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    /* Prevent any inheritance */
-    flex: none !important;
-    flex-grow: 0 !important;
-    flex-shrink: 0 !important;
+    width: 1380px;
+    max-width: 1380px;
+    height: 585.781px;
+    position: relative;
+    background: var(--white);
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Desktop specific - ensure exact dimensions */
-@media (min-width: 1441px) {
-    .hero {
-        max-width: 1380px !important;
-        height: 585.781px !important;
-        width: 1380px !important;
-        min-width: 1380px !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-    }
-}
 
-/* Ultra specific selector to override everything */
-body .hero,
-html .hero,
-.hero {
-    width: 1380px !important;
-    max-width: 1380px !important;
-    min-width: 1380px !important;
-    height: 585.781px !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    position: relative !important;
-    margin: 2rem auto !important;
-}
-
-/* Extra large screens - maintain fixed size */
-@media (min-width: 1920px) {
-    .hero {
-        max-width: 1380px;
-        height: 585.781px;
-        width: 1380px;
-    }
-}
 
 .hero-slider {
     position: absolute;
@@ -438,13 +403,10 @@ html .hero,
 /* Responsive Design */
 @media (max-width: 1440px) {
     .hero {
-        max-width: 95% !important;
-        width: 95% !important;
+        width: 95%;
+        max-width: 95%;
         height: auto;
         min-height: 500px;
-        margin: 2rem auto;
-        left: 50%;
-        transform: translateX(-50%);
     }
 
     .hero h1 {
@@ -458,12 +420,9 @@ html .hero,
 
 @media (max-width: 1200px) {
     .hero {
-        max-width: 90% !important;
-        width: 90% !important;
-        height: auto;
+        width: 90%;
+        max-width: 90%;
         min-height: 450px;
-        left: 50%;
-        transform: translateX(-50%);
     }
 
     .hero .container {
@@ -473,12 +432,9 @@ html .hero,
 
 @media (max-width: 992px) {
     .hero {
-        max-width: 95% !important;
-        width: 95% !important;
-        height: auto;
+        width: 95%;
+        max-width: 95%;
         min-height: 400px;
-        left: 50%;
-        transform: translateX(-50%);
     }
 
     .hero-content {
@@ -488,13 +444,13 @@ html .hero,
 
 @media (max-width: 768px) {
     .hero {
-        margin: 1rem auto;
-        max-width: 95% !important;
-        width: 95% !important;
-        height: auto;
+        width: 95%;
+        max-width: 95%;
         min-height: 350px;
-        left: 50%;
-        transform: translateX(-50%);
+    }
+    
+    .hero-wrapper {
+        margin: 1rem 0;
     }
 
     .hero .container {
@@ -508,13 +464,14 @@ html .hero,
 
 @media (max-width: 480px) {
     .hero {
-        margin: 0.5rem auto;
-        border-radius: 12px;
-        max-width: 98% !important;
-        width: 98% !important;
+        width: 98%;
+        max-width: 98%;
         min-height: 300px;
-        left: 50%;
-        transform: translateX(-50%);
+        border-radius: 12px;
+    }
+    
+    .hero-wrapper {
+        margin: 0.5rem 0;
     }
 
     .hero .container {
@@ -1751,22 +1708,5 @@ html .hero,
     }
 }
 
-/* FINAL OVERRIDE - This must be at the end to override everything */
-body .hero,
-html .hero,
-section.hero,
-.hero {
-    width: 1380px !important;
-    max-width: 1380px !important;
-    min-width: 1380px !important;
-    height: 585.781px !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    position: relative !important;
-    margin: 2rem auto !important;
-    box-sizing: border-box !important;
-    flex: none !important;
-    flex-grow: 0 !important;
-    flex-shrink: 0 !important;
-}
+
 
