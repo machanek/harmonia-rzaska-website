@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta name="description" content="Harmonia Rząska to nowoczesne osiedle domów i mieszkań pod Krakowem. Sprawdź dostępność lokali w spokojnej okolicy z doskonałym dojazdem do miasta.">
     <meta name="keywords" content="mieszkania Rząska, domy pod Krakowem, osiedle Harmonia Rząska, nieruchomości Kraków">
     <meta property="og:title" content="Harmonia Rząska – osiedle domów i mieszkań pod Krakowem">
@@ -16,6 +16,18 @@
     <meta name="twitter:description" content="Nowoczesne osiedle w spokojnej okolicy z doskonałym dojazdem do Krakowa. Sprawdź dostępność lokali.">
     <meta name="twitter:image" content="https://harmoniarzaska.pl/assets/og-image.jpg">
     <link rel="canonical" href="https://harmoniarzaska.pl">
+    
+    <!-- Additional SEO meta tags -->
+    <meta name="author" content="Harmonia Rząska">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="pl">
+    <meta name="geo.region" content="PL-MA">
+    <meta name="geo.placename" content="Rząska">
+    <meta name="geo.position" content="50.0874;19.8234">
+    <meta name="ICBM" content="50.0874, 19.8234">
+    
+    <!-- Sitemap -->
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
     
     <!-- Structured Data for SEO -->
     <script type="application/ld+json">
@@ -79,6 +91,9 @@
 </head>
 
 <body>
+    <!-- Skip to content link for screen readers -->
+    <a href="#main-content" class="skip-link">Przejdź do treści</a>
+    
     <!-- Header -->
     <header class="header" id="header">
         <div class="container">
@@ -104,25 +119,41 @@
     </header>
 
     <!-- Hero Section -->
+    <main id="main-content">
     <section class="hero" id="hero">
         <div class="hero-slider" id="heroSlider">
             <div class="hero-slide active">
-                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&h=1080&fit=crop&crop=center" 
-                     alt="Harmonia Rząska - widok osiedla" 
-                     loading="eager"
-                     onerror="this.style.background='linear-gradient(135deg, #1F3D32, #4A5D23)'; this.style.minHeight='600px'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.innerHTML='<div style=color:white;font-size:2rem;text-align:center;>Harmonia Rząska<br><small style=font-size:1rem;opacity:0.8;>Nowoczesne osiedle pod Krakowem</small></div>';">
+                <picture>
+                    <source srcset="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&h=1080&fit=crop&crop=center&fm=webp" type="image/webp">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&h=1080&fit=crop&crop=center" 
+                         alt="Harmonia Rząska - widok osiedla" 
+                         loading="eager"
+                         width="1920"
+                         height="1080"
+                         onerror="this.style.background='linear-gradient(135deg, #1F3D32, #4A5D23)'; this.style.minHeight='600px'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.innerHTML='<div style=color:white;font-size:2rem;text-align:center;>Harmonia Rząska<br><small style=font-size:1rem;opacity:0.8;>Nowoczesne osiedle pod Krakowem</small></div>';">
+                </picture>
             </div>
             <div class="hero-slide">
-                <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=1920&h=1080&fit=crop&crop=center" 
-                     alt="Harmonia Rząska - przykładowy dom" 
-                     loading="lazy"
-                     onerror="this.style.background='linear-gradient(135deg, #1F3D32, #4A5D23)'; this.style.minHeight='600px'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.innerHTML='<div style=color:white;font-size:2rem;text-align:center;>Harmonia Rząska<br><small style=font-size:1rem;opacity:0.8;>Nowoczesne osiedle pod Krakowem</small></div>';">
+                <picture>
+                    <source srcset="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=1920&h=1080&fit=crop&crop=center&fm=webp" type="image/webp">
+                    <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=1920&h=1080&fit=crop&crop=center" 
+                         alt="Harmonia Rząska - przykładowy dom" 
+                         loading="lazy"
+                         width="1920"
+                         height="1080"
+                         onerror="this.style.background='linear-gradient(135deg, #1F3D32, #4A5D23)'; this.style.minHeight='600px'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.innerHTML='<div style=color:white;font-size:2rem;text-align:center;>Harmonia Rząska<br><small style=font-size:1rem;opacity:0.8;>Nowoczesne osiedle pod Krakowem</small></div>';">
+                </picture>
             </div>
             <div class="hero-slide">
-                <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1920&h=1080&fit=crop&crop=center" 
-                     alt="Harmonia Rząska - otoczenie" 
-                     loading="lazy"
-                     onerror="this.style.background='linear-gradient(135deg, #1F3D32, #4A5D23)'; this.style.minHeight='600px'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.innerHTML='<div style=color:white;font-size:2rem;text-align:center;>Harmonia Rząska<br><small style=font-size:1rem;opacity:0.8;>Nowoczesne osiedle pod Krakowem</small></div>';">
+                <picture>
+                    <source srcset="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1920&h=1080&fit=crop&crop=center&fm=webp" type="image/webp">
+                    <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1920&h=1080&fit=crop&crop=center" 
+                         alt="Harmonia Rząska - otoczenie" 
+                         loading="lazy"
+                         width="1920"
+                         height="1080"
+                         onerror="this.style.background='linear-gradient(135deg, #1F3D32, #4A5D23)'; this.style.minHeight='600px'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.innerHTML='<div style=color:white;font-size:2rem;text-align:center;>Harmonia Rząska<br><small style=font-size:1rem;opacity:0.8;>Nowoczesne osiedle pod Krakowem</small></div>';">
+                </picture>
             </div>
         </div>
         <div class="hero-overlay"></div>
@@ -470,6 +501,7 @@
         </div>
     </section>
 
+    </main>
     <!-- Footer -->
     <footer class="footer" id="contact">
         <div class="container">
@@ -536,5 +568,20 @@
     <!-- JavaScript -->
     <script src="js/app.js?v=20241202"></script>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('Service Worker registered successfully:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
 </body>
 </html>

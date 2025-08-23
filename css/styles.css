@@ -23,6 +23,10 @@
     --border-radius: 8px;
     --border-radius-lg: 16px;
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Accessibility improvements */
+    --focus-outline: 2px solid #2563EB;
+    --focus-outline-offset: 2px;
 }
 
 * {
@@ -33,6 +37,8 @@
 
 html {
     scroll-behavior: smooth;
+    /* Prevent horizontal scroll on mobile */
+    overflow-x: hidden;
 }
 
 body {
@@ -40,6 +46,32 @@ body {
     line-height: 1.6;
     color: var(--text-dark);
     background: var(--white);
+    /* Prevent horizontal scroll */
+    overflow-x: hidden;
+}
+
+/* Focus styles for accessibility */
+*:focus {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
+}
+
+/* Skip to content link for screen readers */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: var(--primary-green);
+    color: var(--white);
+    padding: 8px;
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    z-index: 1000;
+    transition: top 0.3s;
+}
+
+.skip-link:focus {
+    top: 6px;
 }
 
 /* Typography */

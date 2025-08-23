@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://harmoniarzaska.pl/sitemap.xml
+
+# Disallow admin panel from search engines
+Disallow: /admin/
+
+# Allow CSS, JS, and images
+Allow: /css/
+Allow: /js/
+Allow: /assets/
