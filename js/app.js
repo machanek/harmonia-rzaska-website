@@ -143,12 +143,18 @@ class HarmoniaApp {
 
     async loadUnitsFromFolder() {
         const units = [];
-        // Lista możliwych ID jednostek - można rozszerzyć w miarę potrzeb
-        const unitIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+        // Lista plików jednostek w folderze data/units/
+        const unitFiles = [
+            '1-a-1.json',
+            '2-a-2.json', 
+            '3-a-3.json',
+            '4-b-1.json',
+            '5-b-2.json'
+        ];
         
-        for (const id of unitIds) {
+        for (const filename of unitFiles) {
             try {
-                const response = await fetch(`data/units/${id}.json`);
+                const response = await fetch(`data/units/${filename}`);
                 if (response.ok) {
                     const unit = await response.json();
                     units.push(unit);
