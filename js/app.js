@@ -750,8 +750,8 @@ class HarmoniaApp {
                 const result = await response.json();
                 
                 if (response.ok) {
-                    this.showToast('Wiadomość została wysłana pomyślnie! Skontaktujemy się z Tobą wkrótce.', 'success');
-                    form.reset();
+                this.showToast('Wiadomość została wysłana pomyślnie! Skontaktujemy się z Tobą wkrótce.', 'success');
+                form.reset();
                 } else {
                     throw new Error(result.error || 'Błąd serwera');
                 }

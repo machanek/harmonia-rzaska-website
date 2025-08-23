@@ -121,68 +121,113 @@
     <!-- Hero Section -->
     <main id="main-content">
     <section class="hero" id="hero">
-        <div class="hero-slider" id="heroSlider">
-            <div class="hero-slide active">
-                <picture>
-                    <source srcset="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&h=1080&fit=crop&crop=center&fm=webp" type="image/webp">
-                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&h=1080&fit=crop&crop=center" 
-                         alt="Harmonia Rząska - widok osiedla" 
-                         loading="eager"
-                         width="1920"
-                         height="1080"
-                         onerror="this.style.background='linear-gradient(135deg, #1F3D32, #4A5D23)'; this.style.minHeight='600px'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.innerHTML='<div style=color:white;font-size:2rem;text-align:center;>Harmonia Rząska<br><small style=font-size:1rem;opacity:0.8;>Nowoczesne osiedle pod Krakowem</small></div>';">
-                </picture>
-            </div>
-            <div class="hero-slide">
-                <picture>
-                    <source srcset="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=1920&h=1080&fit=crop&crop=center&fm=webp" type="image/webp">
-                    <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=1920&h=1080&fit=crop&crop=center" 
-                         alt="Harmonia Rząska - przykładowy dom" 
-                         loading="lazy"
-                         width="1920"
-                         height="1080"
-                         onerror="this.style.background='linear-gradient(135deg, #1F3D32, #4A5D23)'; this.style.minHeight='600px'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.innerHTML='<div style=color:white;font-size:2rem;text-align:center;>Harmonia Rząska<br><small style=font-size:1rem;opacity:0.8;>Nowoczesne osiedle pod Krakowem</small></div>';">
-                </picture>
-            </div>
-            <div class="hero-slide">
-                <picture>
-                    <source srcset="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1920&h=1080&fit=crop&crop=center&fm=webp" type="image/webp">
-                    <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1920&h=1080&fit=crop&crop=center" 
-                         alt="Harmonia Rząska - otoczenie" 
-                         loading="lazy"
-                         width="1920"
-                         height="1080"
-                         onerror="this.style.background='linear-gradient(135deg, #1F3D32, #4A5D23)'; this.style.minHeight='600px'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.innerHTML='<div style=color:white;font-size:2rem;text-align:center;>Harmonia Rząska<br><small style=font-size:1rem;opacity:0.8;>Nowoczesne osiedle pod Krakowem</small></div>';">
-                </picture>
-            </div>
-        </div>
-        <div class="hero-overlay"></div>
-        
-        <div class="container">
-            <div class="hero-content">
-                <h1>Osiedla Harmonia Rząska</h1>
-                <p>Odkryj przestrzeń stworzoną dla Ciebie - nowoczesne domy w harmonii z otoczeniem</p>
-                <div class="hero-buttons">
-                    <a href="#units" class="btn btn-primary">SPRAWDŹ DOSTĘPNOŚĆ LOKALI</a>
-                    <a href="assets/katalog-harmonia-rzaska.pdf" class="btn btn-outline" target="_blank">POBIERZ KATALOG PDF</a>
+        <div class="hero-background">
+            <div class="hero-slider" id="heroSlider">
+                <div class="hero-slide active">
+                    <picture>
+                        <source srcset="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&h=1080&fit=crop&crop=center&fm=webp" type="image/webp">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&h=1080&fit=crop&crop=center" 
+                             alt="Harmonia Rząska - widok osiedla" 
+                             loading="eager"
+                             width="1920"
+                             height="1080">
+                    </picture>
                 </div>
-                <a href="#map" class="location-link">
-                    📍 Zobacz lokalizację na mapie
-                </a>
+                <div class="hero-slide">
+                    <picture>
+                        <source srcset="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=1920&h=1080&fit=crop&crop=center&fm=webp" type="image/webp">
+                        <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=1920&h=1080&fit=crop&crop=center" 
+                             alt="Harmonia Rząska - przykładowy dom" 
+                             loading="lazy"
+                             width="1920"
+                             height="1080">
+                    </picture>
+                </div>
+                <div class="hero-slide">
+                    <picture>
+                        <source srcset="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1920&h=1080&fit=crop&crop=center&fm=webp" type="image/webp">
+                        <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1920&h=1080&fit=crop&crop=center" 
+                             alt="Harmonia Rząska - otoczenie" 
+                             loading="lazy"
+                             width="1920"
+                             height="1080">
+                    </picture>
+                </div>
+            </div>
+            <div class="hero-overlay"></div>
+        </div>
+
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge-text">Nowość</span>
+                </div>
+                <h1 class="hero-title">
+                    <span class="title-line">Osiedla</span>
+                    <span class="title-line highlight">Harmonia</span>
+                    <span class="title-line">Rząska</span>
+                </h1>
+                <p class="hero-description">
+                    Odkryj przestrzeń stworzoną dla Ciebie - nowoczesne domy w harmonii z otoczeniem
+                </p>
+                <div class="hero-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">🏠</span>
+                        <span class="feature-text">Nowoczesne mieszkania</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🌳</span>
+                        <span class="feature-text">Harmonia z naturą</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">📍</span>
+                        <span class="feature-text">Doskonała lokalizacja</span>
+                    </div>
+                </div>
+                <div class="hero-actions">
+                    <a href="#units" class="btn btn-primary btn-hero">
+                        <span class="btn-text">Sprawdź dostępność</span>
+                        <span class="btn-icon">→</span>
+                    </a>
+                    <a href="assets/katalog-harmonia-rzaska.pdf" class="btn btn-outline btn-hero" target="_blank">
+                        <span class="btn-text">Pobierz katalog</span>
+                        <span class="btn-icon">📄</span>
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">Nowoczesnych budynków</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">Lokali mieszkalnych</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">Do 62</span>
+                        <span class="stat-label">m²</span>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="hero-nav prev">
-            <button id="heroPrev" aria-label="Poprzedni slajd">‹</button>
-        </div>
-        <div class="hero-nav next">
-            <button id="heroNext" aria-label="Następny slajd">›</button>
+        <div class="hero-navigation">
+            <button class="nav-btn prev" id="heroPrev" aria-label="Poprzedni slajd">
+                <span class="nav-icon">‹</span>
+            </button>
+            <div class="nav-dots" id="heroDots">
+                <div class="nav-dot active" data-slide="0"></div>
+                <div class="nav-dot" data-slide="1"></div>
+                <div class="nav-dot" data-slide="2"></div>
+            </div>
+            <button class="nav-btn next" id="heroNext" aria-label="Następny slajd">
+                <span class="nav-icon">›</span>
+            </button>
         </div>
 
-        <div class="hero-dots" id="heroDots">
-            <div class="hero-dot active" data-slide="0"></div>
-            <div class="hero-dot" data-slide="1"></div>
-            <div class="hero-dot" data-slide="2"></div>
+        <div class="scroll-indicator">
+            <span class="scroll-text">Przewiń w dół</span>
+            <div class="scroll-arrow">↓</div>
         </div>
     </section>
 
