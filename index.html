@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Harmonia Rząska to nowoczesne osiedle domów i mieszkań pod Krakowem. Sprawdź dostępność lokali w spokojnej okolicy z doskonałym dojazdem do miasta.">
+    <meta name="keywords" content="mieszkania Rząska, domy pod Krakowem, osiedle Harmonia Rząska, nieruchomości Kraków">
+    <meta property="og:title" content="Harmonia Rząska – osiedle domów i mieszkań pod Krakowem">
+    <meta property="og:description" content="Nowoczesne osiedle w spokojnej okolicy z doskonałym dojazdem do Krakowa. Sprawdź dostępność lokali.">
+    <meta property="og:image" content="https://harmoniarzaska.pl/assets/og-image.jpg">
+    <meta property="og:url" content="https://harmoniarzaska.pl">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Harmonia Rząska">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Harmonia Rząska – osiedle domów i mieszkań pod Krakowem">
+    <meta name="twitter:description" content="Nowoczesne osiedle w spokojnej okolicy z doskonałym dojazdem do Krakowa. Sprawdź dostępność lokali.">
+    <meta name="twitter:image" content="https://harmoniarzaska.pl/assets/og-image.jpg">
+    <link rel="canonical" href="https://harmoniarzaska.pl">
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "RealEstateAgent",
+        "name": "Harmonia Rząska",
+        "description": "Nowoczesne osiedle domów i mieszkań pod Krakowem w spokojnej okolicy z doskonałym dojazdem do miasta.",
+        "url": "https://harmoniarzaska.pl",
+        "telephone": "+48730090030",
+        "email": "biuro@harmoniarzaska.pl",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Rząska",
+            "addressRegion": "Lesser Poland",
+            "addressCountry": "PL"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "50.0874",
+            "longitude": "19.8234"
+        },
+        "sameAs": [
+            "https://harmoniarzaska.pl"
+        ],
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Dostępne lokale mieszkalne",
+            "itemListElement": [
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Accommodation",
+                        "name": "Mieszkania Harmonia Rząska",
+                        "description": "Nowoczesne mieszkania od 75 do 126 m² z balkonami, tarasami i ogródkami"
+                    }
+                }
+            ]
+        }
+    }
+    </script>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="css/styles.css" as="style">
+    <link rel="preload" href="js/app.js" as="script">
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&h=1080&fit=crop&crop=center">
+    
+    <!-- reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    
+    <!-- Security headers via meta tags -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <title>Harmonia Rząska – osiedle domów i mieszkań pod Krakowem</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <a href="#" class="logo" aria-label="Harmonia Rząska - strona główna">
+                <img src="assets/logo-harmonia-rzaska.png" 
+                     alt="Harmonia Rząska" 
+                     style="height: 40px; width: auto;"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                <span class="logo-text" style="display: none;">Harmonia Rząska</span>
+            </a>
+            <nav class="nav" id="nav">
+                <a href="#about">O nas</a>
+                <a href="#units">Inwestycje</a>
+                <a href="#gallery">Realizacje</a>
+                <a href="#contact">Kontakt</a>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Otwórz menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-slider" id="heroSlider">
+            <div class="hero-slide active">
+                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&h=1080&fit=crop&crop=center" 
+                     alt="Harmonia Rząska - widok osiedla" 
+                     loading="eager"
+                     onerror="this.style.background='linear-gradient(135deg, #1F3D32, #4A5D23)'; this.style.minHeight='600px'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.innerHTML='<div style=color:white;font-size:2rem;text-align:center;>Harmonia Rząska<br><small style=font-size:1rem;opacity:0.8;>Nowoczesne osiedle pod Krakowem</small></div>';">
+            </div>
+            <div class="hero-slide">
+                <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=1920&h=1080&fit=crop&crop=center" 
+                     alt="Harmonia Rząska - przykładowy dom" 
+                     loading="lazy"
+                     onerror="this.style.background='linear-gradient(135deg, #1F3D32, #4A5D23)'; this.style.minHeight='600px'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.innerHTML='<div style=color:white;font-size:2rem;text-align:center;>Harmonia Rząska<br><small style=font-size:1rem;opacity:0.8;>Nowoczesne osiedle pod Krakowem</small></div>';">
+            </div>
+            <div class="hero-slide">
+                <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1920&h=1080&fit=crop&crop=center" 
+                     alt="Harmonia Rząska - otoczenie" 
+                     loading="lazy"
+                     onerror="this.style.background='linear-gradient(135deg, #1F3D32, #4A5D23)'; this.style.minHeight='600px'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.innerHTML='<div style=color:white;font-size:2rem;text-align:center;>Harmonia Rząska<br><small style=font-size:1rem;opacity:0.8;>Nowoczesne osiedle pod Krakowem</small></div>';">
+            </div>
+        </div>
+        <div class="hero-overlay"></div>
+        
+        <div class="container">
+            <div class="hero-content">
+                <h1>Poznaj Harmonię Rząską</h1>
+                <p>Nowoczesne osiedle domów i mieszkań w spokojnej okolicy pod Krakowem. Idealne połączenie komfortu życia z bliskością natury i doskonałym dojazdem do miasta.</p>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
+                    <a href="#units" class="btn btn-primary">SPRAWDŹ DOSTĘPNOŚĆ LOKALI</a>
+                    <a href="assets/katalog-harmonia-rzaska.pdf" class="btn btn-outline" target="_blank">POBIERZ KATALOG PDF</a>
+                </div>
+                <a href="#map" class="location-link">
+                    📍 Zobacz lokalizację na mapie
+                </a>
+            </div>
+        </div>
+
+        <div class="hero-nav prev">
+            <button id="heroPrev" aria-label="Poprzedni slajd">‹</button>
+        </div>
+        <div class="hero-nav next">
+            <button id="heroNext" aria-label="Następny slajd">›</button>
+        </div>
+
+        <div class="hero-dots" id="heroDots">
+            <div class="hero-dot active" data-slide="0"></div>
+            <div class="hero-dot" data-slide="1"></div>
+            <div class="hero-dot" data-slide="2"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about section" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>Harmonia Rząska to wyjątkowa inwestycja mieszkaniowa położona w malowniczej miejscowości Rząska, zaledwie kilka kilometrów od granic Krakowa. Nasze osiedle łączy w sobie nowoczesną architekturę z poszanowaniem dla naturalnego otoczenia.</p>
+                    
+                    <p>Oferujemy różnorodne typy mieszkań - od kompaktowych dwupokojowych po przestronne czteropokojowe lokale z balkonami, tarasami, a niektóre z prywatnymi ogródkami. Każde mieszkanie zostało zaprojektowane z myślą o maksymalnym komforcie i funkcjonalności.</p>
+                    
+                    <p>Doskonała komunikacja z Krakowem, bliskość lasów i terenów rekreacyjnych oraz rozwijająca się infrastruktura lokalna sprawiają, że Harmonia Rząska to idealne miejsce dla rodzin poszukujących spokoju bez rezygnacji z miejskich udogodnień.</p>
+                </div>
+                
+                <div class="about-heading">
+                    <h2>TARASY<br>HARMONIA<br>RZĄSKA</h2>
+                    <div class="subtitle">Nowoczesne mieszkania<br>pod Krakowem</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section class="location section section-accent" id="location">
+        <div class="container">
+            <div class="location-content">
+                <div class="location-info">
+                    <div class="location-images">
+                        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=500&fit=crop&crop=center" alt="Okolica - widok na zieleń" loading="lazy" onerror="this.style.background='#E5E7EB'; this.style.minHeight='250px';">
+                        <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=500&fit=crop&crop=center" alt="Infrastruktura lokalna" loading="lazy" onerror="this.style.background='#E5E7EB'; this.style.minHeight='250px';">
+                    </div>
+                    
+                    <div class="location-text">
+                        <h3>Lokalizacja</h3>
+                        <p>Rząska to dynamicznie rozwijająca się gmina w bezpośrednim sąsiedztwie Krakowa, oferująca mieszkańcom spokój małej miejscowości z dostępem do wielkomiejskich udogodnień.</p>
+                        
+                        <p>W pobliżu znajdują się liczne szlaki spacerowe i rowerowe, tereny rekreacyjne oraz kompleksy handlowo-usługowe. Doskonała komunikacja autobusowa i kolejowa zapewnia szybki dojazd do centrum Krakowa.</p>
+                        
+                        <a href="#map" class="btn btn-primary">OTWÓRZ W MAPACH</a>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div class="contact-form-section">
+                    <div class="contact-form-container">
+                        <h3>Skontaktuj się z nami</h3>
+                        <p>Masz pytania o dostępne lokale? Chcesz umówić się na prezentację? Napisz do nas!</p>
+                        
+                        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="contact-form" id="contactForm">
+                            <input type="hidden" name="form-name" value="contact" />
+                            <p class="hidden">
+                                <label>Nie wypełniaj tego pola: <input name="bot-field" /></label>
+                            </p>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="contactName">Imię i nazwisko *</label>
+                                    <input type="text" id="contactName" name="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contactPhone">Telefon *</label>
+                                    <input type="tel" id="contactPhone" name="phone" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contactEmail">E-mail *</label>
+                                <input type="email" id="contactEmail" name="email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contactSubject">Temat</label>
+                                <select id="contactSubject" name="subject">
+                                    <option value="">Wybierz temat</option>
+                                    <option value="mieszkanie">Pytanie o mieszkanie</option>
+                                    <option value="prezentacja">Umówienie prezentacji</option>
+                                    <option value="finansowanie">Finansowanie</option>
+                                    <option value="dokumenty">Dokumenty i procedury</option>
+                                    <option value="inne">Inne</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contactMessage">Wiadomość *</label>
+                                <textarea id="contactMessage" name="message" rows="4" placeholder="Opisz swoje pytanie lub zapotrzebowanie..." required></textarea>
+                            </div>
+                            
+                            <div class="form-group consent-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="contactConsent" name="consent" required>
+                                    <span class="checkmark"></span>
+                                    Wyrażam zgodę na przetwarzanie moich danych osobowych zgodnie z <a href="#privacy" target="_blank">Polityką prywatności</a> w celu odpowiedzi na zapytanie. *
+                                </label>
+                            </div>
+                            
+                            <div class="form-group marketing-consent">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="marketingConsent" name="marketing">
+                                    <span class="checkmark"></span>
+                                    Wyrażam zgodę na otrzymywanie informacji marketingowych o ofercie Harmonia Rząska.
+                                </label>
+                            </div>
+                            
+                            <!-- reCAPTCHA -->
+                            <div class="form-group recaptcha-group">
+                                <div class="g-recaptcha" data-sitekey="6LcXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"></div>
+                                <small style="color: #666;">Zabezpieczenie przed spamem</small>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary" id="contactSubmit">
+                                    <span class="btn-text">WYŚLIJ WIADOMOŚĆ</span>
+                                    <span class="btn-loading hidden">Wysyłanie...</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section class="architecture section" id="architecture">
+        <div class="container">
+            <div class="architecture-content">
+                <div class="architecture-text">
+                    <h3>Architektura i bezpieczeństwo</h3>
+                    <p>Budynki zostały zaprojektowane w nowoczesnym stylu z wykorzystaniem wysokiej jakości materiałów. Elewacje łączą tynki mineralnych odcieni z elementami drewnianymi i szklanymi, tworząc harmonijną kompozycję z otaczającą zielenią.</p>
+                    
+                    <p>Osiedle wyposażone jest w system monitoringu, kontrolę dostępu oraz oświetlenie LED całego terenu. Przestronne place zabaw dla dzieci, miejsca rekreacji oraz zieleń krajobrazowa tworzą przyjazne środowisko dla całych rodzin.</p>
+                    
+                    <p>Każdy budynek posiada windę, komórki lokatorskie oraz miejsca parkingowe w garażach podziemnych. Wysokiej klasy izolacja termiczna i akustyczna gwarantuje komfort użytkowania przez cały rok.</p>
+                </div>
+                
+                <div class="apartment-types">
+                    <h4>Dostępne metraże</h4>
+                    <div class="apartment-list">
+                        <div class="apartment-item">
+                            <div class="type">M 80</div>
+                            <div class="size">80 m²</div>
+                        </div>
+                        <div class="apartment-item">
+                            <div class="type">M 107</div>
+                            <div class="size">107 m²</div>
+                        </div>
+                        <div class="apartment-item">
+                            <div class="type">M 122</div>
+                            <div class="size">122 m²</div>
+                        </div>
+                        <div class="apartment-item">
+                            <div class="type">M 95</div>
+                            <div class="size">95 m²</div>
+                        </div>
+                        <div class="apartment-item">
+                            <div class="type">M 110</div>
+                            <div class="size">110 m²</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Masterplan Section -->
+    <section class="masterplan section section-accent">
+        <div class="container">
+            <h3>Plan osiedla</h3>
+            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&h=800&fit=crop&crop=center" alt="Plan zagospodarowania osiedla Harmonia Rząska" class="masterplan-image" loading="lazy" onerror="this.style.background='#F3F4F6'; this.style.minHeight='400px'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.innerHTML='<div style=color:#9CA3AF;font-size:1.5rem;>Plan osiedla</div>';" style="border: 2px dashed #E5E7EB;">
+        </div>
+    </section>
+
+    <!-- Units Table Section -->
+    <section class="units-section section" id="units">
+        <div class="container">
+            <div class="units-header">
+                <h3>Dostępność lokali</h3>
+            </div>
+
+            <!-- Filters and Controls -->
+            <div class="units-controls">
+                <div class="control-group">
+                    <label for="searchInput">Wyszukaj</label>
+                    <input type="text" id="searchInput" placeholder="Nr lokalu, budynku...">
+                </div>
+                <div class="control-group">
+                    <label for="statusFilter">Status</label>
+                    <select id="statusFilter">
+                        <option value="">Wszystkie</option>
+                        <option value="WOLNE">Wolne</option>
+                        <option value="REZERWACJA">Rezerwacja</option>
+                        <option value="SPRZEDANE">Sprzedane</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="floorFilter">Piętro</label>
+                    <select id="floorFilter">
+                        <option value="">Wszystkie</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="areaMin">Powierzchnia od (m²)</label>
+                    <input type="number" id="areaMin" placeholder="0" min="0" step="0.1">
+                </div>
+                <div class="control-group">
+                    <label for="areaMax">Powierzchnia do (m²)</label>
+                    <input type="number" id="areaMax" placeholder="200" min="0" step="0.1">
+                </div>
+                <div class="control-group">
+                    <label for="priceMin">Cena od (zł)</label>
+                    <input type="number" id="priceMin" placeholder="0" min="0">
+                </div>
+                <div class="control-group">
+                    <label for="priceMax">Cena do (zł)</label>
+                    <input type="number" id="priceMax" placeholder="2000000" min="0">
+                </div>
+                <div class="control-group">
+                    <label for="perPage">Wierszy na stronę</label>
+                    <select id="perPage">
+                        <option value="10">10</option>
+                        <option value="25" selected>25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Desktop Table -->
+            <div class="units-table-container" id="unitsTableContainer">
+                <table class="units-table" id="unitsTable">
+                    <thead>
+                        <tr>
+                            <th class="sortable" data-sort="id">Nr <span class="sr-only">- kliknij aby sortować</span></th>
+                            <th class="sortable" data-sort="nr_budynku">Nr budynku</th>
+                            <th class="sortable" data-sort="nr_lokalu">Nr lokalu</th>
+                            <th class="sortable" data-sort="pietro">Piętro</th>
+                            <th class="sortable" data-sort="powierzchnia">Powierzchnia (m²)</th>
+                            <th>Dodatki</th>
+                            <th class="sortable" data-sort="cena">Cena (zł)</th>
+                            <th class="sortable" data-sort="cena_m2">Cena/m² (zł)</th>
+                            <th class="sortable" data-sort="status">Status</th>
+                            <th>Plan</th>
+                        </tr>
+                    </thead>
+                    <tbody id="unitsTableBody">
+                        <!-- Emergency fallback - will be replaced by JavaScript -->
+                        <tr id="emergency-row">
+                            <td colspan="10" style="text-align: center; padding: 2rem; background: #ffeb3b;">
+                                ⏳ Ładowanie danych... Jeśli ten komunikat nie zniknie, otwórz Console (F12) i wykonaj: <code>emergencyRender()</code>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Mobile Cards -->
+            <div class="units-cards hidden" id="unitsCards">
+                <!-- Cards content will be populated by JavaScript -->
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination">
+                <!-- Pagination will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery section section-accent" id="gallery">
+        <div class="container">
+            <h3>Galeria wnętrz</h3>
+            <div class="gallery-slider">
+                <div class="gallery-main" id="galleryMain">
+                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=400&fit=crop&crop=center" alt="Przykładowe wnętrze - salon" loading="lazy" onerror="this.style.background='#F3F4F6'; this.style.minHeight='400px';">
+                </div>
+                <div class="gallery-thumbs" id="galleryThumbs">
+                    <div class="gallery-thumb active" data-image="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=400&fit=crop&crop=center" data-alt="Przykładowe wnętrze - salon">
+                        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=160&h=120&fit=crop&crop=center" alt="Miniatura - salon" loading="lazy" onerror="this.style.background='#E5E7EB';">
+                    </div>
+                    <div class="gallery-thumb" data-image="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&h=400&fit=crop&crop=center" data-alt="Przykładowe wnętrze - kuchnia">
+                        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=160&h=120&fit=crop&crop=center" alt="Miniatura - kuchnia" loading="lazy" onerror="this.style.background='#E5E7EB';">
+                    </div>
+                    <div class="gallery-thumb" data-image="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800&h=400&fit=crop&crop=center" data-alt="Przykładowe wnętrze - sypialnia">
+                        <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=160&h=120&fit=crop&crop=center" alt="Miniatura - sypialnia" loading="lazy" onerror="this.style.background='#E5E7EB';">
+                    </div>
+                    <div class="gallery-thumb" data-image="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=800&h=400&fit=crop&crop=center" data-alt="Przykładowe wnętrze - łazienka">
+                        <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=160&h=120&fit=crop&crop=center" alt="Miniatura - łazienka" loading="lazy" onerror="this.style.background='#E5E7EB';">
+                    </div>
+                    <div class="gallery-thumb" data-image="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&h=400&fit=crop&crop=center" data-alt="Przykładowe wnętrze - balkon">
+                        <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=160&h=120&fit=crop&crop=center" alt="Miniatura - balkon" loading="lazy" onerror="this.style.background='#E5E7EB';">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section section" id="map">
+        <div class="container">
+            <h3>Lokalizacja</h3>
+            <p>Osiedle Harmonia Rząska znajduje się w spokojnej części gminy Rząska, w otoczeniu zieleni i z doskonałym dojazdem do Krakowa.</p>
+            
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2560.5!2d19.8234!3d50.0874!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTDCsDA1JzE0LjYiTiAxOcKwNDknMjQuNCJF!5e0!3m2!1spl!2spl!4v1620000000000!5m2!1spl!2spl"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    aria-label="Mapa lokalizacji osiedla Harmonia Rząska">
+                </iframe>
+                <div class="map-overlay">
+                    <a href="https://goo.gl/maps/example" target="_blank" class="btn btn-primary">OTWÓRZ W MAPACH</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Harmonia Rząska</h4>
+                    <p>Nowoczesne osiedle domów i mieszkań pod Krakowem. Idealne miejsce dla rodzin poszukujących spokoju i komfortu.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Kontakt</h4>
+                    <div class="footer-links">
+                        <a href="tel:+48730090030">📞 730 090 030</a>
+                        <a href="mailto:biuro@harmoniarzaska.pl">✉️ biuro@harmoniarzaska.pl</a>
+                        <p>📍 Rząska k. Krakowa</p>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Informacje</h4>
+                    <div class="footer-links">
+                        <a href="#privacy">Polityka prywatności</a>
+                        <a href="#rodo">RODO</a>
+                        <a href="#contact">Kontakt</a>
+                        <a href="assets/katalog-harmonia-rzaska.pdf" target="_blank">Katalog PDF</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Działamy</h4>
+                    <p>Poniedziałek - Piątek: 9:00 - 17:00<br>
+                    Sobota: 10:00 - 14:00<br>
+                    Niedziela: zamknięte</p>
+                    <a href="#units" class="btn btn-primary mt-1">SKONTAKTUJ SIĘ</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Harmonia Rząska. Wszystkie prawa zastrzeżone.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast container -->
+    <div id="toastContainer"></div>
+
+    <!-- Cookie Banner -->
+    <div class="cookie-banner" id="cookieBanner">
+        <div class="cookie-banner-content">
+            <div class="cookie-banner-text">
+                <p>
+                    Ta strona używa plików cookies w celu zapewnienia najlepszego doświadczenia użytkownika. 
+                    Kontynuując przeglądanie strony, wyrażasz zgodę na użycie cookies zgodnie z naszą 
+                    <a href="#privacy" target="_blank">Polityką prywatności</a>.
+                </p>
+            </div>
+            <div class="cookie-banner-actions">
+                <button class="btn btn-cookie-accept" id="acceptCookies">Akceptuję</button>
+                <button class="btn btn-cookie-settings" id="cookieSettings">Ustawienia</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/app.js"></script>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1,
+    "nr_budynku": "A",
+    "nr_lokalu": "1",
+    "pietro": 1,
+    "powierzchnia": 45.2,
+    "dodatki": "Balkon 8m²",
+    "cena": 285000,
+    "cena_m2": 6305,
+    "status": "wolny",
+    "plan_url": "https://example.com/plan-a1.jpg",
+    "opis": "Przestronne mieszkanie z balkonem, idealne dla młodej pary"
+  },
+  {
+    "id": 2,
+    "nr_budynku": "A",
+    "nr_lokalu": "2",
+    "pietro": 1,
+    "powierzchnia": 52.8,
+    "dodatki": "Balkon 10m², piwnica",
+    "cena": 335000,
+    "cena_m2": 6345,
+    "status": "sprzedany",
+    "plan_url": "https://example.com/plan-a2.jpg",
+    "opis": "Duże mieszkanie z dodatkową piwnicą, doskonałe dla rodziny"
+  },
+  {
+    "id": 3,
+    "nr_budynku": "A",
+    "nr_lokalu": "3",
+    "pietro": 2,
+    "powierzchnia": 48.5,
+    "dodatki": "Balkon 6m²",
+    "cena": 310000,
+    "cena_m2": 6392,
+    "status": "wolny",
+    "plan_url": "https://example.com/plan-a3.jpg",
+    "opis": "Mieszkanie na drugim piętrze z widokiem na park"
+  },
+  {
+    "id": 4,
+    "nr_budynku": "B",
+    "nr_lokalu": "1",
+    "pietro": 0,
+    "powierzchnia": 65.3,
+    "dodatki": "Ogródek 25m²",
+    "cena": 420000,
+    "cena_m2": 6432,
+    "status": "wolny",
+    "plan_url": "https://example.com/plan-b1.jpg",
+    "opis": "Mieszkanie parterowe z prywatnym ogródkiem"
+  },
+  {
+    "id": 5,
+    "nr_budynku": "B",
+    "nr_lokalu": "2",
+    "pietro": 1,
+    "powierzchnia": 58.7,
+    "dodatki": "Balkon 12m²",
+    "cena": 375000,
+    "cena_m2": 6385,
+    "status": "zarezerwowany",
+    "plan_url": "https://example.com/plan-b2.jpg",
+    "opis": "Duży balkon, idealne dla rodzin z dziećmi"
+  }
+]
