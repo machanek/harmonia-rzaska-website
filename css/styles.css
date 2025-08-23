@@ -265,8 +265,8 @@ p {
 /* Hero Section - Minimal version */
 .hero {
     position: relative;
-    width: 100%;
-    max-width: 1380px;
+    width: 1380px !important;
+    max-width: 1380px !important;
     height: 585.781px;
     display: flex;
     align-items: center;
@@ -276,6 +276,10 @@ p {
     border-radius: 20px;
     margin: 2rem auto;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    /* Force the container to not expand */
+    box-sizing: border-box;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 /* Desktop specific - ensure exact dimensions */
@@ -412,11 +416,13 @@ p {
 /* Responsive Design */
 @media (max-width: 1440px) {
     .hero {
-        max-width: 95%;
-        width: auto;
+        max-width: 95% !important;
+        width: 95% !important;
         height: auto;
         min-height: 500px;
         margin: 2rem auto;
+        left: 50%;
+        transform: translateX(-50%);
     }
 
     .hero h1 {
@@ -430,9 +436,12 @@ p {
 
 @media (max-width: 1200px) {
     .hero {
-        max-width: 90%;
+        max-width: 90% !important;
+        width: 90% !important;
         height: auto;
         min-height: 450px;
+        left: 50%;
+        transform: translateX(-50%);
     }
 
     .hero .container {
@@ -442,9 +451,12 @@ p {
 
 @media (max-width: 992px) {
     .hero {
-        max-width: 95%;
+        max-width: 95% !important;
+        width: 95% !important;
         height: auto;
         min-height: 400px;
+        left: 50%;
+        transform: translateX(-50%);
     }
 
     .hero-content {
@@ -455,9 +467,12 @@ p {
 @media (max-width: 768px) {
     .hero {
         margin: 1rem auto;
-        max-width: 95%;
+        max-width: 95% !important;
+        width: 95% !important;
         height: auto;
         min-height: 350px;
+        left: 50%;
+        transform: translateX(-50%);
     }
 
     .hero .container {
@@ -473,8 +488,11 @@ p {
     .hero {
         margin: 0.5rem auto;
         border-radius: 12px;
-        max-width: 98%;
+        max-width: 98% !important;
+        width: 98% !important;
         min-height: 300px;
+        left: 50%;
+        transform: translateX(-50%);
     }
 
     .hero .container {
