@@ -1,0 +1,13 @@
+{
+  "id": 5,
+  "nr_budynku": "B",
+  "nr_lokalu": "2",
+  "pietro": 1,
+  "powierzchnia": 58.7,
+  "dodatki": "Balkon 12m²",
+  "cena": 375000,
+  "cena_m2": 6385,
+  "status": "zarezerwowany",
+  "plan_url": "https://example.com/plan-b2.jpg",
+  "opis": "Duży balkon, idealne dla rodzin z dziećmi"
+}

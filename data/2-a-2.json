@@ -1,0 +1,13 @@
+{
+  "id": 2,
+  "nr_budynku": "A",
+  "nr_lokalu": "2",
+  "pietro": 1,
+  "powierzchnia": 52.8,
+  "dodatki": "Balkon 10m², piwnica",
+  "cena": 335000,
+  "cena_m2": 6345,
+  "status": "sprzedany",
+  "plan_url": "https://example.com/plan-a2.jpg",
+  "opis": "Duże mieszkanie z dodatkową piwnicą, doskonałe dla rodziny"
+}
