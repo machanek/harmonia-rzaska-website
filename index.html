@@ -119,50 +119,109 @@
     </header>
 
     <!-- Hero Section - Minimalna wersja z tylko tekstem -->
-    <section class="hero" id="hero">
-        <div class="hero-slider" id="heroSlider">
-            <div class="hero-slide active">
-                <picture>
-                    <source srcset="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&h=800&fit=crop&crop=center&fm=webp" type="image/webp">
-                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&h=800&fit=crop&crop=center" 
-                         alt="Harmonia Rząska - widok osiedla" 
-                         loading="eager"
-                         width="1400"
-                         height="800">
-                </picture>
-            </div>
-            <div class="hero-slide">
-                <picture>
-                    <source srcset="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=1400&h=800&fit=crop&crop=center&fm=webp" type="image/webp">
-                    <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=1400&h=800&fit=crop&crop=center" 
-                         alt="Harmonia Rząska - przykładowy dom" 
-                         loading="lazy"
-                         width="1400"
-                         height="800">
-                </picture>
-            </div>
-            <div class="hero-slide">
-                <picture>
-                    <source srcset="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1400&h=800&fit=crop&crop=center&fm=webp" type="image/webp">
-                    <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1400&h=800&fit=crop&crop=center" 
-                         alt="Harmonia Rząska - otoczenie" 
-                         loading="lazy"
-                         width="1400"
-                         height="800">
-                </picture>
-            </div>
-        </div>
-        <div class="hero-overlay"></div>
-        
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>Osiedla Harmonia Rząska</h1>
-                    <p>Odkryj przestrzeń stworzoną dla Ciebie – nowoczesne domy w harmonii z otoczeniem</p>
+    <style>
+        .hero-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        .hero-fixed {
+            width: 1380px;
+            max-width: 1380px;
+            height: 585.781px;
+            position: relative;
+            background: #FFFFFF;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1440px) {
+            .hero-fixed {
+                width: 95%;
+                max-width: 95%;
+                height: auto;
+                min-height: 500px;
+            }
+        }
+        @media (max-width: 1200px) {
+            .hero-fixed {
+                width: 90%;
+                max-width: 90%;
+                min-height: 450px;
+            }
+        }
+        @media (max-width: 768px) {
+            .hero-fixed {
+                width: 95%;
+                max-width: 95%;
+                min-height: 350px;
+            }
+            .hero-wrapper {
+                margin: 1rem 0;
+            }
+        }
+        @media (max-width: 480px) {
+            .hero-fixed {
+                width: 98%;
+                max-width: 98%;
+                min-height: 300px;
+                border-radius: 12px;
+            }
+            .hero-wrapper {
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+    <div class="hero-wrapper">
+        <section class="hero hero-fixed" id="hero">
+            <div class="hero-slider" id="heroSlider">
+                <div class="hero-slide active">
+                    <picture>
+                        <source srcset="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&h=800&fit=crop&crop=center&fm=webp" type="image/webp">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&h=800&fit=crop&crop=center" 
+                             alt="Harmonia Rząska - widok osiedla" 
+                             loading="eager"
+                             width="1400"
+                             height="800">
+                    </picture>
+                </div>
+                <div class="hero-slide">
+                    <picture>
+                        <source srcset="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=1400&h=800&fit=crop&crop=center&fm=webp" type="image/webp">
+                        <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=1400&h=800&fit=crop&crop=center" 
+                             alt="Harmonia Rząska - przykładowy dom" 
+                             loading="lazy"
+                             width="1400"
+                             height="800">
+                    </picture>
+                </div>
+                <div class="hero-slide">
+                    <picture>
+                        <source srcset="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1400&h=800&fit=crop&crop=center&fm=webp" type="image/webp">
+                        <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1400&h=800&fit=crop&crop=center" 
+                             alt="Harmonia Rząska - otoczenie" 
+                             loading="lazy"
+                             width="1400"
+                             height="800">
+                    </picture>
                 </div>
             </div>
-        </div>
-    </section>
+            <div class="hero-overlay"></div>
+            
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1>Osiedla Harmonia Rząska</h1>
+                        <p>Odkryj przestrzeń stworzoną dla Ciebie – nowoczesne domy w harmonii z otoczeniem</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 
     <main id="main-content">
     <!-- About Section -->
