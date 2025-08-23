@@ -64,10 +64,30 @@ class HarmoniaApp {
 
     // Data Management
     async loadUnits() {
-        // Try to fetch from units.json file, fallback to seed data
+        // Try to fetch from individual unit files first, then fallback to units.json, then seed data
         try {
             // Only try fetch if not running from file:// protocol
             if (window.location.protocol !== 'file:') {
+                // First try to load from individual unit files (for CMS)
+                const unitsFromFolder = await this.loadUnitsFromFolder();
+                if (unitsFromFolder.length > 0) {
+                    this.units = unitsFromFolder;
+                    console.log('✅ Loaded units from folder structure:', this.units.length);
+                    
+                    // Normalize data types
+                    this.units = this.units.map(unit => ({
+                        ...unit,
+                        pietro: parseInt(unit.pietro) || 0,
+                        powierzchnia: parseFloat(unit.powierzchnia) || 0,
+                        cena: parseInt(unit.cena) || 0,
+                        cena_m2: parseInt(unit.cena_m2) || Math.round(unit.cena / unit.powierzchnia) || 0
+                    }));
+                    
+                    this.filteredUnits = [...this.units];
+                    return;
+                }
+                
+                // Fallback to single units.json file
                 const response = await fetch('data/units.json');
                 if (response.ok) {
                     const units = await response.json();
@@ -89,7 +109,7 @@ class HarmoniaApp {
             }
             throw new Error('Using fallback data');
         } catch (error) {
-            safeLog('📋 Using built-in seed data (JSON file not available)');
+            safeLog('📋 Using built-in seed data (JSON files not available)');
             this.units = this.getSeedData();
             this.filteredUnits = [...this.units];
             safeLog('✅ Loaded seed data: ' + this.units.length + ' units');
