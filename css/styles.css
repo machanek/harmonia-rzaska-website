@@ -264,25 +264,29 @@ p {
 
 /* Hero wrapper - centers the hero section */
 .hero-wrapper {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin: 2rem 0;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    margin: 2rem 0 !important;
 }
 
 /* Hero Section - Minimal version */
 .hero {
-    width: 1380px;
-    max-width: 1380px;
-    height: 585.781px;
-    position: relative;
-    background: var(--white);
-    border-radius: 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 1380px !important;
+    max-width: 1380px !important;
+    min-width: 1380px !important;
+    height: 585.781px !important;
+    position: relative !important;
+    background: var(--white) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+    overflow: hidden !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: none !important;
+    flex-grow: 0 !important;
+    flex-shrink: 0 !important;
 }
 
 
@@ -1706,6 +1710,37 @@ p {
     .units-table {
         font-size: 0.75rem;
     }
+}
+
+/* FINAL HERO OVERRIDE - Must be at the end */
+body .hero-wrapper,
+html .hero-wrapper,
+.hero-wrapper {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    margin: 2rem 0 !important;
+}
+
+body .hero,
+html .hero,
+section.hero,
+.hero {
+    width: 1380px !important;
+    max-width: 1380px !important;
+    min-width: 1380px !important;
+    height: 585.781px !important;
+    position: relative !important;
+    background: var(--white) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+    overflow: hidden !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: none !important;
+    flex-grow: 0 !important;
+    flex-shrink: 0 !important;
 }
 
 
