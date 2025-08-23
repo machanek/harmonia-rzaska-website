@@ -131,19 +131,29 @@ class HarmoniaApp {
             '5-b-2.json'
         ];
         
+        console.log('🔍 Próba ładowania plików z folderu data/units/');
+        
         for (const filename of unitFiles) {
             try {
+                console.log(`📁 Ładowanie: ${filename}`);
                 const response = await fetch(`data/units/${filename}`);
+                console.log(`📊 Status dla ${filename}:`, response.status, response.statusText);
+                
                 if (response.ok) {
                     const unit = await response.json();
                     units.push(unit);
+                    console.log(`✅ Załadowano: ${filename}`, unit);
+                } else {
+                    console.error(`❌ Błąd dla ${filename}:`, response.status, response.statusText);
                 }
             } catch (error) {
+                console.error(`💥 Wyjątek dla ${filename}:`, error);
                 // Ignoruj błędy dla nieistniejących plików
                 continue;
             }
         }
         
+        console.log(`📋 Łącznie załadowano: ${units.length} jednostek`);
         return units.sort((a, b) => a.id - b.id);
     }
 
@@ -947,3 +957,35 @@ document.addEventListener('click', (e) => {
         console.error('Error in smooth scroll handler:', error);
     }
 });
+
+// Debug functions for troubleshooting
+window.debugUnits = async () => {
+    console.log('🔧 Debug: Sprawdzanie stanu aplikacji...');
+    console.log('📊 App instance:', app);
+    console.log('📋 Units array:', app?.units);
+    console.log('🔍 Filtered units:', app?.filteredUnits);
+    
+    if (app) {
+        console.log('🔄 Próba ponownego załadowania jednostek...');
+        await app.loadUnits();
+        console.log('✅ Po ponownym załadowaniu:', app.units.length, 'jednostek');
+    }
+};
+
+window.testFetch = async () => {
+    console.log('🧪 Test: Sprawdzanie dostępności plików JSON...');
+    const testFiles = ['1-a-1.json', '2-a-2.json', '3-a-3.json'];
+    
+    for (const file of testFiles) {
+        try {
+            const response = await fetch(`data/units/${file}`);
+            console.log(`📁 ${file}:`, response.status, response.statusText);
+            if (response.ok) {
+                const data = await response.json();
+                console.log(`✅ ${file} data:`, data);
+            }
+        } catch (error) {
+            console.error(`❌ ${file} error:`, error);
+        }
+    }
+};
