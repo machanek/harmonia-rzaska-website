@@ -258,35 +258,33 @@ p {
 }
 
 /* ==============================================
-   MINIMAL HERO SECTION - Tylko tekst
+   HERO SECTION - Fixed width version
    1380px szerokość, 585.781px wysokość
    ============================================== */
 
-/* Hero wrapper - centers the hero section */
-.hero-wrapper {
-    width: 100% !important;
-    display: flex !important;
-    justify-content: center !important;
-    margin: 2rem 0 !important;
+/* Hero Section Container */
+.hero {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 0;
+    margin-top: var(--header-height);
 }
 
-/* Hero Section - Minimal version */
-.hero {
-    width: 1380px !important;
-    max-width: 1380px !important;
-    min-width: 1380px !important;
-    height: 585.781px !important;
-    position: relative !important;
-    background: var(--white) !important;
-    border-radius: 20px !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
-    overflow: hidden !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    flex: none !important;
-    flex-grow: 0 !important;
-    flex-shrink: 0 !important;
+/* Hero Inner Content - Fixed dimensions */
+.hero-inner {
+    width: 1380px;
+    max-width: calc(100% - 2rem);
+    height: 585.781px;
+    position: relative;
+    background: var(--white);
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -406,11 +404,11 @@ p {
 
 /* Responsive Design */
 @media (max-width: 1440px) {
-    .hero {
-        width: 95% !important;
-        max-width: 95% !important;
-        height: auto !important;
-        min-height: 500px !important;
+    .hero-inner {
+        width: 95%;
+        max-width: calc(95% - 2rem);
+        height: auto;
+        min-height: 500px;
     }
 
     .hero h1 {
@@ -423,10 +421,10 @@ p {
 }
 
 @media (max-width: 1200px) {
-    .hero {
-        width: 90% !important;
-        max-width: 90% !important;
-        min-height: 450px !important;
+    .hero-inner {
+        width: 90%;
+        max-width: calc(90% - 2rem);
+        min-height: 450px;
     }
 
     .hero .container {
@@ -435,10 +433,10 @@ p {
 }
 
 @media (max-width: 992px) {
-    .hero {
-        width: 95% !important;
-        max-width: 95% !important;
-        min-height: 400px !important;
+    .hero-inner {
+        width: 95%;
+        max-width: calc(95% - 2rem);
+        min-height: 400px;
     }
 
     .hero-content {
@@ -447,14 +445,14 @@ p {
 }
 
 @media (max-width: 768px) {
-    .hero {
-        width: 95% !important;
-        max-width: 95% !important;
-        min-height: 350px !important;
+    .hero-inner {
+        width: 95%;
+        max-width: calc(95% - 2rem);
+        min-height: 350px;
     }
     
-    .hero-wrapper {
-        margin: 1rem 0 !important;
+    .hero {
+        padding: 1rem 0;
     }
 
     .hero .container {
@@ -467,15 +465,15 @@ p {
 }
 
 @media (max-width: 480px) {
-    .hero {
-        width: 98% !important;
-        max-width: 98% !important;
-        min-height: 300px !important;
-        border-radius: 12px !important;
+    .hero-inner {
+        width: 98%;
+        max-width: calc(98% - 2rem);
+        min-height: 300px;
+        border-radius: 12px;
     }
     
-    .hero-wrapper {
-        margin: 0.5rem 0 !important;
+    .hero {
+        padding: 0.5rem 0;
     }
 
     .hero .container {
@@ -1712,36 +1710,7 @@ p {
     }
 }
 
-/* FINAL HERO OVERRIDE - Must be at the end */
-body .hero-wrapper,
-html .hero-wrapper,
-.hero-wrapper {
-    width: 100% !important;
-    display: flex !important;
-    justify-content: center !important;
-    margin: 2rem 0 !important;
-}
 
-body .hero,
-html .hero,
-section.hero,
-.hero {
-    width: 1380px !important;
-    max-width: 1380px !important;
-    min-width: 1380px !important;
-    height: 585.781px !important;
-    position: relative !important;
-    background: var(--white) !important;
-    border-radius: 20px !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
-    overflow: hidden !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    flex: none !important;
-    flex-grow: 0 !important;
-    flex-shrink: 0 !important;
-}
 
 
 
