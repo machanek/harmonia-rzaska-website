@@ -709,14 +709,8 @@ class HarmoniaApp {
                 return;
             }
             
-            // Check reCAPTCHA (skip in demo environment)
-            if (typeof grecaptcha !== 'undefined' && grecaptcha.getResponse) {
-                const recaptchaResponse = grecaptcha.getResponse();
-                if (!recaptchaResponse) {
-                    this.showToast('Proszę potwierdzić, że nie jesteś robotem', 'error');
-                    return;
-                }
-            } else {
+            // Check reCAPTCHA v3
+            if (typeof grecaptcha === 'undefined') {
                 safeLog('reCAPTCHA not available - skipping verification');
             }
             
@@ -729,12 +723,22 @@ class HarmoniaApp {
             submitBtn.disabled = true;
             
             try {
+                // Get reCAPTCHA v3 token
+                let recaptchaToken = '';
+                if (typeof grecaptcha !== 'undefined') {
+                    try {
+                        recaptchaToken = await grecaptcha.execute('6Lc1sK8rAAAAAFvcqHK72bEpkcT7xUtbowTMD4f7', {action: 'contact_form'});
+                    } catch (recaptchaError) {
+                        console.warn('reCAPTCHA error:', recaptchaError);
+                    }
+                }
+                
                 // Prepare form data
                 const formData = new FormData(form);
                 
                 // Add reCAPTCHA response
-                if (typeof grecaptcha !== 'undefined' && grecaptcha.getResponse) {
-                    formData.append('g-recaptcha-response', grecaptcha.getResponse());
+                if (recaptchaToken) {
+                    formData.append('g-recaptcha-response', recaptchaToken);
                 }
                 
                 // Submit to Netlify Function
@@ -748,9 +752,6 @@ class HarmoniaApp {
                 if (response.ok) {
                     this.showToast('Wiadomość została wysłana pomyślnie! Skontaktujemy się z Tobą wkrótce.', 'success');
                     form.reset();
-                    if (typeof grecaptcha !== 'undefined') {
-                        grecaptcha.reset();
-                    }
                 } else {
                     throw new Error(result.error || 'Błąd serwera');
                 }

@@ -75,8 +75,8 @@
     <link rel="preload" href="js/app.js" as="script">
     <link rel="preload" as="image" href="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&h=1080&fit=crop&crop=center">
     
-    <!-- reCAPTCHA -->
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!-- reCAPTCHA v3 -->
+    <script src="https://www.google.com/recaptcha/api.js?render=6Lc1sK8rAAAAAFvcqHK72bEpkcT7xUtbowTMD4f7"></script>
     
     <!-- Security headers via meta tags -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -287,11 +287,9 @@
                                 </label>
                             </div>
                             
-                            <!-- reCAPTCHA -->
-                            <div class="form-group recaptcha-group">
-                                <div class="g-recaptcha" data-sitekey="6Lc1sK8rAAAAAFvcqHK72bEpkcT7xUtbowTMD4f7"></div>
-                                <small style="color: #666;">Zabezpieczenie przed spamem</small>
-                            </div>
+                            <!-- reCAPTCHA v3 - invisible -->
+                            <input type="hidden" name="g-recaptcha-response" id="recaptchaResponse">
+                            <small style="color: #666; display: block; margin-top: 0.5rem;">Ta strona jest chroniona przez reCAPTCHA v3</small>
                             
                             <div class="form-actions">
                                 <button type="submit" class="btn btn-primary" id="contactSubmit">

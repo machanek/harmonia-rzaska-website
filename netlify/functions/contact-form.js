@@ -41,6 +41,14 @@ exports.handler = async function(event, context) {
                 body: JSON.stringify({ error: 'reCAPTCHA verification failed' })
             };
         }
+        
+        // For reCAPTCHA v3, check the score (0.0 is very likely a bot, 1.0 is very likely a human)
+        if (recaptchaResult.score !== undefined && recaptchaResult.score < 0.5) {
+            return {
+                statusCode: 400,
+                body: JSON.stringify({ error: 'reCAPTCHA score too low - possible bot activity' })
+            };
+        }
 
         // Check for honeypot field
         if (formDataObj['bot-field']) {
