@@ -636,7 +636,14 @@ p {
 
 .consent-group,
 .marketing-consent {
-    margin-top: 0.5rem;
+    margin-top: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.consent-group .checkbox-label,
+.marketing-consent .checkbox-label {
+    text-align: left;
+    width: 100%;
 }
 
 .checkbox-label {
@@ -644,9 +651,14 @@ p {
     align-items: flex-start;
     gap: 0.75rem;
     font-size: 0.875rem;
-    line-height: 1.4;
+    line-height: 1.5;
     cursor: pointer;
     color: var(--text-light);
+    margin: 0;
+    padding: 0;
+    flex-wrap: nowrap;
+    word-wrap: normal;
+    white-space: normal;
 }
 
 .checkbox-label input[type="checkbox"] {
@@ -683,6 +695,22 @@ p {
 .checkbox-label a {
     color: var(--primary-green);
     text-decoration: underline;
+    font-weight: 500;
+    display: inline;
+    white-space: nowrap;
+}
+
+.checkbox-text {
+    flex: 1;
+    display: block;
+    white-space: normal;
+    word-wrap: break-word;
+    line-height: 1.5;
+}
+
+.checkbox-label a:hover {
+    color: var(--primary-green);
+    opacity: 0.8;
 }
 
 .recaptcha-group {
