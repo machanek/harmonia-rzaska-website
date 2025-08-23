@@ -264,28 +264,27 @@ p {
 
 /* Hero Section Container */
 .hero {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem 0;
-    margin-top: var(--header-height);
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 2rem 0 !important;
+    margin-top: var(--header-height) !important;
 }
 
 /* Hero Inner Content - Fixed dimensions */
 .hero-inner {
-    max-width: 1380px;
-    width: min(1380px, calc(100% - 2rem));
-    aspect-ratio: 1380 / 585.781;
-    height: auto;
-    position: relative;
-    background: var(--white);
-    border-radius: 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 1380px !important;
+    max-width: calc(100% - 2rem) !important;
+    height: 585.781px !important;
+    position: relative !important;
+    background: var(--white) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+    overflow: hidden !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
 
@@ -406,7 +405,10 @@ p {
 /* Responsive Design */
 @media (max-width: 1440px) {
     .hero-inner {
-        height: auto;
+        width: 95% !important;
+        max-width: calc(95% - 2rem) !important;
+        height: auto !important;
+        min-height: 500px !important;
     }
 
     .hero h1 {
@@ -420,6 +422,9 @@ p {
 
 @media (max-width: 1200px) {
     .hero-inner {
+        width: 90% !important;
+        max-width: calc(90% - 2rem) !important;
+        min-height: 450px !important;
     }
 
     .hero .container {
@@ -429,6 +434,9 @@ p {
 
 @media (max-width: 992px) {
     .hero-inner {
+        width: 95% !important;
+        max-width: calc(95% - 2rem) !important;
+        min-height: 400px !important;
     }
 
     .hero-content {
@@ -438,6 +446,9 @@ p {
 
 @media (max-width: 768px) {
     .hero-inner {
+        width: 95% !important;
+        max-width: calc(95% - 2rem) !important;
+        min-height: 350px !important;
     }
     
     .hero {
@@ -455,7 +466,10 @@ p {
 
 @media (max-width: 480px) {
     .hero-inner {
-        border-radius: 12px;
+        width: 98% !important;
+        max-width: calc(98% - 2rem) !important;
+        min-height: 300px !important;
+        border-radius: 12px !important;
     }
     
     .hero {
@@ -1682,8 +1696,6 @@ p {
     }
     
     .hero {
-        height: auto;
-        min-height: auto;
         page-break-after: always;
     }
     
