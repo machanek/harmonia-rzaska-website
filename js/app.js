@@ -64,35 +64,14 @@ class HarmoniaApp {
 
     // Data Management
     async loadUnits() {
-        // Try to fetch from individual unit files first, then fallback to units.json, then seed data
+        // Load units from individual JSON files (managed by CMS)
         try {
             // Only try fetch if not running from file:// protocol
             if (window.location.protocol !== 'file:') {
-                // First try to load from individual unit files (for CMS)
                 const unitsFromFolder = await this.loadUnitsFromFolder();
                 if (unitsFromFolder.length > 0) {
                     this.units = unitsFromFolder;
-                    console.log('✅ Loaded units from folder structure:', this.units.length);
-                    
-                    // Normalize data types
-                    this.units = this.units.map(unit => ({
-                        ...unit,
-                        pietro: parseInt(unit.pietro) || 0,
-                        powierzchnia: parseFloat(unit.powierzchnia) || 0,
-                        cena: parseInt(unit.cena) || 0,
-                        cena_m2: parseInt(unit.cena_m2) || Math.round(unit.cena / unit.powierzchnia) || 0
-                    }));
-                    
-                    this.filteredUnits = [...this.units];
-                    return;
-                }
-                
-                // Fallback to single units.json file
-                const response = await fetch('data/units.json');
-                if (response.ok) {
-                    const units = await response.json();
-                    this.units = units;
-                    console.log('✅ Loaded units from JSON file:', this.units.length);
+                    console.log('✅ Loaded units from CMS folder structure:', this.units.length);
                     
                     // Normalize data types
                     this.units = this.units.map(unit => ({
@@ -107,12 +86,12 @@ class HarmoniaApp {
                     return;
                 }
             }
-            throw new Error('Using fallback data');
+            throw new Error('No units found');
         } catch (error) {
-            safeLog('📋 Using built-in seed data (JSON files not available)');
-            this.units = this.getSeedData();
-            this.filteredUnits = [...this.units];
-            safeLog('✅ Loaded seed data: ' + this.units.length + ' units');
+            safeLog('📋 No units found - please add units through the admin panel');
+            this.units = [];
+            this.filteredUnits = [];
+            safeLog('✅ No units loaded - CMS will be used to add units');
         }
         
         // Force immediate render for debugging - multiple attempts
@@ -169,128 +148,8 @@ class HarmoniaApp {
     }
 
     getSeedData() {
-        return [
-            {
-                "id": "HR-1A-01",
-                "nr_budynku": "1A",
-                "nr_lokalu": "01",
-                "pietro": 0,
-                "powierzchnia": 80.2,
-                "dodatki": "Ogródek 35 m²",
-                "cena": 739000,
-                "cena_m2": 9220,
-                "status": "WOLNE",
-                "plan_url": "assets/plany/HR-1A-01.pdf"
-            },
-            {
-                "id": "HR-1A-02",
-                "nr_budynku": "1A",
-                "nr_lokalu": "02",
-                "pietro": 1,
-                "powierzchnia": 107.5,
-                "dodatki": "Balkon 8 m²",
-                "cena": 990000,
-                "cena_m2": 9210,
-                "status": "REZERWACJA",
-                "plan_url": "assets/plany/HR-1A-02.pdf"
-            },
-            {
-                "id": "HR-1A-03",
-                "nr_budynku": "1A",
-                "nr_lokalu": "03",
-                "pietro": 2,
-                "powierzchnia": 122.0,
-                "dodatki": "Taras 15 m²",
-                "cena": 1150000,
-                "cena_m2": 9426,
-                "status": "SPRZEDANE",
-                "plan_url": "assets/plany/HR-1A-03.pdf"
-            },
-            {
-                "id": "HR-2A-01",
-                "nr_budynku": "2A",
-                "nr_lokalu": "01",
-                "pietro": 0,
-                "powierzchnia": 95.3,
-                "dodatki": "Ogródek 42 m² / Taras 12 m²",
-                "cena": 875000,
-                "cena_m2": 9183,
-                "status": "WOLNE",
-                "plan_url": "assets/plany/HR-2A-01.pdf"
-            },
-            {
-                "id": "HR-2A-02",
-                "nr_budynku": "2A",
-                "nr_lokalu": "02",
-                "pietro": 1,
-                "powierzchnia": 110.8,
-                "dodatki": "Balkon 10 m²",
-                "cena": 1020000,
-                "cena_m2": 9207,
-                "status": "WOLNE",
-                "plan_url": "assets/plany/HR-2A-02.pdf"
-            },
-            {
-                "id": "HR-2B-01",
-                "nr_budynku": "2B",
-                "nr_lokalu": "01",
-                "pietro": 0,
-                "powierzchnia": 85.7,
-                "dodatki": "Ogródek 28 m²",
-                "cena": 790000,
-                "cena_m2": 9222,
-                "status": "REZERWACJA",
-                "plan_url": "assets/plany/HR-2B-01.pdf"
-            },
-            {
-                "id": "HR-2B-02",
-                "nr_budynku": "2B",
-                "nr_lokalu": "02",
-                "pietro": 1,
-                "powierzchnia": 98.5,
-                "dodatki": "Balkon 7 m²",
-                "cena": 905000,
-                "cena_m2": 9188,
-                "status": "WOLNE",
-                "plan_url": "assets/plany/HR-2B-02.pdf"
-            },
-            {
-                "id": "HR-3A-01",
-                "nr_budynku": "3A",
-                "nr_lokalu": "01",
-                "pietro": 0,
-                "powierzchnia": 75.2,
-                "dodatki": "Ogródek 30 m²",
-                "cena": 695000,
-                "cena_m2": 9242,
-                "status": "SPRZEDANE",
-                "plan_url": "assets/plany/HR-3A-01.pdf"
-            },
-            {
-                "id": "HR-3A-02",
-                "nr_budynku": "3A",
-                "nr_lokalu": "02",
-                "pietro": 1,
-                "powierzchnia": 89.3,
-                "dodatki": "Balkon 6 m²",
-                "cena": 825000,
-                "cena_m2": 9240,
-                "status": "WOLNE",
-                "plan_url": "assets/plany/HR-3A-02.pdf"
-            },
-            {
-                "id": "HR-3A-03",
-                "nr_budynku": "3A",
-                "nr_lokalu": "03",
-                "pietro": 2,
-                "powierzchnia": 115.7,
-                "dodatki": "Taras 18 m²",
-                "cena": 1065000,
-                "cena_m2": 9205,
-                "status": "WOLNE",
-                "plan_url": "assets/plany/HR-3A-03.pdf"
-            }
-        ];
+        // Puste dane - wszystko będzie ładowane z plików JSON przez panel admin
+        return [];
     }
 
     // Filtering and Sorting
