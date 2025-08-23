@@ -729,12 +729,30 @@ class HarmoniaApp {
             submitBtn.disabled = true;
             
             try {
-                // Netlify Forms will handle the submission automatically
-                // We just need to show success message
-                this.showToast('Wiadomość została wysłana pomyślnie! Skontaktujemy się z Tobą wkrótce.', 'success');
-                form.reset();
-                if (typeof grecaptcha !== 'undefined') {
-                    grecaptcha.reset();
+                // Prepare form data
+                const formData = new FormData(form);
+                
+                // Add reCAPTCHA response
+                if (typeof grecaptcha !== 'undefined' && grecaptcha.getResponse) {
+                    formData.append('g-recaptcha-response', grecaptcha.getResponse());
+                }
+                
+                // Submit to Netlify Function
+                const response = await fetch('/.netlify/functions/contact-form', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    this.showToast('Wiadomość została wysłana pomyślnie! Skontaktujemy się z Tobą wkrótce.', 'success');
+                    form.reset();
+                    if (typeof grecaptcha !== 'undefined') {
+                        grecaptcha.reset();
+                    }
+                } else {
+                    throw new Error(result.error || 'Błąd serwera');
                 }
                 
             } catch (error) {

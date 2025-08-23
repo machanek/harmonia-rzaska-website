@@ -232,7 +232,7 @@
                         <h3>Skontaktuj się z nami</h3>
                         <p>Masz pytania o dostępne lokale? Chcesz umówić się na prezentację? Napisz do nas!</p>
                         
-                        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="contact-form" id="contactForm">
+                        <form name="contact" method="POST" action="/.netlify/functions/contact-form" netlify-honeypot="bot-field" class="contact-form" id="contactForm">
                             <input type="hidden" name="form-name" value="contact" />
                             <p class="hidden">
                                 <label>Nie wypełniaj tego pola: <input name="bot-field" /></label>
@@ -289,7 +289,7 @@
                             
                             <!-- reCAPTCHA -->
                             <div class="form-group recaptcha-group">
-                                <div class="g-recaptcha" data-sitekey="6LcXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"></div>
+                                <div class="g-recaptcha" data-sitekey="6Lc1sK8rAAAAAFvcqHK72bEpkcT7xUtbowTMD4f7"></div>
                                 <small style="color: #666;">Zabezpieczenie przed spamem</small>
                             </div>
                             

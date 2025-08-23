@@ -1,9 +1,11 @@
 [build]
   publish = "."
   command = ""
+  functions = "netlify/functions"
 
 [build.environment]
   NODE_VERSION = "18"
+  RECAPTCHA_SECRET_KEY = "6Lc1sK8rAAAAAH0pAKxs0P6uPPCr4Y3a4JhkCifx"
 
 # Form handling
 [[redirects]]
