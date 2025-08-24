@@ -17,6 +17,7 @@ collections:
     fields:
       - {label: "Tytuł strony", name: "title", widget: "string"}
       - {label: "Opis strony", name: "description", widget: "text"}
+      - {label: "Logo strony", name: "logo", widget: "image", required: false}
       - {label: "Telefon", name: "phone", widget: "string"}
       - {label: "E-mail", name: "email", widget: "string"}
       - {label: "Adres", name: "address", widget: "text"}
