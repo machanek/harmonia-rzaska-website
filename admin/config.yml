@@ -19,12 +19,14 @@ collections:
     default_sort_direction: "asc"
     list:
       fields:
-        - {label: "ID", name: "id", widget: "number"}
-        - {label: "Budynek", name: "nr_budynku", widget: "string"}
         - {label: "Lokal", name: "nr_lokalu", widget: "string"}
-        - {label: "Powierzchnia", name: "powierzchnia", widget: "number"}
-        - {label: "Cena", name: "cena", widget: "number"}
+        - {label: "Budynek", name: "nr_budynku", widget: "string"}
+        - {label: "Piętro", name: "pietro", widget: "number"}
+        - {label: "Powierzchnia (m²)", name: "powierzchnia", widget: "number"}
+        - {label: "Cena (zł)", name: "cena", widget: "number"}
+        - {label: "Cena za m²", name: "cena_m2_display", widget: "string"}
         - {label: "Status", name: "status", widget: "select", options: ["wolny", "sprzedany", "zarezerwowany"]}
+    summary: "Lokal {{nr_lokalu}} - Budynek {{nr_budynku}} - {{powierzchnia}}m² - {{cena}}zł"
     fields:
       - {label: "ID", name: "id", widget: "number"}
       - {label: "Numer budynku", name: "nr_budynku", widget: "string"}
