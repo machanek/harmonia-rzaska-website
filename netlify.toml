@@ -1,9 +1,14 @@
 [build]
   publish = "."
   command = ""
+  functions = "netlify/functions"
 
 [build.environment]
   NODE_VERSION = "18"
+
+# Netlify Functions plugin for automatic dependency installation
+[[plugins]]
+  package = "@netlify/plugin-functions-install-core"
 
 
 

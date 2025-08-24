@@ -702,10 +702,10 @@ class HarmoniaApp {
         
         if (!form || !submitBtn) return;
         
-        form.addEventListener('submit', (e) => {
-            // Let Netlify handle the submission
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
             if (!this.validateContactForm()) {
-                e.preventDefault();
                 return;
             }
             
@@ -717,8 +717,49 @@ class HarmoniaApp {
             if (btnLoading) btnLoading.classList.remove('hidden');
             submitBtn.disabled = true;
             
-            // Netlify will handle the rest automatically
-            // Form will redirect to success page or show success message
+            try {
+                // Get reCAPTCHA v3 token
+                let recaptchaToken = '';
+                if (typeof grecaptcha !== 'undefined') {
+                    try {
+                        recaptchaToken = await grecaptcha.execute('6Lc1sK8rAAAAAFvcqHK72bEpkcT7xUtbowTMD4f7', {action: 'contact_form'});
+                    } catch (recaptchaError) {
+                        console.warn('reCAPTCHA error:', recaptchaError);
+                    }
+                }
+                
+                // Prepare form data
+                const formData = new FormData(form);
+                
+                // Add reCAPTCHA response
+                if (recaptchaToken) {
+                    formData.append('g-recaptcha-response', recaptchaToken);
+                }
+                
+                // Submit to Netlify Function
+                const response = await fetch('/.netlify/functions/contact-form', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    this.showToast('Wiadomość została wysłana pomyślnie! Skontaktujemy się z Tobą wkrótce.', 'success');
+                    form.reset();
+                } else {
+                    throw new Error(result.error || 'Błąd serwera');
+                }
+                
+            } catch (error) {
+                console.error('Contact form error:', error);
+                this.showToast('Wystąpił błąd podczas wysyłania wiadomości. Spróbuj ponownie lub skontaktuj się telefonicznie.', 'error');
+            } finally {
+                // Restore button state
+                if (btnText) btnText.classList.remove('hidden');
+                if (btnLoading) btnLoading.classList.add('hidden');
+                submitBtn.disabled = false;
+            }
         });
     }
 
