@@ -26,3 +26,22 @@ collections:
       - {label: "Status", name: "status", widget: "select", options: ["wolny", "sprzedany", "zarezerwowany"]}
       - {label: "URL planu", name: "plan_url", widget: "string", required: false}
       - {label: "Opis", name: "opis", widget: "text", required: false}
+
+  - name: "contact_messages"
+    label: "Wiadomości kontaktowe"
+    folder: "data/contact_messages"
+    create: false
+    slug: "{{timestamp}}-{{name}}"
+    format: "json"
+    fields:
+      - {label: "ID", name: "id", widget: "number"}
+      - {label: "Imię i nazwisko", name: "name", widget: "string"}
+      - {label: "E-mail", name: "email", widget: "string"}
+      - {label: "Telefon", name: "phone", widget: "string"}
+      - {label: "Temat", name: "subject", widget: "string"}
+      - {label: "Wiadomość", name: "message", widget: "text"}
+      - {label: "Zgoda RODO", name: "consent", widget: "boolean"}
+      - {label: "Zgoda marketing", name: "marketing", widget: "boolean"}
+      - {label: "Data", name: "timestamp", widget: "datetime"}
+      - {label: "Status", name: "status", widget: "select", options: ["new", "read", "replied", "archived"]}
+      - {label: "Notatki", name: "notes", widget: "text", required: false}

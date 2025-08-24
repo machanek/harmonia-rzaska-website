@@ -1,0 +1,13 @@
+{
+  "id": 1701523200000,
+  "name": "Jan Kowalski",
+  "email": "jan.kowalski@example.com",
+  "phone": "+48 123 456 789",
+  "subject": "Pytanie o mieszkanie",
+  "message": "Interesuje mnie lokal 2A/3. Czy jest jeszcze dostępny? Chciałbym umówić się na prezentację.",
+  "consent": true,
+  "marketing": false,
+  "timestamp": "2024-12-02T10:30:00.000Z",
+  "status": "new",
+  "notes": ""
+}
