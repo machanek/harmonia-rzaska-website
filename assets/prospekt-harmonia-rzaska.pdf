@@ -1,0 +1,12 @@
+# Prospekt Informacyjny - Harmonia Rząska
+
+To jest przykładowy plik prospektu informacyjnego dla osiedla Harmonia Rząska.
+
+W rzeczywistej implementacji ten plik powinien być zastąpiony prawdziwym prospektem w formacie PDF zawierającym:
+- Szczegółowe informacje o inwestycji
+- Plany mieszkań
+- Lokalizację i komunikację
+- Cennik
+- Kontakt
+
+Plik ten służy jako placeholder do testowania funkcjonalności pobierania prospektu.

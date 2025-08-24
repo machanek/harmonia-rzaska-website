@@ -48,10 +48,11 @@ class HarmoniaApp {
             console.log('📊 Units and settings loaded, setting up components...');
             
             this.setupEventListeners();
-            this.setupCookieBanner();
-            this.setupContactForm();
-            this.setupOfflineIndicator();
-            this.initLucideIcons();
+                    this.setupCookieBanner();
+        this.setupContactForm();
+        this.setupOfflineIndicator();
+        this.initLucideIcons();
+        this.setupProspectButton();
             
             console.log('🎨 Components setup complete, rendering...');
             
@@ -708,6 +709,37 @@ class HarmoniaApp {
                 menuToggle.classList.remove('active');
             }
         });
+    }
+
+    setupProspectButton() {
+        const prospectBtn = document.getElementById('prospectBtn');
+        if (prospectBtn) {
+            prospectBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.downloadProspect();
+            });
+        }
+    }
+
+    downloadProspect() {
+        try {
+            // Pobieranie prospektu
+            const link = document.createElement('a');
+            link.href = '/assets/prospekt-harmonia-rzaska.pdf';
+            link.download = 'Prospekt-Harmonia-Rzaska.pdf';
+            link.target = '_blank';
+            
+            // Dodaj link do DOM, kliknij i usuń
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            this.showToast('Prospekt informacyjny został pobrany!', 'success');
+            console.log('📄 Prospect downloaded successfully');
+        } catch (error) {
+            console.error('❌ Error downloading prospect:', error);
+            this.showToast('Błąd podczas pobierania prospektu. Spróbuj ponownie.', 'error');
+        }
     }
 
     setupEventListeners() {
