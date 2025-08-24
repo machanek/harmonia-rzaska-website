@@ -33,7 +33,8 @@ collections:
       - {label: "Powierzchnia (m²)", name: "powierzchnia", widget: "number"}
       - {label: "Dodatki", name: "dodatki", widget: "text", required: false}
       - {label: "Cena (zł)", name: "cena", widget: "number"}
-      - {label: "Cena za m² (zł)", name: "cena_m2", widget: "number"}
+      - {label: "Cena za m² (zł) - obliczana automatycznie", name: "cena_m2", widget: "hidden"}
+      - {label: "Cena za m² (zł)", name: "cena_m2_display", widget: "string", required: false, hint: "Obliczana automatycznie na podstawie ceny i powierzchni"}
       - {label: "Status", name: "status", widget: "select", options: ["wolny", "sprzedany", "zarezerwowany"]}
       - {label: "URL planu", name: "plan_url", widget: "string", required: false}
       - {label: "Opis", name: "opis", widget: "text", required: false}

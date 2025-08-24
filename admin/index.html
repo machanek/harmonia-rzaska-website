@@ -8,5 +8,65 @@
 </head>
 <body>
   <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+  
+  <script>
+    // Automatyczne obliczanie ceny za m²
+    CMS.registerEventListener({
+      name: 'preSave',
+      handler: ({ entry, author }) => {
+        // Sprawdź czy to kolekcja "units" (lokale)
+        if (entry.get('collection') === 'units') {
+          const cena = entry.getIn(['data', 'cena']);
+          const powierzchnia = entry.getIn(['data', 'powierzchnia']);
+          
+          // Oblicz cenę za m² jeśli mamy obie wartości
+          if (cena && powierzchnia && powierzchnia > 0) {
+            const cenaM2 = Math.round(cena / powierzchnia);
+            entry.setIn(['data', 'cena_m2'], cenaM2);
+            entry.setIn(['data', 'cena_m2_display'], cenaM2 + ' zł/m²');
+          }
+        }
+        return { entry, author };
+      }
+    });
+
+    // Aktualizuj cenę za m² w czasie rzeczywistym podczas edycji
+    CMS.registerEventListener({
+      name: 'change',
+      handler: ({ collection, field, value, getAsset }) => {
+        // Sprawdź czy to kolekcja "units" i czy zmieniono cenę lub powierzchnię
+        if (collection === 'units' && (field === 'cena' || field === 'powierzchnia')) {
+          const entry = CMS.getEntry();
+          if (entry) {
+            const cena = entry.getIn(['data', 'cena']);
+            const powierzchnia = entry.getIn(['data', 'powierzchnia']);
+            
+            // Oblicz i zaktualizuj cenę za m²
+            if (cena && powierzchnia && powierzchnia > 0) {
+              const cenaM2 = Math.round(cena / powierzchnia);
+              entry.setIn(['data', 'cena_m2'], cenaM2);
+              entry.setIn(['data', 'cena_m2_display'], cenaM2 + ' zł/m²');
+              
+              // Aktualizuj pola w interfejsie
+              setTimeout(() => {
+                const cenaM2Field = document.querySelector('[name="cena_m2"]');
+                const cenaM2DisplayField = document.querySelector('[name="cena_m2_display"]');
+                
+                if (cenaM2Field) {
+                  cenaM2Field.value = cenaM2;
+                  cenaM2Field.dispatchEvent(new Event('change', { bubbles: true }));
+                }
+                
+                if (cenaM2DisplayField) {
+                  cenaM2DisplayField.value = cenaM2 + ' zł/m²';
+                  cenaM2DisplayField.dispatchEvent(new Event('change', { bubbles: true }));
+                }
+              }, 100);
+            }
+          }
+        }
+      }
+    });
+  </script>
 </body>
 </html>
