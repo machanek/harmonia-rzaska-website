@@ -14,6 +14,17 @@ collections:
     create: true
     slug: "{{id}}-{{nr_budynku}}-{{nr_lokalu}}"
     format: "json"
+    sortable_fields: ["id", "nr_budynku", "nr_lokalu", "cena", "status"]
+    default_sort: "id"
+    default_sort_direction: "asc"
+    list:
+      fields:
+        - {label: "ID", name: "id", widget: "number"}
+        - {label: "Budynek", name: "nr_budynku", widget: "string"}
+        - {label: "Lokal", name: "nr_lokalu", widget: "string"}
+        - {label: "Powierzchnia", name: "powierzchnia", widget: "number"}
+        - {label: "Cena", name: "cena", widget: "number"}
+        - {label: "Status", name: "status", widget: "select", options: ["wolny", "sprzedany", "zarezerwowany"]}
     fields:
       - {label: "ID", name: "id", widget: "number"}
       - {label: "Numer budynku", name: "nr_budynku", widget: "string"}
@@ -33,6 +44,16 @@ collections:
     create: false
     slug: "{{timestamp}}-{{name}}"
     format: "json"
+    sortable_fields: ["timestamp", "name", "status"]
+    default_sort: "timestamp"
+    default_sort_direction: "desc"
+    list:
+      fields:
+        - {label: "Data", name: "timestamp", widget: "datetime"}
+        - {label: "Imię i nazwisko", name: "name", widget: "string"}
+        - {label: "E-mail", name: "email", widget: "string"}
+        - {label: "Temat", name: "subject", widget: "string"}
+        - {label: "Status", name: "status", widget: "select", options: ["new", "read", "replied", "archived"]}
     fields:
       - {label: "ID", name: "id", widget: "number"}
       - {label: "Imię i nazwisko", name: "name", widget: "string"}
@@ -42,6 +63,6 @@ collections:
       - {label: "Wiadomość", name: "message", widget: "text"}
       - {label: "Zgoda RODO", name: "consent", widget: "boolean"}
       - {label: "Zgoda marketing", name: "marketing", widget: "boolean"}
-      - {label: "Data", name: "timestamp", widget: "datetime"}
+      - {label: "Data wysłania", name: "timestamp", widget: "datetime"}
       - {label: "Status", name: "status", widget: "select", options: ["new", "read", "replied", "archived"]}
       - {label: "Notatki", name: "notes", widget: "text", required: false}
