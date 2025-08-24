@@ -14,16 +14,12 @@ collections:
     create: false
     slug: "site-settings"
     format: "json"
-    files:
-      - file: "data/site_settings/site-settings.json"
-        label: "Ustawienia strony"
-        name: "site_settings"
-        fields:
-          - {label: "Tytuł strony", name: "title", widget: "string"}
-          - {label: "Opis strony", name: "description", widget: "text"}
-          - {label: "Telefon", name: "phone", widget: "string"}
-          - {label: "E-mail", name: "email", widget: "string"}
-          - {label: "Adres", name: "address", widget: "text"}
+    fields:
+      - {label: "Tytuł strony", name: "title", widget: "string"}
+      - {label: "Opis strony", name: "description", widget: "text"}
+      - {label: "Telefon", name: "phone", widget: "string"}
+      - {label: "E-mail", name: "email", widget: "string"}
+      - {label: "Adres", name: "address", widget: "text"}
 
   - name: "units"
     label: "Lokale"
