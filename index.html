@@ -88,6 +88,9 @@
     <!-- reCAPTCHA v3 -->
     <script src="https://www.google.com/recaptcha/api.js?render=6Lc1sK8rAAAAAFvcqHK72bEpkcT7xUtbowTMD4f7"></script>
     
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
     <!-- Security headers via meta tags -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-Frame-Options" content="DENY">
@@ -139,9 +142,7 @@
                 <a href="#contact">Kontakt</a>
             </nav>
             <button class="menu-toggle" id="menuToggle" aria-label="Otwórz menu">
-                <span></span>
-                <span></span>
-                <span></span>
+                <i data-lucide="menu"></i>
             </button>
         </div>
     </header>
@@ -500,7 +501,9 @@
                     aria-label="Mapa lokalizacji osiedla Harmonia Rząska">
                 </iframe>
                 <div class="map-overlay">
-                    <a href="https://goo.gl/maps/example" target="_blank" class="btn btn-primary">OTWÓRZ W MAPACH</a>
+                    <a href="https://goo.gl/maps/example" target="_blank" class="btn btn-primary">
+                        <i data-lucide="map"></i> OTWÓRZ W MAPACH
+                    </a>
                 </div>
             </div>
         </div>
@@ -519,9 +522,9 @@
                 <div class="footer-section">
                     <h4>Kontakt</h4>
                     <div class="footer-links">
-                        <a href="tel:+48730090030">📞 730 090 030</a>
-                        <a href="mailto:biuro@harmoniarzaska.pl">✉️ biuro@harmoniarzaska.pl</a>
-                        <p>📍 Rząska k. Krakowa</p>
+                        <a href="tel:+48730090030"><i data-lucide="phone"></i> 730 090 030</a>
+                        <a href="mailto:biuro@harmoniarzaska.pl"><i data-lucide="mail"></i> biuro@harmoniarzaska.pl</a>
+                        <p><i data-lucide="map-pin"></i> Rząska k. Krakowa</p>
                     </div>
                 </div>
                 
@@ -540,7 +543,9 @@
                     <p>Poniedziałek - Piątek: 9:00 - 17:00<br>
                     Sobota: 10:00 - 14:00<br>
                     Niedziela: zamknięte</p>
-                    <a href="#units" class="btn btn-primary mt-1">SKONTAKTUJ SIĘ</a>
+                    <a href="#units" class="btn btn-primary mt-1">
+                        <i data-lucide="message-circle"></i> SKONTAKTUJ SIĘ
+                    </a>
                 </div>
             </div>
             
@@ -552,7 +557,7 @@
 
     <!-- Offline indicator -->
     <div id="offlineIndicator" class="offline-indicator">
-        📡 Brak połączenia z internetem - aplikacja działa w trybie offline
+        <i data-lucide="wifi-off"></i> Brak połączenia z internetem - aplikacja działa w trybie offline
     </div>
 
     <!-- Toast container -->
@@ -591,6 +596,11 @@
                         console.log('Service Worker registration failed:', error);
                     });
             });
+        }
+        
+        // Initialize Lucide icons
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
         }
     </script>
 </body>

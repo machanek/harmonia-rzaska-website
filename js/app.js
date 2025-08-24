@@ -35,33 +35,32 @@ class HarmoniaApp {
     }
 
     async init() {
-        console.log('🚀 Initializing Harmonia Rząska app...');
-        
         try {
+            console.log('🏗️ Initializing HarmoniaApp...');
+            
+            // Check for required DOM elements
+            this.checkRequiredElements();
+            
+            // Load data
             await this.loadUnits();
             await this.loadSiteSettings();
             await this.setupPWA();
             console.log('📊 Units and settings loaded, setting up components...');
             
             this.setupEventListeners();
-            this.setupMobileMenu();
-            this.setupHeroSlider();
-            this.setupGallery();
-            this.setupStickyHeader();
             this.setupCookieBanner();
             this.setupContactForm();
             this.setupOfflineIndicator();
+            this.initLucideIcons();
             
             console.log('🎨 Components setup complete, rendering...');
-            this.renderUnits();
-            this.updateFloorFilter();
             
-            // Show success message with units count
-            this.showToast(`Załadowano ${this.units.length} lokali`, 'success');
+            // Render initial state
+            this.renderUnits();
+            
             console.log('✅ App initialization complete. Units:', this.units.length);
         } catch (error) {
             console.error('❌ Error during initialization:', error);
-            this.showToast('Błąd podczas ładowania danych', 'error');
         }
     }
 
@@ -1183,6 +1182,17 @@ class HarmoniaApp {
         // Listen for online/offline events
         window.addEventListener('online', updateOnlineStatus);
         window.addEventListener('offline', updateOnlineStatus);
+    }
+
+    // Initialize Lucide icons
+    initLucideIcons() {
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+            console.log('🎨 Lucide icons initialized');
+        } else {
+            console.log('⚠️ Lucide not loaded yet, retrying...');
+            setTimeout(() => this.initLucideIcons(), 100);
+        }
     }
 }
 
