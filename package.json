@@ -7,9 +7,7 @@
     "build": "echo 'Static site - no build required'",
     "dev": "echo 'Use live server or similar for local development'"
   },
-  "dependencies": {
-    "node-fetch": "^2.6.7"
-  },
+  "dependencies": {},
   "engines": {
     "node": ">=18.0.0"
   },
