@@ -39,7 +39,8 @@ class HarmoniaApp {
         
         try {
             await this.loadUnits();
-            console.log('📊 Units loaded, setting up components...');
+            await this.loadSiteSettings();
+            console.log('📊 Units and settings loaded, setting up components...');
             
             this.setupEventListeners();
             this.setupMobileMenu();
@@ -161,6 +162,71 @@ class HarmoniaApp {
     getSeedData() {
         // Puste dane - wszystko będzie ładowane z plików JSON przez panel admin
         return [];
+    }
+
+    async loadSiteSettings() {
+        try {
+            console.log('🔧 Loading site settings...');
+            const timestamp = Date.now();
+            const response = await fetch(`data/site_settings/site-settings.json?t=${timestamp}`);
+            
+            if (response.ok) {
+                const settings = await response.json();
+                console.log('✅ Site settings loaded:', settings);
+                this.updateLogo(settings.logo);
+                this.updatePageTitle(settings.title);
+                this.updatePageDescription(settings.description);
+                this.updateContactInfo(settings);
+                return settings;
+            } else {
+                console.log('⚠️ No site settings found, using defaults');
+                return null;
+            }
+        } catch (error) {
+            console.log('⚠️ Error loading site settings:', error);
+            return null;
+        }
+    }
+
+    updateLogo(logoPath) {
+        if (logoPath) {
+            const logoImg = document.querySelector('.logo img');
+            if (logoImg) {
+                logoImg.src = logoPath;
+                console.log('🎨 Logo updated:', logoPath);
+            }
+        }
+    }
+
+    updatePageTitle(title) {
+        if (title) {
+            document.title = title;
+            const titleElement = document.querySelector('title');
+            if (titleElement) {
+                titleElement.textContent = title;
+            }
+        }
+    }
+
+    updatePageDescription(description) {
+        if (description) {
+            const metaDescription = document.querySelector('meta[name="description"]');
+            if (metaDescription) {
+                metaDescription.setAttribute('content', description);
+            }
+        }
+    }
+
+    updateContactInfo(settings) {
+        // Update contact information if needed
+        if (settings.phone) {
+            const phoneElements = document.querySelectorAll('[data-contact="phone"]');
+            phoneElements.forEach(el => el.textContent = settings.phone);
+        }
+        if (settings.email) {
+            const emailElements = document.querySelectorAll('[data-contact="email"]');
+            emailElements.forEach(el => el.textContent = settings.email);
+        }
     }
 
     // Filtering and Sorting
