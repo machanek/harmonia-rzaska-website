@@ -1736,6 +1736,108 @@ p {
     }
 }
 
+/* PWA Styles */
+.pwa-update-banner,
+.pwa-install-banner {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    background: var(--white);
+    border: 1px solid var(--border-light);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+    animation: slideUp 0.3s ease-out;
+}
+
+.pwa-update-content,
+.pwa-install-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    gap: 1rem;
+}
+
+.pwa-update-content span,
+.pwa-install-content span {
+    font-weight: 500;
+    color: var(--text-dark);
+    flex: 1;
+}
+
+.pwa-update-banner .btn,
+.pwa-install-banner .btn {
+    white-space: nowrap;
+    min-width: 80px;
+}
+
+/* PWA standalone mode */
+.pwa-installed .header {
+    padding-top: env(safe-area-inset-top);
+}
+
+.pwa-installed .container {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+}
+
+/* Offline indicator */
+.offline-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--warning-orange);
+    color: var(--white);
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    z-index: 1001;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+}
+
+.offline-indicator.show {
+    transform: translateY(0);
+}
+
+/* PWA animations */
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* PWA responsive */
+@media (max-width: 768px) {
+    .pwa-update-banner,
+    .pwa-install-banner {
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+    }
+    
+    .pwa-update-content,
+    .pwa-install-content {
+        flex-direction: column;
+        gap: 0.75rem;
+        text-align: center;
+    }
+    
+    .pwa-update-content .btn,
+    .pwa-install-content .btn {
+        width: 100%;
+    }
+}
+
 
 
 

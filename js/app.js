@@ -40,6 +40,7 @@ class HarmoniaApp {
         try {
             await this.loadUnits();
             await this.loadSiteSettings();
+            await this.setupPWA();
             console.log('📊 Units and settings loaded, setting up components...');
             
             this.setupEventListeners();
@@ -49,6 +50,7 @@ class HarmoniaApp {
             this.setupStickyHeader();
             this.setupCookieBanner();
             this.setupContactForm();
+            this.setupOfflineIndicator();
             
             console.log('🎨 Components setup complete, rendering...');
             this.renderUnits();
@@ -842,18 +844,28 @@ class HarmoniaApp {
                 }
                 
                 // Submit to Netlify Function
-                const response = await fetch('/.netlify/functions/contact-form', {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                const result = await response.json();
-                
-                if (response.ok) {
-                    this.showToast('Wiadomość została wysłana pomyślnie! Skontaktujemy się z Tobą wkrótce.', 'success');
-                    form.reset();
-                } else {
-                    throw new Error(result.error || 'Błąd serwera');
+                try {
+                    const response = await fetch('/.netlify/functions/contact-form', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (response.ok) {
+                        this.showToast('Wiadomość została wysłana pomyślnie! Skontaktujemy się z Tobą wkrótce.', 'success');
+                        form.reset();
+                    } else {
+                        throw new Error(result.error || 'Błąd serwera');
+                    }
+                } catch (fetchError) {
+                    // Jeśli nie ma połączenia, zapisz offline
+                    if (!navigator.onLine) {
+                        await this.handleOfflineForm(formData);
+                        form.reset();
+                    } else {
+                        throw fetchError;
+                    }
                 }
                 
             } catch (error) {
@@ -970,6 +982,207 @@ class HarmoniaApp {
                 }
             }, 300);
         }, 3000);
+    }
+
+    // PWA Methods
+    async setupPWA() {
+        if ('serviceWorker' in navigator) {
+            try {
+                console.log('🔧 Setting up PWA...');
+                
+                // Rejestracja Service Worker
+                const registration = await navigator.serviceWorker.register('/sw.js');
+                console.log('✅ Service Worker zarejestrowany:', registration);
+                
+                // Sprawdzanie aktualizacji
+                registration.addEventListener('updatefound', () => {
+                    console.log('🔄 Nowa wersja Service Worker dostępna');
+                    this.showUpdateNotification();
+                });
+                
+                // Sprawdzanie czy PWA jest zainstalowane
+                this.checkPWAInstallation();
+                
+                // Setup push notifications
+                await this.setupPushNotifications(registration);
+                
+                console.log('✅ PWA setup complete');
+            } catch (error) {
+                console.error('❌ PWA setup error:', error);
+            }
+        } else {
+            console.log('⚠️ Service Worker nie jest wspierany');
+        }
+    }
+
+    showUpdateNotification() {
+        const updateBanner = document.createElement('div');
+        updateBanner.className = 'pwa-update-banner';
+        updateBanner.innerHTML = `
+            <div class="pwa-update-content">
+                <span>🔄 Dostępna nowa wersja aplikacji</span>
+                <button onclick="app.updatePWA()" class="btn btn-primary btn-sm">Aktualizuj</button>
+                <button onclick="this.parentElement.parentElement.remove()" class="btn btn-outline btn-sm">Później</button>
+            </div>
+        `;
+        
+        document.body.appendChild(updateBanner);
+        
+        // Auto-hide after 10 seconds
+        setTimeout(() => {
+            if (document.body.contains(updateBanner)) {
+                updateBanner.remove();
+            }
+        }, 10000);
+    }
+
+    updatePWA() {
+        if (navigator.serviceWorker.controller) {
+            navigator.serviceWorker.controller.postMessage({ type: 'SKIP_WAITING' });
+            window.location.reload();
+        }
+    }
+
+    checkPWAInstallation() {
+        // Sprawdzanie czy PWA jest zainstalowane
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+            console.log('📱 PWA działa w trybie standalone');
+            document.body.classList.add('pwa-installed');
+        }
+        
+        // Sprawdzanie czy można zainstalować
+        window.addEventListener('beforeinstallprompt', (e) => {
+            console.log('📱 PWA install prompt available');
+            this.showInstallPrompt(e);
+        });
+    }
+
+    showInstallPrompt(event) {
+        const installBanner = document.createElement('div');
+        installBanner.className = 'pwa-install-banner';
+        installBanner.innerHTML = `
+            <div class="pwa-install-content">
+                <span>📱 Zainstaluj aplikację Harmonia Rząska</span>
+                <button onclick="app.installPWA(event)" class="btn btn-primary btn-sm">Zainstaluj</button>
+                <button onclick="this.parentElement.parentElement.remove()" class="btn btn-outline btn-sm">Później</button>
+            </div>
+        `;
+        
+        document.body.appendChild(installBanner);
+        
+        // Store event for later use
+        this.installPromptEvent = event;
+        
+        // Auto-hide after 15 seconds
+        setTimeout(() => {
+            if (document.body.contains(installBanner)) {
+                installBanner.remove();
+            }
+        }, 15000);
+    }
+
+    async installPWA() {
+        if (this.installPromptEvent) {
+            this.installPromptEvent.prompt();
+            const result = await this.installPromptEvent.userChoice;
+            
+            if (result.outcome === 'accepted') {
+                console.log('✅ PWA zainstalowane');
+                this.showToast('Aplikacja została zainstalowana!', 'success');
+            } else {
+                console.log('❌ PWA instalacja anulowana');
+            }
+            
+            this.installPromptEvent = null;
+        }
+    }
+
+    async setupPushNotifications(registration) {
+        try {
+            // Sprawdzanie uprawnień
+            const permission = await Notification.requestPermission();
+            
+            if (permission === 'granted') {
+                console.log('✅ Push notifications enabled');
+                
+                // Subskrypcja push notifications
+                const subscription = await registration.pushManager.subscribe({
+                    userVisibleOnly: true,
+                    applicationServerKey: this.urlBase64ToUint8Array('YOUR_VAPID_PUBLIC_KEY') // Do zmiany
+                });
+                
+                console.log('📱 Push subscription:', subscription);
+                
+                // Tutaj możesz wysłać subscription do serwera
+                // await this.sendSubscriptionToServer(subscription);
+                
+            } else {
+                console.log('⚠️ Push notifications not granted');
+            }
+        } catch (error) {
+            console.error('❌ Push notifications setup error:', error);
+        }
+    }
+
+    urlBase64ToUint8Array(base64String) {
+        const padding = '='.repeat((4 - base64String.length % 4) % 4);
+        const base64 = (base64String + padding)
+            .replace(/-/g, '+')
+            .replace(/_/g, '/');
+
+        const rawData = window.atob(base64);
+        const outputArray = new Uint8Array(rawData.length);
+
+        for (let i = 0; i < rawData.length; ++i) {
+            outputArray[i] = rawData.charCodeAt(i);
+        }
+        return outputArray;
+    }
+
+    // Offline form handling
+    async handleOfflineForm(formData) {
+        try {
+            // Cache form data
+            const cache = await caches.open('harmonia-dynamic-v1.0.0');
+            const request = new Request('/.netlify/functions/contact-form', {
+                method: 'POST',
+                body: formData
+            });
+            
+            await cache.put(request, new Response('Offline - Form saved'));
+            
+            // Register background sync
+            if ('serviceWorker' in navigator && 'sync' in window.ServiceWorkerRegistration.prototype) {
+                const registration = await navigator.serviceWorker.ready;
+                await registration.sync.register('contact-form-sync');
+            }
+            
+            this.showToast('Formularz zapisany - zostanie wysłany gdy połączenie zostanie przywrócone', 'info');
+        } catch (error) {
+            console.error('❌ Offline form handling error:', error);
+            this.showToast('Błąd podczas zapisywania formularza offline', 'error');
+        }
+    }
+
+    setupOfflineIndicator() {
+        const offlineIndicator = document.getElementById('offlineIndicator');
+        
+        if (!offlineIndicator) return;
+        
+        const updateOnlineStatus = () => {
+            if (navigator.onLine) {
+                offlineIndicator.classList.remove('show');
+            } else {
+                offlineIndicator.classList.add('show');
+            }
+        };
+        
+        // Initial check
+        updateOnlineStatus();
+        
+        // Listen for online/offline events
+        window.addEventListener('online', updateOnlineStatus);
+        window.addEventListener('offline', updateOnlineStatus);
     }
 }
 
