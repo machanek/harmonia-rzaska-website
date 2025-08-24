@@ -2,6 +2,12 @@
   "title": "Harmonia Rząska",
   "description": "Nowoczesne mieszkania w Rząsce",
   "logo": "/images/uploads/logo-harmonia-rzaska.svg",
+  "favicon_svg": "/images/uploads/favicon-32x32.svg",
+  "favicon_16": "/images/uploads/favicon-16x16.svg",
+  "favicon_32": "/images/uploads/favicon-32x32.svg",
+  "favicon_180": "/images/uploads/apple-touch-icon.svg",
+  "favicon_192": "/images/uploads/android-chrome-192x192.svg",
+  "favicon_512": "/images/uploads/android-chrome-512x512.svg",
   "phone": "+48 123 456 789",
   "email": "biuro@harmoniarzaska.pl",
   "address": "ul. Przykładowa 1, 80-000 Rząska"

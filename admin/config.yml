@@ -18,6 +18,12 @@ collections:
       - {label: "Tytuł strony", name: "title", widget: "string"}
       - {label: "Opis strony", name: "description", widget: "text"}
       - {label: "Logo strony", name: "logo", widget: "image", required: false}
+      - {label: "Favicon SVG", name: "favicon_svg", widget: "image", required: false}
+      - {label: "Favicon 16x16", name: "favicon_16", widget: "image", required: false}
+      - {label: "Favicon 32x32", name: "favicon_32", widget: "image", required: false}
+      - {label: "Apple Touch Icon (180x180)", name: "favicon_180", widget: "image", required: false}
+      - {label: "Android Chrome 192x192", name: "favicon_192", widget: "image", required: false}
+      - {label: "Android Chrome 512x512", name: "favicon_512", widget: "image", required: false}
       - {label: "Telefon", name: "phone", widget: "string"}
       - {label: "E-mail", name: "email", widget: "string"}
       - {label: "Adres", name: "address", widget: "text"}

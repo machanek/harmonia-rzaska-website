@@ -174,6 +174,7 @@ class HarmoniaApp {
                 const settings = await response.json();
                 console.log('✅ Site settings loaded:', settings);
                 this.updateLogo(settings.logo);
+                this.updateFavicons(settings);
                 this.updatePageTitle(settings.title);
                 this.updatePageDescription(settings.description);
                 this.updateContactInfo(settings);
@@ -196,6 +197,44 @@ class HarmoniaApp {
                 console.log('🎨 Logo updated:', logoPath);
             }
         }
+    }
+
+    updateFavicons(settings) {
+        // Update favicon links in head
+        if (settings.favicon_svg) {
+            this.updateFaviconLink('icon', settings.favicon_svg, 'image/svg+xml');
+        }
+        if (settings.favicon_16) {
+            this.updateFaviconLink('icon', settings.favicon_16, 'image/png', '16x16');
+        }
+        if (settings.favicon_32) {
+            this.updateFaviconLink('icon', settings.favicon_32, 'image/png', '32x32');
+        }
+        if (settings.favicon_180) {
+            this.updateFaviconLink('apple-touch-icon', settings.favicon_180, 'image/png', '180x180');
+        }
+        if (settings.favicon_192) {
+            this.updateFaviconLink('icon', settings.favicon_192, 'image/png', '192x192');
+        }
+        if (settings.favicon_512) {
+            this.updateFaviconLink('icon', settings.favicon_512, 'image/png', '512x512');
+        }
+    }
+
+    updateFaviconLink(rel, href, type, sizes = null) {
+        // Find existing link or create new one
+        let link = document.querySelector(`link[rel="${rel}"]${sizes ? `[sizes="${sizes}"]` : ''}`);
+        
+        if (!link) {
+            link = document.createElement('link');
+            link.rel = rel;
+            if (sizes) link.sizes = sizes;
+            if (type) link.type = type;
+            document.head.appendChild(link);
+        }
+        
+        link.href = href;
+        console.log(`🎨 Favicon updated: ${rel}${sizes ? ` (${sizes})` : ''} -> ${href}`);
     }
 
     updatePageTitle(title) {
