@@ -1,21 +1,14 @@
 {
-  "basic_info": {
-    "title": "Harmonia Rząska",
-    "description": "Nowoczesne mieszkania w Rząsce",
-    "keywords": "mieszkania, Rząska, Harmonia, deweloper"
-  },
-  "branding": {
-    "logo": "",
-    "favicon_16": "",
-    "favicon_32": "",
-    "favicon_180": "",
-    "favicon_192": "",
-    "favicon_512": "",
-    "favicon_svg": ""
-  },
-  "contact_info": {
-    "phone": "+48 123 456 789",
-    "email": "biuro@harmoniarzaska.pl",
-    "address": "ul. Przykładowa 1, 80-000 Rząska"
-  }
+  "title": "Harmonia Rząska",
+  "description": "Nowoczesne mieszkania w Rząsce",
+  "logo": "",
+  "favicon_16": "",
+  "favicon_32": "",
+  "favicon_180": "",
+  "favicon_192": "",
+  "favicon_512": "",
+  "favicon_svg": "",
+  "phone": "+48 123 456 789",
+  "email": "biuro@harmoniarzaska.pl",
+  "address": "ul. Przykładowa 1, 80-000 Rząska"
 }

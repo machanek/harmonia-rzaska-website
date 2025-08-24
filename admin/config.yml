@@ -19,33 +19,18 @@ collections:
         label: "Ustawienia strony"
         name: "site_settings"
         fields:
-          - label: "Podstawowe informacje"
-            name: "basic_info"
-            widget: "object"
-            fields:
-              - {label: "Tytuł strony", name: "title", widget: "string", default: "Harmonia Rząska"}
-              - {label: "Opis strony", name: "description", widget: "text", default: "Nowoczesne mieszkania w Rząsce"}
-              - {label: "Słowa kluczowe", name: "keywords", widget: "string", default: "mieszkania, Rząska, Harmonia, deweloper"}
-          
-          - label: "Logo i favicony"
-            name: "branding"
-            widget: "object"
-            fields:
-              - {label: "Logo strony", name: "logo", widget: "image", required: false, hint: "Logo w formacie SVG lub PNG (zalecane SVG)"}
-              - {label: "Favicon 16x16", name: "favicon_16", widget: "image", required: false, hint: "Favicon 16x16 pikseli (PNG)"}
-              - {label: "Favicon 32x32", name: "favicon_32", widget: "image", required: false, hint: "Favicon 32x32 pikseli (PNG)"}
-              - {label: "Favicon 180x180", name: "favicon_180", widget: "image", required: false, hint: "Apple Touch Icon 180x180 pikseli (PNG)"}
-              - {label: "Favicon 192x192", name: "favicon_192", widget: "image", required: false, hint: "Android Chrome 192x192 pikseli (PNG)"}
-              - {label: "Favicon 512x512", name: "favicon_512", widget: "image", required: false, hint: "Android Chrome 512x512 pikseli (PNG)"}
-              - {label: "Favicon SVG", name: "favicon_svg", widget: "image", required: false, hint: "Favicon w formacie SVG"}
-          
-          - label: "Dane kontaktowe"
-            name: "contact_info"
-            widget: "object"
-            fields:
-              - {label: "Telefon", name: "phone", widget: "string", default: "+48 123 456 789"}
-              - {label: "E-mail", name: "email", widget: "string", default: "biuro@harmoniarzaska.pl"}
-              - {label: "Adres", name: "address", widget: "text", default: "ul. Przykładowa 1, 80-000 Rząska"}
+          - {label: "Tytuł strony", name: "title", widget: "string", default: "Harmonia Rząska"}
+          - {label: "Opis strony", name: "description", widget: "text", default: "Nowoczesne mieszkania w Rząsce"}
+          - {label: "Logo strony", name: "logo", widget: "image", required: false}
+          - {label: "Favicon 16x16", name: "favicon_16", widget: "image", required: false}
+          - {label: "Favicon 32x32", name: "favicon_32", widget: "image", required: false}
+          - {label: "Favicon 180x180", name: "favicon_180", widget: "image", required: false}
+          - {label: "Favicon 192x192", name: "favicon_192", widget: "image", required: false}
+          - {label: "Favicon 512x512", name: "favicon_512", widget: "image", required: false}
+          - {label: "Favicon SVG", name: "favicon_svg", widget: "image", required: false}
+          - {label: "Telefon", name: "phone", widget: "string", default: "+48 123 456 789"}
+          - {label: "E-mail", name: "email", widget: "string", default: "biuro@harmoniarzaska.pl"}
+          - {label: "Adres", name: "address", widget: "text", default: "ul. Przykładowa 1, 80-000 Rząska"}
 
   - name: "units"
     label: "Lokale"
