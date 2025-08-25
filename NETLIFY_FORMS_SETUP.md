@@ -22,6 +22,11 @@ Formularz w `index.html`:
     phone = { required = true }
     message = { required = true }
     consent = { required = true }
+
+[[redirects]]
+  from = "/success"
+  to = "/success.html"
+  status = 200
 ```
 
 ### 3. Konfiguracja webhook
@@ -77,3 +82,28 @@ Każda wiadomość jest zapisywana jako plik JSON:
   "notes": ""
 }
 ```
+
+## WAŻNE: Konfiguracja webhook
+
+**KROK 1:** Przejdź do panelu Netlify (https://app.netlify.com)
+
+**KROK 2:** Wybierz projekt `harmoniarzaska`
+
+**KROK 3:** Przejdź do **Site settings** > **Forms**
+
+**KROK 4:** Kliknij **"Form notifications"**
+
+**KROK 5:** Kliknij **"Add notification"**
+
+**KROK 6:** Wypełnij:
+- **Event:** `Form submission`
+- **Form:** `contact`
+- **Type:** `Webhook`
+- **URL:** `https://harmoniarzaska.netlify.app/.netlify/functions/form-webhook`
+
+**KROK 7:** Kliknij **"Save"**
+
+Po tej konfiguracji:
+- Formularz będzie działał standardowo (przekierowanie na `/success`)
+- Webhook będzie automatycznie zapisywał wiadomości do plików JSON
+- CMS będzie mógł odczytywać wiadomości z plików
