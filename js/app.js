@@ -51,7 +51,7 @@ class HarmoniaApp {
             
             // Load data
             await this.loadUnits();
-            await this.loadSiteSettings();
+            this.siteSettings = await this.loadSiteSettings();
             await this.setupPWA();
             console.log('📊 Units and settings loaded, setting up components...');
             
