@@ -76,6 +76,9 @@ self.addEventListener('fetch', (event) => {
     // NIE przechwytuj nic poza GET – pozwól Netlify obsłużyć formularze (POST)
     if (request.method !== 'GET') return;
     
+    // NIE przechwytuj panelu administracyjnego - pozwól mu działać normalnie
+    if (url.pathname.startsWith('/admin/')) return;
+    
     // Strategia cache'owania dla różnych typów zasobów
     // Statyczne zasoby - Cache First
     if (STATIC_ASSETS.includes(url.pathname) || 
