@@ -137,6 +137,13 @@
         <input type="hidden" name="g-recaptcha-response" />
     </form>
     
+    <!-- Ukryty formularz do detekcji przez Netlify Forms (nie psuje layoutu) -->
+    <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="contact">
+      <p style="display:none;"><label>Nie wypełniaj: <input name="bot-field"></label></p>
+      <input name="name"><input name="email"><input name="phone"><textarea name="message"></textarea><input name="rodo">
+    </form>
+    
     <!-- Header -->
     <header class="header" id="header">
         <div class="container">

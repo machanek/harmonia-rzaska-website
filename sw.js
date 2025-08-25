@@ -70,11 +70,10 @@ self.addEventListener('activate', (event) => {
 
 // Interceptowanie requestów
 self.addEventListener('fetch', (event) => {
-    const { request } = event;
-    const url = new URL(request.url);
-    
-    // NIE przechwytuj nic poza GET – pozwól Netlify obsłużyć formularze (POST)
-    if (request.method !== 'GET') return;
+    const req = event.request;
+    const url = new URL(req.url);
+    // Bezpieczeństwo: SW nie dotyka POST-ów (formularze Netlify)
+    if (req.method !== 'GET') return;
     
     // NIE przechwytuj panelu administracyjnego - pozwól mu działać normalnie
     if (url.pathname.startsWith('/admin/')) return;
@@ -86,21 +85,21 @@ self.addEventListener('fetch', (event) => {
         url.pathname.startsWith('/js/') ||
         url.pathname.startsWith('/assets/')) {
         
-        event.respondWith(cacheFirst(request, STATIC_CACHE));
+        event.respondWith(cacheFirst(req, STATIC_CACHE));
     }
     // API requests - Network First z fallback
     else if (url.pathname.startsWith('/data/') || 
              url.pathname.startsWith('/.netlify/functions/')) {
         
-        event.respondWith(networkFirst(request, DYNAMIC_CACHE));
+        event.respondWith(networkFirst(req, DYNAMIC_CACHE));
     }
     // HTML pages - Network First
-    else if (request.headers.get('accept').includes('text/html')) {
-        event.respondWith(networkFirst(request, DYNAMIC_CACHE));
+    else if (req.headers.get('accept').includes('text/html')) {
+        event.respondWith(networkFirst(req, DYNAMIC_CACHE));
     }
     // Pozostałe - Network First
     else {
-        event.respondWith(networkFirst(request, DYNAMIC_CACHE));
+        event.respondWith(networkFirst(req, DYNAMIC_CACHE));
     }
 });
 
