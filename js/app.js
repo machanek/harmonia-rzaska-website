@@ -985,42 +985,42 @@ class HarmoniaApp {
         
         if (!form || !submitBtn) return;
         
-        // Dodaj walidację formularza bez przechwytywania submitu
-        form.addEventListener('submit', (e) => {
-            // Sprawdź czy wszystkie wymagane pola są wypełnione
-            const requiredFields = form.querySelectorAll('[required]');
-            let isValid = true;
-            
-            requiredFields.forEach(field => {
-                if (!field.value.trim()) {
-                    isValid = false;
-                    field.classList.add('error');
-                } else {
-                    field.classList.remove('error');
-                }
-            });
-            
-            // Sprawdź format email
-            const emailField = form.querySelector('input[type="email"]');
-            if (emailField && emailField.value) {
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(emailField.value)) {
-                    isValid = false;
-                    emailField.classList.add('error');
-                }
-            }
-            
-            // Jeśli formularz jest nieprawidłowy, zatrzymaj wysyłanie
-            if (!isValid) {
-                e.preventDefault();
-                this.showToast('Proszę wypełnić wszystkie wymagane pola poprawnie.', 'error');
-                return;
-            }
-            
-            // Jeśli formularz jest prawidłowy, pozwól Netlify obsłużyć submisję
-            // Pokaż komunikat o wysyłaniu
-            this.showToast('Wysyłanie wiadomości...', 'info');
-        });
+        // Tymczasowo wyłączona walidacja JavaScript - pozwól Netlify obsłużyć submisję
+        // form.addEventListener('submit', (e) => {
+        //     // Sprawdź czy wszystkie wymagane pola są wypełnione
+        //     const requiredFields = form.querySelectorAll('[required]');
+        //     let isValid = true;
+        //     
+        //     requiredFields.forEach(field => {
+        //         if (!field.value.trim()) {
+        //             isValid = false;
+        //             field.classList.add('error');
+        //         } else {
+        //             field.classList.remove('error');
+        //         }
+        //     });
+        //     
+        //     // Sprawdź format email
+        //     const emailField = form.querySelector('input[type="email"]');
+        //     if (emailField && emailField.value) {
+        //         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        //         if (!emailRegex.test(emailField.value)) {
+        //             isValid = false;
+        //             emailField.classList.add('error');
+        //         }
+        //     }
+        //     
+        //     // Jeśli formularz jest nieprawidłowy, zatrzymaj wysyłanie
+        //     if (!isValid) {
+        //         e.preventDefault();
+        //         this.showToast('Proszę wypełnić wszystkie wymagane pola poprawnie.', 'error');
+        //         return;
+        //     }
+        //     
+        //     // Jeśli formularz jest prawidłowy, pozwól Netlify obsłużyć submisję
+        //     // Pokaż komunikat o wysyłaniu
+        //     this.showToast('Wysyłanie wiadomości...', 'info');
+        // });
     }
 
     validateContactForm() {
