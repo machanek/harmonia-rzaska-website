@@ -1017,7 +1017,7 @@ class HarmoniaApp {
                 }
                 
                 // Let Netlify handle the form submission
-                // Form will submit normally to /success
+                // Form will submit to our function which will redirect to /success
                 
             } catch (error) {
                 console.error('Contact form error:', error);

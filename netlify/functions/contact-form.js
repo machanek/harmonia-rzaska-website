@@ -95,16 +95,12 @@ exports.handler = async function(event, context) {
         console.log('Contact form submission:', contactData);
 
         return {
-            statusCode: 200,
+            statusCode: 302,
             headers: {
-                'Content-Type': 'application/json',
+                'Location': '/success',
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Headers': 'Content-Type'
-            },
-            body: JSON.stringify({
-                message: 'Form submitted successfully',
-                data: contactData
-            })
+            }
         };
 
     } catch (error) {
