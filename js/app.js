@@ -56,11 +56,12 @@ class HarmoniaApp {
             console.log('📊 Units and settings loaded, setting up components...');
             
             this.setupEventListeners();
-                    this.setupCookieBanner();
-        this.setupContactForm();
-        this.setupOfflineIndicator();
-        this.initLucideIcons();
-        this.setupProspectButton();
+            this.setupMobileMenu();
+            this.setupCookieBanner();
+            this.setupContactForm();
+            this.setupOfflineIndicator();
+            this.initLucideIcons();
+            this.setupProspectButton();
             
             console.log('🎨 Components setup complete, rendering...');
             
@@ -805,9 +806,23 @@ class HarmoniaApp {
         const menuToggle = document.getElementById('menuToggle');
         const nav = document.getElementById('nav');
         
+        if (!menuToggle) {
+            console.error('❌ Menu toggle button not found');
+            return;
+        }
+        
+        if (!nav) {
+            console.error('❌ Navigation element not found');
+            return;
+        }
+        
+        console.log('✅ Mobile menu elements found:', { menuToggle, nav });
+        
         menuToggle.addEventListener('click', () => {
+            console.log('🔄 Menu toggle clicked');
             nav.classList.toggle('active');
             menuToggle.classList.toggle('active');
+            console.log('📱 Menu state:', nav.classList.contains('active') ? 'open' : 'closed');
         });
         
         // Close menu when clicking on links
@@ -815,6 +830,7 @@ class HarmoniaApp {
             if (e.target.tagName === 'A') {
                 nav.classList.remove('active');
                 menuToggle.classList.remove('active');
+                console.log('🔗 Menu closed by link click');
             }
         });
         
@@ -823,8 +839,11 @@ class HarmoniaApp {
             if (!nav.contains(e.target) && !menuToggle.contains(e.target)) {
                 nav.classList.remove('active');
                 menuToggle.classList.remove('active');
+                console.log('🔗 Menu closed by outside click');
             }
         });
+        
+        console.log('✅ Mobile menu setup complete');
     }
 
     setupProspectButton() {
