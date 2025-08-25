@@ -1412,15 +1412,27 @@ window.testFetch = async () => {
     }
 };
 
-// Funkcja do resetowania ustawień offline indicator
+// Funkcja do resetowania ustawień offline indicator - poprawiona
 window.resetOfflineIndicator = () => {
-    if (app) {
-        app.setCookie('offlineIndicatorDisabled', 'false', -1); // Usuń cookie
-        console.log('✅ Offline indicator settings reset');
-        this.showToast('Ustawienia komunikatu offline zostały zresetowane', 'success');
-        // Przeładuj stronę aby zastosować zmiany
-        setTimeout(() => window.location.reload(), 1000);
+    console.log('🔄 Resetowanie ustawień offline indicator...');
+    
+    // Usuń cookie
+    document.cookie = 'offlineIndicatorDisabled=false; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    
+    console.log('✅ Offline indicator settings reset');
+    
+    // Pokaż toast jeśli aplikacja jest dostępna
+    if (window.app && window.app.showToast) {
+        window.app.showToast('Ustawienia komunikatu offline zostały zresetowane', 'success');
+    } else {
+        console.log('ℹ️ Toast nie dostępny - aplikacja nie zainicjalizowana');
     }
+    
+    // Przeładuj stronę aby zastosować zmiany
+    setTimeout(() => {
+        console.log('🔄 Przeładowanie strony...');
+        window.location.reload();
+    }, 1000);
 };
 
 // Funkcja do sprawdzania stanu połączenia
@@ -1442,16 +1454,77 @@ window.checkConnectionStatus = async () => {
     }
 };
 
+// Funkcja emergency render - dostępna zawsze
+window.emergencyRender = () => {
+    console.log('🚨 Emergency render - próba naprawy...');
+    
+    const tbody = document.getElementById('unitsTableBody');
+    if (tbody) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="10" style="text-align: center; padding: 2rem; color: #666;">
+                    <p>🔧 Aplikacja w trybie naprawy</p>
+                    <p>Sprawdź połączenie: <button onclick="checkConnectionStatus()" style="background: #007bff; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">Sprawdź połączenie</button></p>
+                    <p>Kontakt: <strong>730 090 030</strong></p>
+                </td>
+            </tr>
+        `;
+        console.log('✅ Emergency render wykonany');
+    } else {
+        console.error('❌ Nie znaleziono tbody do emergency render');
+    }
+};
+
+// Funkcja do sprawdzania stanu aplikacji
+window.checkAppStatus = () => {
+    console.log('🔍 Sprawdzanie stanu aplikacji...');
+    console.log('📱 navigator.onLine:', navigator.onLine);
+    console.log('🌐 window.app:', window.app);
+    console.log('📄 document.readyState:', document.readyState);
+    console.log('🔧 Service Worker:', 'serviceWorker' in navigator);
+    
+    // Sprawdź czy elementy DOM istnieją
+    const requiredElements = [
+        'unitsTableBody',
+        'unitsCards', 
+        'pagination',
+        'searchInput',
+        'statusFilter',
+        'floorFilter',
+        'perPage'
+    ];
+    
+    console.log('📋 Sprawdzanie elementów DOM:');
+    requiredElements.forEach(id => {
+        const element = document.getElementById(id);
+        console.log(`  ${id}: ${element ? '✅' : '❌'}`);
+    });
+    
+    // Sprawdź błędy w konsoli
+    console.log('⚠️ Sprawdź czy są błędy w konsoli powyżej');
+    
+    return {
+        online: navigator.onLine,
+        appInitialized: !!window.app,
+        domReady: document.readyState === 'complete',
+        serviceWorkerSupported: 'serviceWorker' in navigator
+    };
+};
+
 /*
 FUNKCJE DEBUG DLA ADMINISTRATORÓW:
 - checkConnectionStatus() - sprawdza stan połączenia z internetem
 - resetOfflineIndicator() - resetuje ustawienia komunikatu offline
 - debugUnits() - sprawdza stan załadowanych jednostek
 - testFetch() - testuje dostępność plików JSON
+- emergencyRender() - awaryjne renderowanie tabeli
+- checkAppStatus() - sprawdza stan aplikacji i elementów DOM
 
 Użycie w konsoli przeglądarki (F12):
 checkConnectionStatus()
 resetOfflineIndicator()
 debugUnits()
 testFetch()
+emergencyRender()
+checkAppStatus()
 */
