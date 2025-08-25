@@ -53,7 +53,7 @@ exports.handler = async function(event, context) {
             notes: ''
         };
 
-        // Save message to file
+        // Save message to file for CMS
         try {
             const messagesDir = path.join(process.cwd(), 'data', 'contact_messages');
             
@@ -62,13 +62,32 @@ exports.handler = async function(event, context) {
                 fs.mkdirSync(messagesDir, { recursive: true });
             }
             
-            const filename = `${messageId}-${contactData.name.replace(/[^a-zA-Z0-9]/g, '-')}.json`;
+            // Format filename for CMS compatibility
+            const safeName = contactData.name.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
+            const filename = `${timestamp.split('T')[0]}-${safeName}-${messageId}.json`;
             const filepath = path.join(messagesDir, filename);
             
-            fs.writeFileSync(filepath, JSON.stringify(contactData, null, 2));
-            console.log('Message saved to file:', filepath);
+            // Format data for CMS
+            const cmsData = {
+                ...contactData,
+                // Ensure all required fields are present
+                id: messageId,
+                name: contactData.name || 'Brak nazwy',
+                email: contactData.email || 'brak@email.com',
+                phone: contactData.phone || 'Brak telefonu',
+                subject: contactData.subject || 'Kontakt z formularza',
+                message: contactData.message || 'Brak wiadomości',
+                consent: contactData.consent,
+                marketing: contactData.marketing,
+                timestamp: timestamp,
+                status: 'new',
+                notes: ''
+            };
+            
+            fs.writeFileSync(filepath, JSON.stringify(cmsData, null, 2));
+            console.log('Message saved to CMS file:', filepath);
         } catch (fileError) {
-            console.error('Error saving message to file:', fileError);
+            console.error('Error saving message to CMS file:', fileError);
             // Continue even if file save fails
         }
 

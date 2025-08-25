@@ -20,8 +20,9 @@ exports.handler = async function(event, context) {
     }
 
     try {
+        // Parse request body
         const { messageId, status, notes } = JSON.parse(event.body);
-        
+
         if (!messageId || !status) {
             return {
                 statusCode: 400,
@@ -29,18 +30,40 @@ exports.handler = async function(event, context) {
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*'
                 },
-                body: JSON.stringify({ error: 'Missing required fields' })
+                body: JSON.stringify({ error: 'Missing required fields: messageId and status' })
             };
         }
 
         const messagesDir = path.join(process.cwd(), 'data', 'contact_messages');
-        const files = fs.readdirSync(messagesDir);
         
+        // Check if directory exists
+        if (!fs.existsSync(messagesDir)) {
+            return {
+                statusCode: 404,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                },
+                body: JSON.stringify({ error: 'Messages directory not found' })
+            };
+        }
+
+        // Find the message file
+        const files = fs.readdirSync(messagesDir).filter(file => file.endsWith('.json'));
         let messageFile = null;
+
         for (const file of files) {
-            if (file.startsWith(messageId.toString())) {
-                messageFile = file;
-                break;
+            try {
+                const filepath = path.join(messagesDir, file);
+                const content = fs.readFileSync(filepath, 'utf8');
+                const message = JSON.parse(content);
+                
+                if (message.id == messageId) {
+                    messageFile = file;
+                    break;
+                }
+            } catch (fileError) {
+                console.error(`Error reading file ${file}:`, fileError);
             }
         }
 
@@ -55,28 +78,28 @@ exports.handler = async function(event, context) {
             };
         }
 
+        // Update the message
         const filepath = path.join(messagesDir, messageFile);
-        const messageData = JSON.parse(fs.readFileSync(filepath, 'utf8'));
-        
-        // Update status and notes
-        messageData.status = status;
+        const content = fs.readFileSync(filepath, 'utf8');
+        const message = JSON.parse(content);
+
+        message.status = status;
         if (notes !== undefined) {
-            messageData.notes = notes;
+            message.notes = notes;
         }
-        
+
         // Save updated message
-        fs.writeFileSync(filepath, JSON.stringify(messageData, null, 2));
+        fs.writeFileSync(filepath, JSON.stringify(message, null, 2));
 
         return {
             statusCode: 200,
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Headers': 'Content-Type'
+                'Access-Control-Allow-Origin': '*'
             },
-            body: JSON.stringify({
-                message: 'Message status updated successfully',
-                data: messageData
+            body: JSON.stringify({ 
+                message: 'Status updated successfully',
+                data: message
             })
         };
 

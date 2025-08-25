@@ -18,6 +18,34 @@
   to = "/"
   status = 200
 
+# Contact form handling
+[[redirects]]
+  from = "/.netlify/functions/contact-form"
+  to = "/.netlify/functions/contact-form"
+  status = 200
+
+[[redirects]]
+  from = "/.netlify/functions/get-contact-messages"
+  to = "/.netlify/functions/get-contact-messages"
+  status = 200
+
+[[redirects]]
+  from = "/.netlify/functions/update-message-status"
+  to = "/.netlify/functions/update-message-status"
+  status = 200
+
+# Form configuration
+[[forms]]
+  name = "contact"
+  action = "/.netlify/functions/contact-form"
+  method = "POST"
+  [forms.fields]
+    name = { required = true }
+    email = { required = true }
+    phone = { required = true }
+    message = { required = true }
+    consent = { required = true }
+
 # Admin panel
 [[redirects]]
   from = "/admin"

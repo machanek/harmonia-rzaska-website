@@ -22,54 +22,50 @@ exports.handler = async function(event, context) {
     try {
         const messagesDir = path.join(process.cwd(), 'data', 'contact_messages');
         
+        // Check if directory exists
         if (!fs.existsSync(messagesDir)) {
             return {
                 statusCode: 200,
                 headers: {
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Headers': 'Content-Type'
+                    'Access-Control-Allow-Origin': '*'
                 },
-                body: JSON.stringify({
-                    messages: [],
-                    total: 0
-                })
+                body: JSON.stringify({ messages: [] })
             };
         }
 
-        const files = fs.readdirSync(messagesDir);
+        // Read all JSON files in the directory
+        const files = fs.readdirSync(messagesDir).filter(file => file.endsWith('.json'));
         const messages = [];
 
         for (const file of files) {
-            if (file.endsWith('.json')) {
-                try {
-                    const filepath = path.join(messagesDir, file);
-                    const messageData = JSON.parse(fs.readFileSync(filepath, 'utf8'));
-                    messages.push(messageData);
-                } catch (fileError) {
-                    console.error(`Error reading file ${file}:`, fileError);
-                }
+            try {
+                const filepath = path.join(messagesDir, file);
+                const content = fs.readFileSync(filepath, 'utf8');
+                const message = JSON.parse(content);
+                messages.push(message);
+            } catch (fileError) {
+                console.error(`Error reading file ${file}:`, fileError);
             }
         }
 
-        // Sort by timestamp (newest first)
+        // Sort messages by timestamp (newest first)
         messages.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
         return {
             statusCode: 200,
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Headers': 'Content-Type'
+                'Access-Control-Allow-Origin': '*'
             },
-            body: JSON.stringify({
+            body: JSON.stringify({ 
                 messages: messages,
-                total: messages.length
+                count: messages.length
             })
         };
 
     } catch (error) {
-        console.error('Error fetching contact messages:', error);
+        console.error('Error reading contact messages:', error);
         return {
             statusCode: 500,
             headers: {
