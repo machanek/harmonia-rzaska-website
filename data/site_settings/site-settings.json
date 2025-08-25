@@ -10,5 +10,6 @@
   "favicon_512": "/images/uploads/android-chrome-512x512.svg",
   "phone": "+48 123 456 789",
   "email": "biuro@harmoniarzaska.pl",
-  "address": "ul. Przykładowa 1, 80-000 Rząska"
+  "address": "ul. Przykładowa 1, 80-000 Rząska",
+  "prospekt_file": "/images/uploads/prospekt-harmonia-rzaska.pdf"
 }

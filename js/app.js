@@ -839,10 +839,20 @@ class HarmoniaApp {
 
     downloadProspect() {
         try {
-            // Pobieranie prospektu
+            // Sprawdź czy mamy ustawienia strony z plikiem prospektu
+            if (!this.siteSettings || !this.siteSettings.prospekt_file) {
+                console.warn('⚠️ Brak pliku prospektu w ustawieniach strony');
+                this.showToast('Prospekt informacyjny nie jest dostępny. Skontaktuj się z administratorem.', 'warning');
+                return;
+            }
+
+            // Pobieranie prospektu z ustawień CMS
             const link = document.createElement('a');
-            link.href = '/assets/prospekt-harmonia-rzaska.pdf';
-            link.download = 'Prospekt-Harmonia-Rzaska.pdf';
+            link.href = this.siteSettings.prospekt_file;
+            
+            // Wyciągnij nazwę pliku z URL
+            const fileName = this.siteSettings.prospekt_file.split('/').pop() || 'prospekt-harmonia-rzaska.pdf';
+            link.download = fileName;
             link.target = '_blank';
             
             // Dodaj link do DOM, kliknij i usuń
@@ -851,7 +861,7 @@ class HarmoniaApp {
             document.body.removeChild(link);
             
             this.showToast('Prospekt informacyjny został pobrany!', 'success');
-            console.log('📄 Prospect downloaded successfully');
+            console.log('📄 Prospect downloaded successfully from CMS:', this.siteSettings.prospekt_file);
         } catch (error) {
             console.error('❌ Error downloading prospect:', error);
             this.showToast('Błąd podczas pobierania prospektu. Spróbuj ponownie.', 'error');
