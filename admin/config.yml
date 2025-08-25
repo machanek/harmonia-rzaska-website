@@ -7,15 +7,6 @@ local_backend: true
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
-media_library:
-  name: netlify
-  config:
-    use_transforms: false
-    allowed_extensions:
-      - pdf
-      - doc
-      - docx
-
 collections:
   - name: "site_settings"
     label: "Ustawienia strony"
@@ -36,7 +27,7 @@ collections:
       - {label: "Telefon", name: "phone", widget: "string"}
       - {label: "E-mail", name: "email", widget: "string"}
       - {label: "Adres", name: "address", widget: "text"}
-      - {label: "Prospekt informacyjny", name: "prospekt_file", widget: "file", required: false, hint: "Plik prospektu (PDF, DOC, DOCX)", default: "/images/uploads/prospekt-harmonia-rzaska.pdf"}
+      - {label: "Prospekt informacyjny", name: "prospekt_file", widget: "string", required: false, hint: "Ścieżka do pliku prospektu (PDF, DOC, DOCX) - np. /images/uploads/prospekt-harmonia-rzaska.pdf", default: "/images/uploads/prospekt-harmonia-rzaska.pdf"}
 
   - name: "units"
     label: "Lokale"
