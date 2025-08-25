@@ -18,6 +18,8 @@
   to = "/success.html"
   status = 200
 
+
+
 # Contact form handling - functions are automatically available at /.netlify/functions/
 
 # Form configuration

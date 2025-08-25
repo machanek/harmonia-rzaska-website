@@ -125,6 +125,18 @@
     <!-- Skip to content link for screen readers -->
     <a href="#main-content" class="skip-link">Przejdź do treści</a>
     
+    <!-- Hidden form for Netlify Forms detection during build -->
+    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+        <input type="text" name="name" />
+        <input type="email" name="email" />
+        <input type="tel" name="phone" />
+        <input type="text" name="subject" />
+        <textarea name="message"></textarea>
+        <input type="checkbox" name="consent" />
+        <input type="checkbox" name="marketing" />
+        <input type="hidden" name="g-recaptcha-response" />
+    </form>
+    
     <!-- Header -->
     <header class="header" id="header">
         <div class="container">
@@ -246,7 +258,7 @@
                         <h3>Skontaktuj się z nami</h3>
                         <p>Masz pytania o dostępne lokale? Chcesz umówić się na prezentację? Napisz do nas!</p>
                         
-                                                 <form name="contact" method="POST" action="/success" data-netlify="true" netlify-honeypot="bot-field" class="contact-form" id="contactForm">
+                                                 <form name="contact" method="POST" action="/" netlify-honeypot="bot-field" data-netlify-success="/success" class="contact-form" id="contactForm">
                             <input type="hidden" name="form-name" value="contact" />
                             <p class="hidden">
                                 <label>Nie wypełniaj tego pola: <input name="bot-field" /></label>
@@ -587,7 +599,7 @@
     </div>
 
     <!-- JavaScript -->
-         <script src="js/app.js?v=20241202t"></script>
+         <script src="js/app.js?v=20241202u"></script>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     
     <!-- Service Worker Registration -->

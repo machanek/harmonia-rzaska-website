@@ -985,6 +985,7 @@ class HarmoniaApp {
         
         if (!form || !submitBtn) return;
         
+        // Add reCAPTCHA token before submission
         form.addEventListener('submit', async (e) => {
             // Validate form first
             if (!this.validateContactForm()) {
@@ -1002,10 +1003,9 @@ class HarmoniaApp {
             
             try {
                 // Get reCAPTCHA v3 token
-                let recaptchaToken = '';
                 if (typeof grecaptcha !== 'undefined') {
                     try {
-                        recaptchaToken = await grecaptcha.execute('6Lc1sK8rAAAAAFvcqHK72bEpkcT7xUtbowTMD4f7', {action: 'contact_form'});
+                        const recaptchaToken = await grecaptcha.execute('6Lc1sK8rAAAAAFvcqHK72bEpkcT7xUtbowTMD4f7', {action: 'contact_form'});
                         // Add reCAPTCHA response to form
                         const recaptchaInput = document.getElementById('recaptchaResponse');
                         if (recaptchaInput) {
@@ -1016,8 +1016,8 @@ class HarmoniaApp {
                     }
                 }
                 
-                // Let Netlify handle the form submission
-                // Form will submit to our function which will redirect to /success
+                // Let Netlify Forms handle the submission naturally
+                // Form will submit to / and Netlify will process it
                 
             } catch (error) {
                 console.error('Contact form error:', error);

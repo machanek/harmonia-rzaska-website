@@ -6,9 +6,23 @@ Formularz kontaktowy jest skonfigurowany do używania Netlify Forms z webhookiem
 
 ### 1. Konfiguracja formularza
 
-Formularz w `index.html`:
+**Ukryty formularz** (na początku HTML dla wykrycia przez Netlify podczas builda):
 ```html
-<form name="contact" method="POST" action="/success" data-netlify="true" netlify-honeypot="bot-field" class="contact-form" id="contactForm">
+<form name="contact" netlify netlify-honeypot="bot-field" hidden>
+    <input type="text" name="name" />
+    <input type="email" name="email" />
+    <input type="tel" name="phone" />
+    <input type="text" name="subject" />
+    <textarea name="message"></textarea>
+    <input type="checkbox" name="consent" />
+    <input type="checkbox" name="marketing" />
+    <input type="hidden" name="g-recaptcha-response" />
+</form>
+```
+
+**Główny formularz** (widoczny dla użytkowników):
+```html
+<form name="contact" method="POST" action="/" netlify-honeypot="bot-field" data-netlify-success="/success" class="contact-form" id="contactForm">
 ```
 
 ### 2. Konfiguracja w netlify.toml
@@ -45,7 +59,8 @@ Funkcja `netlify/functions/form-webhook.js` automatycznie:
 ### 4. Jak to działa
 
 1. **Użytkownik wypełnia formularz** i klika "Wyślij"
-2. **Netlify automatycznie przetwarza formularz** (dzięki `data-netlify="true"`)
+2. **JavaScript waliduje dane** i dodaje token reCAPTCHA
+3. **Netlify automatycznie przetwarza formularz** (dzięki ukrytemu formularzowi wykrytemu podczas builda)
 3. **Netlify wywołuje webhook** `/.netlify/functions/form-webhook`
 4. **Funkcja webhook zapisuje dane** do pliku JSON
 5. **Użytkownik jest przekierowany** na `/success` (która prowadzi do `success.html`)
