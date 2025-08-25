@@ -73,30 +73,31 @@ self.addEventListener('fetch', (event) => {
     const { request } = event;
     const url = new URL(request.url);
     
+    // NIE przechwytuj nic poza GET – pozwól Netlify obsłużyć formularze (POST)
+    if (request.method !== 'GET') return;
+    
     // Strategia cache'owania dla różnych typów zasobów
-    if (request.method === 'GET') {
-        // Statyczne zasoby - Cache First
-        if (STATIC_ASSETS.includes(url.pathname) || 
-            url.pathname.startsWith('/css/') || 
-            url.pathname.startsWith('/js/') ||
-            url.pathname.startsWith('/assets/')) {
-            
-            event.respondWith(cacheFirst(request, STATIC_CACHE));
-        }
-        // API requests - Network First z fallback
-        else if (url.pathname.startsWith('/data/') || 
-                 url.pathname.startsWith('/.netlify/functions/')) {
-            
-            event.respondWith(networkFirst(request, DYNAMIC_CACHE));
-        }
-        // HTML pages - Network First
-        else if (request.headers.get('accept').includes('text/html')) {
-            event.respondWith(networkFirst(request, DYNAMIC_CACHE));
-        }
-        // Pozostałe - Network First
-        else {
-            event.respondWith(networkFirst(request, DYNAMIC_CACHE));
-        }
+    // Statyczne zasoby - Cache First
+    if (STATIC_ASSETS.includes(url.pathname) || 
+        url.pathname.startsWith('/css/') || 
+        url.pathname.startsWith('/js/') ||
+        url.pathname.startsWith('/assets/')) {
+        
+        event.respondWith(cacheFirst(request, STATIC_CACHE));
+    }
+    // API requests - Network First z fallback
+    else if (url.pathname.startsWith('/data/') || 
+             url.pathname.startsWith('/.netlify/functions/')) {
+        
+        event.respondWith(networkFirst(request, DYNAMIC_CACHE));
+    }
+    // HTML pages - Network First
+    else if (request.headers.get('accept').includes('text/html')) {
+        event.respondWith(networkFirst(request, DYNAMIC_CACHE));
+    }
+    // Pozostałe - Network First
+    else {
+        event.respondWith(networkFirst(request, DYNAMIC_CACHE));
     }
 });
 
