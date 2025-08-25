@@ -135,16 +135,30 @@ class HarmoniaApp {
         ];
         
         console.log('🔍 Próba ładowania plików z folderu data/units/ (CMS Netlify)');
+        console.log('📁 Protokół:', window.location.protocol);
+        console.log('🌐 URL:', window.location.href);
         
         for (const filename of unitFiles) {
             try {
                 console.log(`📁 Ładowanie: ${filename}`);
                 const timestamp = Date.now();
-                const response = await fetch(`data/units/${filename}?t=${timestamp}`);
+                const url = `data/units/${filename}?t=${timestamp}`;
+                console.log(`🔗 URL: ${url}`);
+                
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Cache-Control': 'no-cache'
+                    }
+                });
+                
                 console.log(`📊 Status dla ${filename}:`, response.status, response.statusText);
                 
                 if (response.ok) {
                     const unit = await response.json();
+                    console.log(`✅ Surowe dane ${filename}:`, unit);
+                    
                     // Normalizuj status z CMS Netlify do formatu aplikacji
                     const normalizedUnit = {
                         ...unit,
@@ -158,6 +172,8 @@ class HarmoniaApp {
                     console.log(`✅ Załadowano: ${filename}`, normalizedUnit);
                 } else {
                     console.error(`❌ Błąd dla ${filename}:`, response.status, response.statusText);
+                    // Spróbuj załadować z fallback
+                    console.log(`🔄 Próba fallback dla ${filename}`);
                 }
             } catch (error) {
                 console.error(`💥 Wyjątek dla ${filename}:`, error);
@@ -174,7 +190,7 @@ class HarmoniaApp {
             return this.getFallbackData();
         }
         
-        return units.sort((a, b) => a.id - b.id);
+        return units.sort((a, b) => a.id.localeCompare(b.id));
     }
 
     // Normalizuj status z CMS Netlify do formatu aplikacji
@@ -1708,6 +1724,77 @@ window.checkCMSStatus = async () => {
     }
 };
 
+// Funkcja do testowania dostępności plików JSON
+window.testJSONFiles = async () => {
+    console.log('🧪 Test: Sprawdzanie dostępności plików JSON...');
+    
+    const files = ['1-a-1.json', '2-a-2.json', '3-a-3.json', '4-b-1.json', '5-b-2.json'];
+    const results = [];
+    
+    for (const file of files) {
+        try {
+            console.log(`📁 Testuję: ${file}`);
+            const response = await fetch(`/data/units/${file}`);
+            const result = {
+                file,
+                status: response.status,
+                ok: response.ok,
+                statusText: response.statusText
+            };
+            
+            if (response.ok) {
+                const data = await response.json();
+                result.data = data;
+                console.log(`✅ ${file}:`, data);
+            } else {
+                console.error(`❌ ${file}:`, response.status, response.statusText);
+            }
+            
+            results.push(result);
+        } catch (error) {
+            console.error(`💥 ${file} error:`, error);
+            results.push({
+                file,
+                status: 'ERROR',
+                ok: false,
+                error: error.message
+            });
+        }
+    }
+    
+    console.log('📊 Wyniki testu:', results);
+    return results;
+};
+
+// Funkcja do wymuszenia ładowania danych
+window.forceLoadData = async () => {
+    console.log('🚀 Wymuszanie ładowania danych...');
+    
+    if (!window.app) {
+        console.error('❌ Aplikacja nie jest zainicjalizowana');
+        return;
+    }
+    
+    try {
+        // Wyczyść dane
+        window.app.units = [];
+        window.app.filteredUnits = [];
+        
+        // Załaduj ponownie
+        await window.app.loadUnits();
+        
+        console.log('✅ Dane załadowane:', window.app.units.length, 'jednostek');
+        
+        // Renderuj
+        window.app.renderUnits();
+        
+        console.log('✅ Renderowanie zakończone');
+        
+    } catch (error) {
+        console.error('❌ Błąd wymuszania ładowania:', error);
+    }
+};
+
 /*
 FUNKCJE DEBUG DLA ADMINISTRATORÓW:
 - checkConnectionStatus() - sprawdza stan połączenia z internetem
@@ -1718,6 +1805,8 @@ FUNKCJE DEBUG DLA ADMINISTRATORÓW:
 - checkAppStatus() - sprawdza stan aplikacji i elementów DOM
 - testDataLoading() - testuje ładowanie danych lokali
 - checkCMSStatus() - sprawdza status CMS Netlify
+- testJSONFiles() - testuje dostępność plików JSON
+- forceLoadData() - wymusza ponowne ładowanie danych
 
 Użycie w konsoli przeglądarki (F12):
 checkConnectionStatus()
@@ -1728,4 +1817,6 @@ emergencyRender()
 checkAppStatus()
 testDataLoading()
 checkCMSStatus()
+testJSONFiles()
+forceLoadData()
 */
