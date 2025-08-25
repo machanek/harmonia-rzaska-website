@@ -125,7 +125,7 @@ class HarmoniaApp {
 
     async loadUnitsFromFolder() {
         const units = [];
-        // Lista plików jednostek w folderze data/units/
+        // Lista plików jednostek w folderze data/units/ (zarządzane przez CMS Netlify)
         const unitFiles = [
             '1-a-1.json',
             '2-a-2.json', 
@@ -134,7 +134,7 @@ class HarmoniaApp {
             '5-b-2.json'
         ];
         
-        console.log('🔍 Próba ładowania plików z folderu data/units/');
+        console.log('🔍 Próba ładowania plików z folderu data/units/ (CMS Netlify)');
         
         for (const filename of unitFiles) {
             try {
@@ -145,8 +145,17 @@ class HarmoniaApp {
                 
                 if (response.ok) {
                     const unit = await response.json();
-                    units.push(unit);
-                    console.log(`✅ Załadowano: ${filename}`, unit);
+                    // Normalizuj status z CMS Netlify do formatu aplikacji
+                    const normalizedUnit = {
+                        ...unit,
+                        status: this.normalizeStatus(unit.status),
+                        pietro: parseInt(unit.pietro) || 0,
+                        powierzchnia: parseFloat(unit.powierzchnia) || 0,
+                        cena: parseInt(unit.cena) || 0,
+                        cena_m2: parseInt(unit.cena_m2) || Math.round(unit.cena / unit.powierzchnia) || 0
+                    };
+                    units.push(normalizedUnit);
+                    console.log(`✅ Załadowano: ${filename}`, normalizedUnit);
                 } else {
                     console.error(`❌ Błąd dla ${filename}:`, response.status, response.statusText);
                 }
@@ -157,8 +166,91 @@ class HarmoniaApp {
             }
         }
         
-        console.log(`📋 Łącznie załadowano: ${units.length} jednostek`);
+        console.log(`📋 Łącznie załadowano: ${units.length} jednostek z CMS`);
+        
+        // Jeśli nie ma danych z CMS, użyj przykładowych danych
+        if (units.length === 0) {
+            console.log('⚠️ Brak danych z CMS - używam przykładowych danych');
+            return this.getFallbackData();
+        }
+        
         return units.sort((a, b) => a.id - b.id);
+    }
+
+    // Normalizuj status z CMS Netlify do formatu aplikacji
+    normalizeStatus(cmsStatus) {
+        const statusMap = {
+            'wolny': 'WOLNE',
+            'sprzedany': 'SPRZEDANE', 
+            'zarezerwowany': 'REZERWACJA'
+        };
+        return statusMap[cmsStatus] || cmsStatus;
+    }
+
+    // Przykładowe dane jako fallback gdy CMS jest pusty
+    getFallbackData() {
+        return [
+            {
+                id: "1-a-1",
+                nr_budynku: "A",
+                nr_lokalu: "1",
+                pietro: 1,
+                powierzchnia: 85.5,
+                dodatki: "Balkon, komórka lokatorska",
+                cena: 850000,
+                cena_m2: 9942,
+                status: "WOLNE",
+                plan_url: "/assets/plans/1-a-1.pdf"
+            },
+            {
+                id: "2-a-2",
+                nr_budynku: "A",
+                nr_lokalu: "2",
+                pietro: 2,
+                powierzchnia: 95.2,
+                dodatki: "Balkon, komórka lokatorska, garaż",
+                cena: 920000,
+                cena_m2: 9664,
+                status: "REZERWACJA",
+                plan_url: "/assets/plans/2-a-2.pdf"
+            },
+            {
+                id: "3-a-3",
+                nr_budynku: "A",
+                nr_lokalu: "3",
+                pietro: 3,
+                powierzchnia: 110.8,
+                dodatki: "Taras, komórka lokatorska, garaż",
+                cena: 1050000,
+                cena_m2: 9477,
+                status: "WOLNE",
+                plan_url: "/assets/plans/3-a-3.pdf"
+            },
+            {
+                id: "4-b-1",
+                nr_budynku: "B",
+                nr_lokalu: "1",
+                pietro: 0,
+                powierzchnia: 75.3,
+                dodatki: "Ogródek, komórka lokatorska",
+                cena: 720000,
+                cena_m2: 9562,
+                status: "SPRZEDANE",
+                plan_url: "/assets/plans/4-b-1.json"
+            },
+            {
+                id: "5-b-2",
+                nr_budynku: "B",
+                nr_lokalu: "2",
+                pietro: 1,
+                powierzchnia: 88.7,
+                dodatki: "Balkon, komórka lokatorska",
+                cena: 850000,
+                cena_m2: 9583,
+                status: "WOLNE",
+                plan_url: "/assets/plans/5-b-2.pdf"
+            }
+        ];
     }
 
     getSeedData() {
@@ -1511,6 +1603,111 @@ window.checkAppStatus = () => {
     };
 };
 
+// Funkcja do testowania ładowania danych
+window.testDataLoading = async () => {
+    console.log('🧪 Test: Sprawdzanie ładowania danych...');
+    
+    try {
+        // Test pojedynczego pliku
+        const response = await fetch('/data/units/1-a-1.json');
+        console.log('📁 Status 1-a-1.json:', response.status, response.statusText);
+        
+        if (response.ok) {
+            const data = await response.json();
+            console.log('✅ Dane 1-a-1.json:', data);
+        } else {
+            console.error('❌ Błąd ładowania 1-a-1.json');
+        }
+        
+        // Test wszystkich plików
+        const files = ['1-a-1.json', '2-a-2.json', '3-a-3.json', '4-b-1.json', '5-b-2.json'];
+        const results = [];
+        
+        for (const file of files) {
+            try {
+                const resp = await fetch(`/data/units/${file}`);
+                results.push({
+                    file,
+                    status: resp.status,
+                    ok: resp.ok
+                });
+            } catch (error) {
+                results.push({
+                    file,
+                    status: 'ERROR',
+                    ok: false,
+                    error: error.message
+                });
+            }
+        }
+        
+        console.log('📊 Wyniki testu wszystkich plików:', results);
+        
+        // Sprawdź czy aplikacja ma dane
+        if (window.app) {
+            console.log('📋 App units count:', window.app.units.length);
+            console.log('🔍 App filtered units count:', window.app.filteredUnits.length);
+            
+            if (window.app.units.length === 0) {
+                console.log('🔄 Próba ponownego załadowania...');
+                await window.app.loadUnits();
+                console.log('✅ Po ponownym załadowaniu:', window.app.units.length, 'jednostek');
+            }
+        }
+        
+    } catch (error) {
+        console.error('❌ Błąd testu ładowania danych:', error);
+    }
+};
+
+// Funkcja do sprawdzania CMS Netlify
+window.checkCMSStatus = async () => {
+    console.log('🔍 Sprawdzanie statusu CMS Netlify...');
+    
+    try {
+        // Sprawdź ustawienia strony
+        const settingsResponse = await fetch('/data/site_settings/site-settings.json');
+        console.log('📋 Site settings status:', settingsResponse.status, settingsResponse.statusText);
+        
+        if (settingsResponse.ok) {
+            const settings = await settingsResponse.json();
+            console.log('✅ Site settings:', settings);
+        }
+        
+        // Sprawdź dostępność admin panel
+        const adminResponse = await fetch('/admin/');
+        console.log('🔧 Admin panel status:', adminResponse.status, adminResponse.statusText);
+        
+        // Sprawdź przykładowy plik lokalu
+        const unitResponse = await fetch('/data/units/1-a-1.json');
+        console.log('🏠 Sample unit status:', unitResponse.status, unitResponse.statusText);
+        
+        if (unitResponse.ok) {
+            const unit = await unitResponse.json();
+            console.log('✅ Sample unit data:', unit);
+            console.log('📊 Status mapping:', {
+                original: unit.status,
+                normalized: window.app ? window.app.normalizeStatus(unit.status) : 'N/A'
+            });
+        }
+        
+        // Sprawdź konfigurację CMS
+        const configResponse = await fetch('/admin/config.yml');
+        console.log('⚙️ CMS config status:', configResponse.status, configResponse.statusText);
+        
+        return {
+            siteSettings: settingsResponse.ok,
+            adminPanel: adminResponse.ok,
+            sampleUnit: unitResponse.ok,
+            cmsConfig: configResponse.ok
+        };
+        
+    } catch (error) {
+        console.error('❌ Błąd sprawdzania CMS:', error);
+        return { error: error.message };
+    }
+};
+
 /*
 FUNKCJE DEBUG DLA ADMINISTRATORÓW:
 - checkConnectionStatus() - sprawdza stan połączenia z internetem
@@ -1519,6 +1716,8 @@ FUNKCJE DEBUG DLA ADMINISTRATORÓW:
 - testFetch() - testuje dostępność plików JSON
 - emergencyRender() - awaryjne renderowanie tabeli
 - checkAppStatus() - sprawdza stan aplikacji i elementów DOM
+- testDataLoading() - testuje ładowanie danych lokali
+- checkCMSStatus() - sprawdza status CMS Netlify
 
 Użycie w konsoli przeglądarki (F12):
 checkConnectionStatus()
@@ -1527,4 +1726,6 @@ debugUnits()
 testFetch()
 emergencyRender()
 checkAppStatus()
+testDataLoading()
+checkCMSStatus()
 */

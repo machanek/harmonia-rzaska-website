@@ -1,13 +1,12 @@
 {
-  "id": 3,
+  "id": "3-a-3",
   "nr_budynku": "A",
   "nr_lokalu": "3",
-  "pietro": 2,
-  "powierzchnia": 48.5,
-  "dodatki": "Balkon 6m²",
-  "cena": 310000,
-  "cena_m2": 6392,
-  "status": "wolny",
-  "plan_url": "https://example.com/plan-a3.jpg",
-  "opis": "Mieszkanie na drugim piętrze z widokiem na park"
+  "pietro": 3,
+  "powierzchnia": 110.8,
+  "dodatki": "Taras, komórka lokatorska, garaż",
+  "cena": 1050000,
+  "cena_m2": 9477,
+  "status": "WOLNE",
+  "plan_url": "/assets/plans/3-a-3.pdf"
 }

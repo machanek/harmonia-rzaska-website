@@ -1,13 +1,12 @@
 {
-  "id": 2,
+  "id": "2-a-2",
   "nr_budynku": "A",
   "nr_lokalu": "2",
-  "pietro": 1,
-  "powierzchnia": 52.8,
-  "dodatki": "Balkon 10m², piwnica",
-  "cena": 335000,
-  "cena_m2": 6345,
-  "status": "sprzedany",
-  "plan_url": "https://example.com/plan-a2.jpg",
-  "opis": "Duże mieszkanie z dodatkową piwnicą, doskonałe dla rodziny"
+  "pietro": 2,
+  "powierzchnia": 95.2,
+  "dodatki": "Balkon, komórka lokatorska, garaż",
+  "cena": 920000,
+  "cena_m2": 9664,
+  "status": "REZERWACJA",
+  "plan_url": "/assets/plans/2-a-2.pdf"
 }
