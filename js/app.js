@@ -1,5 +1,16 @@
 // App.js - Complete functionality for Harmonia Rząska website
 
+// Safe console logging
+const safeLog = (message, type = 'log') => {
+    try {
+        if (console && console[type]) {
+            console[type](message);
+        }
+    } catch (e) {
+        // Silent fail
+    }
+};
+
 class HarmoniaApp {
     constructor() {
         safeLog('🏗️ HarmoniaApp constructor called');
@@ -37,9 +48,6 @@ class HarmoniaApp {
     async init() {
         try {
             console.log('🏗️ Initializing HarmoniaApp...');
-            
-            // Check for required DOM elements
-            this.checkRequiredElements();
             
             // Load data
             await this.loadUnits();
@@ -1396,17 +1404,6 @@ if (typeof console === 'undefined' || !console.log) {
     };
 }
 
-// Safe console logging
-const safeLog = (message, type = 'log') => {
-    try {
-        if (console && console[type]) {
-            console[type](message);
-        }
-    } catch (e) {
-        // Silent fail
-    }
-};
-
 document.addEventListener('DOMContentLoaded', () => {
     try {
         safeLog('🌟 Starting Harmonia Rząska website...');
@@ -1769,29 +1766,50 @@ window.testJSONFiles = async () => {
 // Funkcja do wymuszenia ładowania danych
 window.forceLoadData = async () => {
     console.log('🚀 Wymuszanie ładowania danych...');
-    
+
     if (!window.app) {
         console.error('❌ Aplikacja nie jest zainicjalizowana');
+        console.log('🔍 Sprawdzanie stanu aplikacji...');
+        console.log('window.app:', window.app);
+        console.log('document.readyState:', document.readyState);
+        console.log('HarmoniaApp:', typeof HarmoniaApp);
         return;
     }
-    
+
     try {
         // Wyczyść dane
         window.app.units = [];
         window.app.filteredUnits = [];
-        
+
         // Załaduj ponownie
         await window.app.loadUnits();
-        
+
         console.log('✅ Dane załadowane:', window.app.units.length, 'jednostek');
-        
+
         // Renderuj
         window.app.renderUnits();
-        
+
         console.log('✅ Renderowanie zakończone');
-        
+
     } catch (error) {
         console.error('❌ Błąd wymuszania ładowania:', error);
+    }
+};
+
+// Funkcja do sprawdzenia inicjalizacji aplikacji
+window.checkAppInit = () => {
+    console.log('🔍 Sprawdzanie inicjalizacji aplikacji...');
+    console.log('window.app:', window.app);
+    console.log('document.readyState:', document.readyState);
+    console.log('HarmoniaApp:', typeof HarmoniaApp);
+    console.log('safeLog:', typeof safeLog);
+    
+    if (window.app) {
+        console.log('✅ Aplikacja zainicjalizowana');
+        console.log('📊 Liczba jednostek:', window.app.units.length);
+        console.log('📊 Liczba przefiltrowanych:', window.app.filteredUnits.length);
+    } else {
+        console.log('❌ Aplikacja nie zainicjalizowana');
     }
 };
 
@@ -1807,6 +1825,7 @@ FUNKCJE DEBUG DLA ADMINISTRATORÓW:
 - checkCMSStatus() - sprawdza status CMS Netlify
 - testJSONFiles() - testuje dostępność plików JSON
 - forceLoadData() - wymusza ponowne ładowanie danych
+- checkAppInit() - sprawdza inicjalizację aplikacji
 
 Użycie w konsoli przeglądarki (F12):
 checkConnectionStatus()
@@ -1819,4 +1838,5 @@ testDataLoading()
 checkCMSStatus()
 testJSONFiles()
 forceLoadData()
+checkAppInit()
 */

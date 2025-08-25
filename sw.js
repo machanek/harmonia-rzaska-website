@@ -8,7 +8,7 @@ const STATIC_ASSETS = [
     '/',
     '/index.html',
     '/js/app.js',
-    '/css/style.css',
+    '/css/styles.css',
     '/assets/logo-harmonia-rzaska.svg',
     '/assets/favicon-32x32.svg',
     '/assets/android-chrome-192x192.svg',
