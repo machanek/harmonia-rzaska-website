@@ -1961,6 +1961,26 @@ p {
     color: var(--white);
 }
 
+.offline-indicator .offline-close-btn {
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 18px;
+    cursor: pointer;
+    margin-left: 10px;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s ease;
+}
+
+.offline-indicator .offline-close-btn:hover {
+    opacity: 0.8;
+}
+
 /* PWA animations */
 @keyframes slideUp {
     from {

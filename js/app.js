@@ -1200,20 +1200,66 @@ class HarmoniaApp {
         
         if (!offlineIndicator) return;
         
-        const updateOnlineStatus = () => {
-            if (navigator.onLine) {
+        // Sprawdź czy użytkownik wyłączył komunikat offline
+        const offlineIndicatorDisabled = this.getCookie('offlineIndicatorDisabled');
+        if (offlineIndicatorDisabled === 'true') {
+            return; // Nie pokazuj komunikatu
+        }
+        
+        // Dodaj przycisk zamknięcia
+        const closeButton = document.createElement('button');
+        closeButton.innerHTML = '&times;';
+        closeButton.className = 'offline-close-btn';
+        closeButton.style.cssText = `
+            background: none; border: none; color: white; 
+            font-size: 18px; cursor: pointer; margin-left: 10px;
+            padding: 0; width: 20px; height: 20px; display: flex;
+            align-items: center; justify-content: center;
+        `;
+        offlineIndicator.appendChild(closeButton);
+        
+        // Funkcja sprawdzania połączenia z internetem
+        const checkConnection = async () => {
+            try {
+                // Sprawdź czy jest połączenie z internetem
+                const response = await fetch('/data/site_settings/site-settings.json', {
+                    method: 'HEAD',
+                    cache: 'no-cache',
+                    timeout: 3000
+                });
+                return response.ok;
+            } catch (error) {
+                return false;
+            }
+        };
+        
+        const updateOnlineStatus = async () => {
+            // Sprawdź zarówno navigator.onLine jak i rzeczywiste połączenie
+            const isOnline = navigator.onLine && await checkConnection();
+            
+            if (isOnline) {
                 offlineIndicator.classList.remove('show');
             } else {
                 offlineIndicator.classList.add('show');
             }
         };
         
-        // Initial check
-        updateOnlineStatus();
+        // Obsługa zamknięcia komunikatu
+        closeButton.addEventListener('click', () => {
+            offlineIndicator.classList.remove('show');
+            // Zapisz preferencję użytkownika
+            this.setCookie('offlineIndicatorDisabled', 'true', 30); // 30 dni
+        });
+        
+        // Initial check z opóźnieniem
+        setTimeout(updateOnlineStatus, 1000);
         
         // Listen for online/offline events
         window.addEventListener('online', updateOnlineStatus);
         window.addEventListener('offline', updateOnlineStatus);
+        
+        // Dodatkowe sprawdzanie co 30 sekund
+        setInterval(updateOnlineStatus, 30000);
     }
 
     // Initialize Lucide icons
@@ -1365,3 +1411,47 @@ window.testFetch = async () => {
         }
     }
 };
+
+// Funkcja do resetowania ustawień offline indicator
+window.resetOfflineIndicator = () => {
+    if (app) {
+        app.setCookie('offlineIndicatorDisabled', 'false', -1); // Usuń cookie
+        console.log('✅ Offline indicator settings reset');
+        this.showToast('Ustawienia komunikatu offline zostały zresetowane', 'success');
+        // Przeładuj stronę aby zastosować zmiany
+        setTimeout(() => window.location.reload(), 1000);
+    }
+};
+
+// Funkcja do sprawdzania stanu połączenia
+window.checkConnectionStatus = async () => {
+    console.log('🌐 Sprawdzanie stanu połączenia...');
+    console.log('📱 navigator.onLine:', navigator.onLine);
+    
+    try {
+        const response = await fetch('/data/site_settings/site-settings.json', {
+            method: 'HEAD',
+            cache: 'no-cache',
+            timeout: 3000
+        });
+        console.log('✅ Połączenie z serwerem:', response.ok, response.status);
+        return response.ok;
+    } catch (error) {
+        console.log('❌ Błąd połączenia:', error.message);
+        return false;
+    }
+};
+
+/*
+FUNKCJE DEBUG DLA ADMINISTRATORÓW:
+- checkConnectionStatus() - sprawdza stan połączenia z internetem
+- resetOfflineIndicator() - resetuje ustawienia komunikatu offline
+- debugUnits() - sprawdza stan załadowanych jednostek
+- testFetch() - testuje dostępność plików JSON
+
+Użycie w konsoli przeglądarki (F12):
+checkConnectionStatus()
+resetOfflineIndicator()
+debugUnits()
+testFetch()
+*/
