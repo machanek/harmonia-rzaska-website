@@ -1,79 +1,82 @@
 const fs = require('fs');
 const path = require('path');
 
-exports.handler = async function(event, context) {
-    // Only allow POST
+exports.handler = async (event, context) => {
+    // Sprawdź czy to jest webhook z Netlify Forms
     if (event.httpMethod !== 'POST') {
-        return { statusCode: 405, body: 'Method Not Allowed' };
+        return {
+            statusCode: 405,
+            body: JSON.stringify({ error: 'Method not allowed' })
+        };
     }
 
     try {
-        // Parse the webhook payload
-        const payload = JSON.parse(event.body);
+        // Parsuj dane z webhooka Netlify Forms
+        const formData = JSON.parse(event.body);
         
-        // Check if this is a form submission
-        if (payload.event_type !== 'form_submission') {
+        // Sprawdź czy to jest formularz kontaktowy
+        if (formData.form_name !== 'contact') {
             return {
-                statusCode: 200,
-                body: JSON.stringify({ message: 'Not a form submission' })
+                statusCode: 400,
+                body: JSON.stringify({ error: 'Invalid form name' })
             };
         }
 
-        const formData = payload.data;
-        
-        // Check if this is our contact form
-        if (formData.name !== 'contact') {
-            return {
-                statusCode: 200,
-                body: JSON.stringify({ message: 'Not a contact form submission' })
-            };
-        }
-
-        // Process form data
-        const timestamp = new Date().toISOString();
-        const messageId = Date.now();
-        
+        // Przygotuj dane kontaktowe
         const contactData = {
-            id: messageId,
-            name: formData.name || 'Brak nazwy',
-            email: formData.email || 'brak@email.com',
-            phone: formData.phone || 'Brak telefonu',
-            subject: formData.subject || 'Kontakt z formularza',
-            message: formData.message || 'Brak wiadomości',
-            consent: formData.consent === 'on' || formData.consent === true,
-            marketing: formData.marketing === 'on' || formData.marketing === true,
-            timestamp: timestamp,
-            status: 'new',
-            notes: ''
+            id: generateMessageId(),
+            timestamp: new Date().toISOString(),
+            name: formData.data.name || '',
+            email: formData.data.email || '',
+            phone: formData.data.phone || '',
+            message: formData.data.message || '',
+            consent: formData.data.consent || false,
+            status: 'nowa',
+            notes: '',
+            source: 'form-webhook'
         };
 
-        // Save message to file for CMS
-        try {
-            const messagesDir = path.join(process.cwd(), 'data', 'contact_messages');
-            
-            // Create directory if it doesn't exist
-            if (!fs.existsSync(messagesDir)) {
-                fs.mkdirSync(messagesDir, { recursive: true });
-            }
-            
-            // Format filename for CMS compatibility
-            const safeName = contactData.name.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
-            const filename = `${timestamp.split('T')[0]}-${safeName}-${messageId}.json`;
-            const filepath = path.join(messagesDir, filename);
-            
-            fs.writeFileSync(filepath, JSON.stringify(contactData, null, 2));
-            console.log('Message saved to CMS file via webhook:', filepath);
-        } catch (fileError) {
-            console.error('Error saving message to CMS file via webhook:', fileError);
+        // Sprawdź czy wszystkie wymagane pola są wypełnione
+        if (!contactData.name || !contactData.email || !contactData.phone || !contactData.message) {
+            console.error('Missing required fields:', contactData);
+            return {
+                statusCode: 400,
+                body: JSON.stringify({ error: 'Missing required fields' })
+            };
         }
+
+        // Utwórz bezpieczną nazwę pliku
+        const safeName = contactData.name
+            .toLowerCase()
+            .replace(/[^a-z0-9]/g, '-')
+            .replace(/-+/g, '-')
+            .replace(/^-|-$/g, '');
+        
+        const timestamp = contactData.timestamp.split('T')[0];
+        const filename = `${timestamp}-${safeName}-${contactData.id}.json`;
+        const filepath = path.join(process.cwd(), 'data', 'contact_messages', filename);
+
+        // Upewnij się, że katalog istnieje
+        const dir = path.dirname(filepath);
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, { recursive: true });
+        }
+
+        // Zapisz wiadomość do pliku JSON
+        fs.writeFileSync(filepath, JSON.stringify(contactData, null, 2), 'utf8');
+        
+        console.log('Contact message saved via webhook:', filename);
+        console.log('Contact form submission:', contactData);
 
         return {
             statusCode: 200,
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': 'Content-Type'
             },
             body: JSON.stringify({
-                message: 'Webhook processed successfully',
+                message: 'Form submitted successfully via webhook',
                 data: contactData
             })
         };
@@ -83,9 +86,18 @@ exports.handler = async function(event, context) {
         return {
             statusCode: 500,
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': 'Content-Type'
             },
-            body: JSON.stringify({ error: 'Internal server error' })
+            body: JSON.stringify({
+                error: 'Internal server error',
+                details: error.message
+            })
         };
     }
 };
+
+function generateMessageId() {
+    return 'msg_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+}

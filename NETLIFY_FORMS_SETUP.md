@@ -2,13 +2,13 @@
 
 ## Aktualna konfiguracja
 
-Formularz kontaktowy jest skonfigurowany do używania Netlify Functions z automatycznym zapisywaniem do CMS.
+Formularz kontaktowy jest skonfigurowany do używania Netlify Forms z webhookiem, który automatycznie zapisuje dane do CMS.
 
 ### 1. Konfiguracja formularza
 
 Formularz w `index.html`:
 ```html
-<form name="contact" method="POST" action="/.netlify/functions/contact-form" data-netlify="true" netlify-honeypot="bot-field" class="contact-form" id="contactForm">
+<form name="contact" method="POST" action="/success" data-netlify="true" netlify-honeypot="bot-field" class="contact-form" id="contactForm">
 ```
 
 ### 2. Konfiguracja w netlify.toml
@@ -22,6 +22,11 @@ Formularz w `index.html`:
     phone = { required = true }
     message = { required = true }
     consent = { required = true }
+  
+  # Webhook configuration for form submissions
+  [forms.webhook]
+    url = "/.netlify/functions/form-webhook"
+    event = "form_submission"
 
 [[redirects]]
   from = "/success"
@@ -29,52 +34,61 @@ Formularz w `index.html`:
   status = 200
 ```
 
-### 3. Funkcja contact-form.js
+### 3. Funkcja form-webhook.js
 
-Funkcja `netlify/functions/contact-form.js` automatycznie:
-- Odbiera dane z formularza
+Funkcja `netlify/functions/form-webhook.js` automatycznie:
+- Jest wywoływana przez Netlify po przesłaniu formularza
+- Odbiera dane z webhooka Netlify Forms
 - Zapisuje je do plików JSON w `data/contact_messages/`
 - Formatuje dane dla CMS Netlify
-- Przekierowuje na stronę sukcesu
 
 ### 4. Jak to działa
 
 1. **Użytkownik wypełnia formularz** i klika "Wyślij"
-2. **Formularz wysyła dane** do `/.netlify/functions/contact-form`
-3. **Funkcja przetwarza dane** i zapisuje do pliku JSON
-4. **Funkcja przekierowuje** na `/success` (która prowadzi do `success.html`)
-5. **Użytkownik widzi stronę sukcesu**
+2. **Netlify automatycznie przetwarza formularz** (dzięki `data-netlify="true"`)
+3. **Netlify wywołuje webhook** `/.netlify/functions/form-webhook`
+4. **Funkcja webhook zapisuje dane** do pliku JSON
+5. **Użytkownik jest przekierowany** na `/success` (która prowadzi do `success.html`)
+6. **Użytkownik widzi stronę sukcesu**
 
-### 5. Testowanie
+### 5. Zalety tego podejścia
+
+- **Wiadomości pojawiają się w panelu Netlify Forms** (sekcja "Forms")
+- **Automatyczne zapisywanie do CMS** bez dodatkowej konfiguracji
+- **Działa z wbudowaną obsługą formularzy Netlify**
+- **Nie wymaga ręcznej konfiguracji webhooków** w panelu Netlify
+
+### 6. Testowanie
 
 1. **Wyślij wiadomość** przez formularz kontaktowy
 2. **Sprawdź czy przekierowanie działa** - powinieneś zobaczyć stronę sukcesu
-3. **Sprawdź w CMS** (harmoniarzaska.netlify.app/admin > Wiadomości kontaktowe)
+3. **Sprawdź w panelu Netlify Forms** - wiadomość powinna być widoczna
+4. **Sprawdź w CMS** (harmoniarzaska.netlify.app/admin > Wiadomości kontaktowe)
 
-### 6. Rozwiązywanie problemów
+### 7. Rozwiązywanie problemów
 
 Jeśli wiadomości nie trafiają do CMS:
 
-1. **Sprawdź logi funkcji** w panelu Netlify (Functions > contact-form)
+1. **Sprawdź logi funkcji webhook** w panelu Netlify (Functions > form-webhook)
 2. **Sprawdź czy pliki są tworzone** w `data/contact_messages/`
 3. **Sprawdź czy formularz jest wykrywany** w panelu Netlify (Forms)
+4. **Sprawdź czy webhook jest skonfigurowany** w `netlify.toml`
 
-### 7. Struktura danych
+### 8. Struktura danych
 
 Każda wiadomość jest zapisywana jako plik JSON:
 ```json
 {
-  "id": 1703123456789,
+  "id": "msg_1703123456789_abc123def",
+  "timestamp": "2023-12-21T10:30:45.123Z",
   "name": "Jan Kowalski",
   "email": "jan@example.com",
   "phone": "123456789",
-  "subject": "Pytanie o mieszkanie",
   "message": "Treść wiadomości",
   "consent": true,
-  "marketing": false,
-  "timestamp": "2023-12-21T10:30:45.123Z",
-  "status": "new",
-  "notes": ""
+  "status": "nowa",
+  "notes": "",
+  "source": "form-webhook"
 }
 ```
 
@@ -86,14 +100,15 @@ Każda wiadomość jest zapisywana jako plik JSON:
 
 **KROK 3:** Przejdź do **Site settings** > **Forms**
 
-**KROK 4:** Sprawdź czy formularz "contact" jest widoczny
+**KROK 4:** Sprawdź czy formularz "contact" jest widoczny i czy są w nim wiadomości
 
-**KROK 5:** Przejdź do **Functions** i sprawdź czy `contact-form` jest aktywna
+**KROK 5:** Przejdź do **Functions** i sprawdź czy `form-webhook` jest aktywna
 
 **KROK 6:** Przejdź do **CMS** (harmoniarzaska.netlify.app/admin) i sprawdź zakładkę "Wiadomości kontaktowe"
 
 Po tej konfiguracji:
-- Formularz będzie działał przez Netlify Functions
-- Wiadomości będą automatycznie zapisywane do plików JSON
+- Formularz będzie działał przez Netlify Forms
+- Wiadomości będą automatycznie zapisywane do plików JSON przez webhook
+- Wiadomości będą widoczne w panelu Netlify Forms
 - CMS będzie mógł odczytywać wiadomości z plików
 - Użytkownik będzie przekierowywany na stronę sukcesu

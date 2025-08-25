@@ -29,6 +29,11 @@
     phone = { required = true }
     message = { required = true }
     consent = { required = true }
+  
+  # Webhook configuration for form submissions
+  [forms.webhook]
+    url = "/.netlify/functions/form-webhook"
+    event = "form_submission"
 
 # Admin panel
 [[redirects]]
