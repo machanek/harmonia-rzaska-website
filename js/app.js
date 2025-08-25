@@ -986,9 +986,9 @@ class HarmoniaApp {
         if (!form || !submitBtn) return;
         
         form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
+            // Validate form first
             if (!this.validateContactForm()) {
+                e.preventDefault();
                 return;
             }
             
@@ -1006,47 +1006,23 @@ class HarmoniaApp {
                 if (typeof grecaptcha !== 'undefined') {
                     try {
                         recaptchaToken = await grecaptcha.execute('6Lc1sK8rAAAAAFvcqHK72bEpkcT7xUtbowTMD4f7', {action: 'contact_form'});
+                        // Add reCAPTCHA response to form
+                        const recaptchaInput = document.getElementById('recaptchaResponse');
+                        if (recaptchaInput) {
+                            recaptchaInput.value = recaptchaToken;
+                        }
                     } catch (recaptchaError) {
                         console.warn('reCAPTCHA error:', recaptchaError);
                     }
                 }
                 
-                // Prepare form data
-                const formData = new FormData(form);
-                
-                // Add reCAPTCHA response
-                if (recaptchaToken) {
-                    formData.append('g-recaptcha-response', recaptchaToken);
-                }
-                
-                // Submit to Netlify Function
-                try {
-                    const response = await fetch('/.netlify/functions/contact-form', {
-                        method: 'POST',
-                        body: formData
-                    });
-                    
-                    const result = await response.json();
-                    
-                    if (response.ok) {
-                        this.showToast('Wiadomość została wysłana pomyślnie! Skontaktujemy się z Tobą wkrótce.', 'success');
-                        form.reset();
-                    } else {
-                        throw new Error(result.error || 'Błąd serwera');
-                    }
-                } catch (fetchError) {
-                    // Jeśli nie ma połączenia, zapisz offline
-                    if (!navigator.onLine) {
-                        await this.handleOfflineForm(formData);
-                        form.reset();
-                    } else {
-                        throw fetchError;
-                    }
-                }
+                // Let Netlify handle the form submission
+                // Form will submit normally to /success
                 
             } catch (error) {
                 console.error('Contact form error:', error);
                 this.showToast('Wystąpił błąd podczas wysyłania wiadomości. Spróbuj ponownie lub skontaktuj się telefonicznie.', 'error');
+                e.preventDefault();
             } finally {
                 // Restore button state
                 if (btnText) btnText.classList.remove('hidden');
