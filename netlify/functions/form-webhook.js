@@ -1,5 +1,12 @@
 const fs = require('fs');
 const path = require('path');
+const {RecaptchaEnterpriseServiceClient} = require('@google-cloud/recaptcha-enterprise');
+
+// Ustaw credentials z zmiennej środowiskowej
+if (process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON) {
+  const credentials = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON);
+  process.env.GOOGLE_APPLICATION_CREDENTIALS = credentials;
+}
 
 exports.handler = async (event, context) => {
     // Sprawdź czy to jest webhook z Netlify Forms
@@ -42,6 +49,78 @@ exports.handler = async (event, context) => {
             return {
                 statusCode: 400,
                 body: JSON.stringify({ error: 'Missing required fields' })
+            };
+        }
+
+        // Weryfikuj reCAPTCHA v3
+        const recaptchaToken = formData.data['g-recaptcha-response'];
+        if (!recaptchaToken) {
+            console.error('Missing reCAPTCHA token');
+            return {
+                statusCode: 400,
+                body: JSON.stringify({ error: 'reCAPTCHA verification required' })
+            };
+        }
+
+        try {
+            // Konfiguracja reCAPTCHA Enterprise
+            const projectID = "dubaicars";
+            const recaptchaKey = "6Lc1sK8rAAAAAFvcqHK72bEpkcT7xUtbowTMD4f7";
+            
+            // Utwórz klienta reCAPTCHA Enterprise
+            const client = new RecaptchaEnterpriseServiceClient();
+            const projectPath = client.projectPath(projectID);
+
+            // Utwórz żądanie oceny
+            const request = {
+                assessment: {
+                    event: {
+                        token: recaptchaToken,
+                        siteKey: recaptchaKey,
+                    },
+                },
+                parent: projectPath,
+            };
+
+            const [response] = await client.createAssessment(request);
+
+            // Sprawdź czy token jest prawidłowy
+            if (!response.tokenProperties.valid) {
+                console.error(`Invalid reCAPTCHA token: ${response.tokenProperties.invalidReason}`);
+                return {
+                    statusCode: 400,
+                    body: JSON.stringify({ 
+                        error: 'Invalid reCAPTCHA token',
+                        reason: response.tokenProperties.invalidReason 
+                    })
+                };
+            }
+
+            // Sprawdź wynik reCAPTCHA (0.0 = bot, 1.0 = człowiek)
+            const score = response.riskAnalysis.score;
+            console.log(`reCAPTCHA score: ${score}`);
+            
+            if (score < 0.5) {
+                console.error(`reCAPTCHA score too low: ${score}`);
+                return {
+                    statusCode: 400,
+                    body: JSON.stringify({ 
+                        error: 'reCAPTCHA verification failed - score too low',
+                        score: score 
+                    })
+                };
+            }
+
+            console.log('reCAPTCHA verification successful');
+            
+        } catch (recaptchaError) {
+            console.error('reCAPTCHA verification error:', recaptchaError);
+            return {
+                statusCode: 500,
+                body: JSON.stringify({ 
+                    error: 'reCAPTCHA verification failed',
+                    details: recaptchaError.message 
+                })
             };
         }
 

@@ -7,7 +7,9 @@
     "build": "echo 'Static site - no build required'",
     "dev": "echo 'Use live server or similar for local development'"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@google-cloud/recaptcha-enterprise": "^4.0.0"
+  },
   "engines": {
     "node": ">=18.0.0"
   },
