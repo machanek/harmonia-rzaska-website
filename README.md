@@ -303,3 +303,22 @@ Formularz kontaktowy został zintegrowany z Netlify Forms:
   <!-- Pola formularza... -->
 </form>
 ```
+
+## System Formularza Kontaktowego
+
+### Jak to działa:
+1. **Formularz kontaktowy** na stronie wysyła dane do Netlify Forms
+2. **Webhook** (`netlify/functions/form-webhook.js`) odbiera dane z Netlify Forms
+3. **GitHub API** dodaje wiadomość jako plik JSON do repo (`data/contact_messages/`)
+4. **Netlify CMS** automatycznie wyświetla wiadomości w panelu administracyjnym
+
+### Konfiguracja:
+- **Zmienne środowiskowe w Netlify:**
+  - `GITHUB_TOKEN` - Personal Access Token z uprawnieniami `repo`
+  - `GITHUB_REPO` - nazwa repo w formacie `username/repository-name`
+- **Webhook URL:** `https://harmoniarzaska.netlify.app/.netlify/functions/form-webhook`
+
+### Status: ✅ DZIAŁA
+- Ostatni test: 26.08.2025 - wiadomości trafiają do CMS
+- Webhook aktywny i funkcjonalny
+- Git API integration działa poprawnie

@@ -76,8 +76,10 @@ collections:
         - {label: "Data", name: "timestamp", widget: "datetime"}
         - {label: "Imię i nazwisko", name: "name", widget: "string"}
         - {label: "E-mail", name: "email", widget: "string"}
+        - {label: "Telefon", name: "phone", widget: "string"}
         - {label: "Temat", name: "subject", widget: "string"}
         - {label: "Status", name: "status", widget: "select", options: ["new", "read", "replied", "archived"]}
+    summary: "{{name}}\n{{email}}\n{{phone}}\n{{subject}}\n{{message | truncate: 200}}\nStatus: {{status}}"
     fields:
       - {label: "ID", name: "id", widget: "number"}
       - {label: "Imię i nazwisko", name: "name", widget: "string"}
