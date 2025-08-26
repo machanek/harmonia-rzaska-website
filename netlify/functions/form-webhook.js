@@ -24,7 +24,7 @@ exports.handler = async (event, context) => {
 
         // Przygotuj dane kontaktowe
         const contactData = {
-            id: generateMessageId(),
+            id: Date.now(),
             timestamp: new Date().toISOString(),
             name: formData.data.name || '',
             email: formData.data.email || '',
@@ -33,7 +33,7 @@ exports.handler = async (event, context) => {
             message: formData.data.message || '',
             consent: formData.data.consent || false,
             marketing: formData.data.marketing || false,
-            status: 'nowa',
+            status: 'new',
             notes: '',
             source: 'form-webhook',
             ip: event.headers['client-ip'] || event.headers['x-forwarded-for'] || 'Nieznany',
@@ -102,8 +102,4 @@ exports.handler = async (event, context) => {
         };
     }
 };
-
-function generateMessageId() {
-    return 'msg_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-}
 
