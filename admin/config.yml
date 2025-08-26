@@ -33,7 +33,7 @@ collections:
     label: "Lokale"
     folder: "data/units"
     create: true
-    slug: "{{id}}-{{nr_budynku}}-{{nr_lokalu}}"
+    slug: "{{nr_budynku}}-{{nr_lokalu}}"
     format: "json"
     sortable_fields: ["id", "nr_budynku", "nr_lokalu", "cena", "status"]
     default_sort: "id"
@@ -57,7 +57,7 @@ collections:
       - {label: "Dodatki", name: "dodatki", widget: "text", required: false}
       - {label: "Cena (zł)", name: "cena", widget: "number"}
       - {label: "Cena za m² (zł)", name: "cena_m2", widget: "number", required: false, hint: "Obliczana automatycznie na podstawie ceny i powierzchni"}
-      - {label: "Status", name: "status", widget: "select", options: ["wolny", "sprzedany", "zarezerwowany"]}
+      - {label: "Status", name: "status", widget: "select", options: ["WOLNE", "SPRZEDANE", "REZERWACJA"]}
       - {label: "URL planu", name: "plan_url", widget: "string", required: false}
       - {label: "Opis", name: "opis", widget: "text", required: false}
 

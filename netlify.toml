@@ -45,13 +45,13 @@
   for = "/admin/*"
   [headers.values]
     X-Frame-Options = "SAMEORIGIN"
-    Content-Security-Policy = "default-src 'self'; img-src 'self' data: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com https://www.gstatic.com https://maps.googleapis.com https://maps.gstatic.com https://identity.netlify.com https://unpkg.com; style-src 'self' 'unsafe-inline'; connect-src 'self' https://maps.googleapis.com https://maps.gstatic.com https://identity.netlify.com; frame-src https://www.google.com https://identity.netlify.com; form-action 'self';"
+    Content-Security-Policy = "default-src 'self'; img-src 'self' data: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com https://www.gstatic.com https://maps.googleapis.com https://maps.gstatic.com https://identity.netlify.com https://unpkg.com; style-src 'self' 'unsafe-inline'; connect-src 'self' https://maps.googleapis.com https://maps.gstatic.com https://identity.netlify.com https://api.netlify.com https://www.netlifystatus.com; frame-src https://www.google.com https://identity.netlify.com; form-action 'self';"
 
 [[headers]]
   for = "/admin/index.html"
   [headers.values]
     X-Frame-Options = "SAMEORIGIN"
-    Content-Security-Policy = "default-src 'self'; img-src 'self' data: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com https://www.gstatic.com https://maps.googleapis.com https://maps.gstatic.com https://identity.netlify.com https://unpkg.com; style-src 'self' 'unsafe-inline'; connect-src 'self' https://maps.googleapis.com https://maps.gstatic.com https://identity.netlify.com; frame-src https://www.google.com https://identity.netlify.com; form-action 'self';"
+    Content-Security-Policy = "default-src 'self'; img-src 'self' data: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com https://www.gstatic.com https://maps.googleapis.com https://maps.gstatic.com https://identity.netlify.com https://unpkg.com; style-src 'self' 'unsafe-inline'; connect-src 'self' https://maps.googleapis.com https://maps.gstatic.com https://identity.netlify.com https://api.netlify.com https://www.netlifystatus.com; frame-src https://www.google.com https://identity.netlify.com; form-action 'self';"
 
 # Security headers
 [[headers]]
@@ -61,7 +61,7 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     X-Content-Type-Options = "nosniff"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
-    Content-Security-Policy = "default-src 'self'; img-src 'self' data: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com https://www.gstatic.com https://maps.googleapis.com https://maps.gstatic.com https://identity.netlify.com https://unpkg.com; style-src 'self' 'unsafe-inline'; connect-src 'self' https://maps.googleapis.com https://maps.gstatic.com https://identity.netlify.com; frame-src https://www.google.com https://identity.netlify.com; form-action 'self';"
+    Content-Security-Policy = "default-src 'self'; img-src 'self' data: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com https://www.gstatic.com https://maps.googleapis.com https://maps.gstatic.com https://identity.netlify.com https://unpkg.com; style-src 'self' 'unsafe-inline'; connect-src 'self' https://maps.googleapis.com https://maps.gstatic.com https://identity.netlify.com https://api.netlify.com https://www.netlifystatus.com; frame-src https://www.google.com https://identity.netlify.com; form-action 'self';"
 
 # Cache static assets
 [[headers]]
