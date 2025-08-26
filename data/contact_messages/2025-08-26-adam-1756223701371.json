@@ -1,0 +1,16 @@
+{
+  "id": 1756223701371,
+  "timestamp": "2025-08-26T15:55:01.371Z",
+  "name": "Adam",
+  "email": "adamk@firmakubik.pl",
+  "phone": "Kubik",
+  "subject": "prezentacja",
+  "message": "Proszę o dogodne terminy ",
+  "consent": true,
+  "marketing": true,
+  "status": "new",
+  "notes": "",
+  "source": "form-webhook",
+  "ip": "3.143.196.177",
+  "userAgent": "Nieznany"
+}
