@@ -33,7 +33,6 @@ collections:
     label: "Lokale"
     folder: "data/units"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{hour}}-{{minute}}-{{second}}"
     format: "json"
     sortable_fields: ["id", "nr_budynku", "nr_lokalu", "cena", "status"]
     default_sort: "id"

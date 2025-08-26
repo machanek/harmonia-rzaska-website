@@ -9,25 +9,6 @@
 <body>
   <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
   
-  <script>
-    // Automatyczne obliczanie ceny za m² przy zapisie
-    CMS.registerEventListener({
-      name: 'preSave',
-      handler: ({ entry, author }) => {
-        // Sprawdź czy to kolekcja "units" (lokale)
-        if (entry.get('collection') === 'units') {
-          const cena = entry.getIn(['data', 'cena']);
-          const powierzchnia = entry.getIn(['data', 'powierzchnia']);
-          
-          // Oblicz cenę za m² jeśli mamy obie wartości
-          if (cena && powierzchnia && powierzchnia > 0) {
-            const cenaM2 = Math.round(cena / powierzchnia);
-            entry.setIn(['data', 'cena_m2'], cenaM2);
-          }
-        }
-        return { entry, author };
-      }
-    });
-  </script>
+
 </body>
 </html>
