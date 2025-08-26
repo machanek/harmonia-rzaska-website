@@ -140,10 +140,3 @@
 
 [context.branch-deploy.environment]
   NETLIFY_FORMS_RECAPTCHA = "true"
-
-# Form webhook configuration
-[[redirects]]
-  from = "/.netlify/functions/form-webhook"
-  to = "/.netlify/functions/form-webhook"
-  status = 200
-  force = true
