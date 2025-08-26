@@ -200,6 +200,7 @@ class HarmoniaApp {
         }
         
         console.log(`📋 Łącznie załadowano: ${units.length} jednostek z CMS`);
+        console.log('📋 Lista załadowanych jednostek:', units.map(u => `${u.id} (${u.nr_budynku}-${u.nr_lokalu})`));
         
         // Jeśli nie ma danych z CMS, użyj przykładowych danych
         if (units.length === 0) {
