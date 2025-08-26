@@ -1,0 +1,16 @@
+{
+  "id": 1756221320345,
+  "timestamp": "2025-08-26T15:15:20.345Z",
+  "name": "Grzegorz Data",
+  "email": "data.grzegorz@gmail.com",
+  "phone": "792710010",
+  "subject": "mieszkanie",
+  "message": "Mam duze zapotrzebowanie.",
+  "consent": true,
+  "marketing": false,
+  "status": "new",
+  "notes": "",
+  "source": "form-webhook",
+  "ip": "3.143.196.177",
+  "userAgent": "Nieznany"
+}
