@@ -1,0 +1,16 @@
+{
+  "id": 1756215169950,
+  "timestamp": "2025-08-26T13:32:49.950Z",
+  "name": "Zenek",
+  "email": "zenek@dim.org.pl",
+  "phone": "Martyniuk",
+  "subject": "mieszkanie",
+  "message": "Mam do was pytanie ",
+  "consent": true,
+  "marketing": true,
+  "status": "new",
+  "notes": "",
+  "source": "form-webhook",
+  "ip": "3.136.140.56",
+  "userAgent": "Nieznany"
+}
