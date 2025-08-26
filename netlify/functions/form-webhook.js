@@ -1,12 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-const {RecaptchaEnterpriseServiceClient} = require('@google-cloud/recaptcha-enterprise');
-
-// Ustaw credentials z zmiennej środowiskowej
-if (process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON) {
-  const credentials = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON);
-  process.env.GOOGLE_APPLICATION_CREDENTIALS = credentials;
-}
 
 exports.handler = async (event, context) => {
     // Sprawdź czy to jest webhook z Netlify Forms
@@ -36,11 +29,15 @@ exports.handler = async (event, context) => {
             name: formData.data.name || '',
             email: formData.data.email || '',
             phone: formData.data.phone || '',
+            subject: formData.data.subject || '',
             message: formData.data.message || '',
             consent: formData.data.consent || false,
+            marketing: formData.data.marketing || false,
             status: 'nowa',
             notes: '',
-            source: 'form-webhook'
+            source: 'form-webhook',
+            ip: event.headers['client-ip'] || event.headers['x-forwarded-for'] || 'Nieznany',
+            userAgent: event.headers['user-agent'] || 'Nieznany'
         };
 
         // Sprawdź czy wszystkie wymagane pola są wypełnione
@@ -52,77 +49,7 @@ exports.handler = async (event, context) => {
             };
         }
 
-        // Weryfikuj reCAPTCHA v3
-        const recaptchaToken = formData.data['g-recaptcha-response'];
-        if (!recaptchaToken) {
-            console.error('Missing reCAPTCHA token');
-            return {
-                statusCode: 400,
-                body: JSON.stringify({ error: 'reCAPTCHA verification required' })
-            };
-        }
-
-        try {
-            // Konfiguracja reCAPTCHA Enterprise
-            const projectID = "dubaicars";
-            const recaptchaKey = "6Lc1sK8rAAAAAFvcqHK72bEpkcT7xUtbowTMD4f7";
-            
-            // Utwórz klienta reCAPTCHA Enterprise
-            const client = new RecaptchaEnterpriseServiceClient();
-            const projectPath = client.projectPath(projectID);
-
-            // Utwórz żądanie oceny
-            const request = {
-                assessment: {
-                    event: {
-                        token: recaptchaToken,
-                        siteKey: recaptchaKey,
-                    },
-                },
-                parent: projectPath,
-            };
-
-            const [response] = await client.createAssessment(request);
-
-            // Sprawdź czy token jest prawidłowy
-            if (!response.tokenProperties.valid) {
-                console.error(`Invalid reCAPTCHA token: ${response.tokenProperties.invalidReason}`);
-                return {
-                    statusCode: 400,
-                    body: JSON.stringify({ 
-                        error: 'Invalid reCAPTCHA token',
-                        reason: response.tokenProperties.invalidReason 
-                    })
-                };
-            }
-
-            // Sprawdź wynik reCAPTCHA (0.0 = bot, 1.0 = człowiek)
-            const score = response.riskAnalysis.score;
-            console.log(`reCAPTCHA score: ${score}`);
-            
-            if (score < 0.5) {
-                console.error(`reCAPTCHA score too low: ${score}`);
-                return {
-                    statusCode: 400,
-                    body: JSON.stringify({ 
-                        error: 'reCAPTCHA verification failed - score too low',
-                        score: score 
-                    })
-                };
-            }
-
-            console.log('reCAPTCHA verification successful');
-            
-        } catch (recaptchaError) {
-            console.error('reCAPTCHA verification error:', recaptchaError);
-            return {
-                statusCode: 500,
-                body: JSON.stringify({ 
-                    error: 'reCAPTCHA verification failed',
-                    details: recaptchaError.message 
-                })
-            };
-        }
+        console.log('Contact form submission:', contactData);
 
         // Utwórz bezpieczną nazwę pliku
         const safeName = contactData.name
@@ -145,7 +72,6 @@ exports.handler = async (event, context) => {
         fs.writeFileSync(filepath, JSON.stringify(contactData, null, 2), 'utf8');
         
         console.log('Contact message saved via webhook:', filename);
-        console.log('Contact form submission:', contactData);
 
         return {
             statusCode: 200,
@@ -180,3 +106,4 @@ exports.handler = async (event, context) => {
 function generateMessageId() {
     return 'msg_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
 }
+

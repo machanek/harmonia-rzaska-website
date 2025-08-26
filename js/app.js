@@ -985,17 +985,8 @@ class HarmoniaApp {
         
         if (!form || !submitBtn) return;
         
-        // Sprawdź czy reCAPTCHA jest załadowana
-        if (typeof grecaptcha === 'undefined') {
-            console.error('❌ reCAPTCHA nie jest załadowana');
-            this.showToast('Błąd ładowania reCAPTCHA. Odśwież stronę.', 'error');
-            return;
-        }
-        
-        // Dodaj obsługę reCAPTCHA i walidację formularza
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault(); // Zatrzymaj domyślne wysyłanie
-            
+        // Dodaj walidację formularza
+        form.addEventListener('submit', (e) => {
             // Sprawdź czy wszystkie wymagane pola są wypełnione
             const requiredFields = form.querySelectorAll('[required]');
             let isValid = true;
@@ -1019,34 +1010,24 @@ class HarmoniaApp {
                 }
             }
             
+            // Sprawdź czy zgoda została zaznaczona
+            const consentCheckbox = document.getElementById('contactConsent');
+            if (!consentCheckbox.checked) {
+                isValid = false;
+                consentCheckbox.parentElement.classList.add('error');
+            } else {
+                consentCheckbox.parentElement.classList.remove('error');
+            }
+            
             // Jeśli formularz jest nieprawidłowy, zatrzymaj wysyłanie
             if (!isValid) {
+                e.preventDefault();
                 this.showToast('Proszę wypełnić wszystkie wymagane pola poprawnie.', 'error');
                 return;
             }
             
-            // Pokaż komunikat o wysyłaniu
-            this.showToast('Weryfikacja reCAPTCHA...', 'info');
-            
-            try {
-                // Wykonaj reCAPTCHA
-                const recaptchaResponse = await grecaptcha.execute('6Lc1sK8rAAAAAFvcqHK72bEpkcT7xUtbowTMD4f7', {action: 'submit'});
-                
-                // Ustaw token reCAPTCHA
-                const recaptchaInput = document.getElementById('recaptchaResponse');
-                if (recaptchaInput) {
-                    recaptchaInput.value = recaptchaResponse;
-                }
-                
-                this.showToast('Wysyłanie wiadomości...', 'info');
-                
-                // Wyślij formularz
-                form.submit();
-                
-            } catch (error) {
-                console.error('Błąd reCAPTCHA:', error);
-                this.showToast('Błąd weryfikacji. Spróbuj ponownie.', 'error');
-            }
+            // Jeśli formularz jest prawidłowy, pozwól Netlify obsłużyć submisję
+            this.showToast('Wysyłanie wiadomości...', 'info');
         });
     }
 
