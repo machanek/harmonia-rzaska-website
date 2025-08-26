@@ -151,6 +151,7 @@ class HarmoniaApp {
         const newFiles = [
             'j-2.json', // Nowy lokal J-2 z CMS
             'C-2.json', // Nowy lokal z CMS
+            'G-7.json', // Nowy lokal G-7 z CMS
             'map-pietro-1-powierzchnia-80-dodatki-balkon-cena_m2-10000-status-wolne-cena-1000000-nr_budynku-c-id-17-nr_lokalu-2.json' // Stary format
         ];
         
