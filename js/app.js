@@ -132,90 +132,45 @@ class HarmoniaApp {
     }
 
     async loadUnitsFromFolder() {
-        const units = [];
-        
-        console.log('🔍 Próba ładowania plików z folderu data/units/ (CMS Netlify)');
-        console.log('📁 Protokół:', window.location.protocol);
-        console.log('🌐 URL:', window.location.href);
-        
-        // Lista znanych plików + automatyczne wykrywanie
-        const knownFiles = [
-            '1-a-1.json',
-            '2-a-2.json', 
-            '3-a-3.json',
-            '4-b-1.json',
-            '5-b-2.json'
-        ];
-        
-        // Dodaj nowe pliki z CMS (z automatycznie generowanymi nazwami)
-        const newFiles = [
-            'j-2.json', // Nowy lokal J-2 z CMS
-            'C-2.json', // Nowy lokal z CMS
-            'G-7.json', // Nowy lokal G-7 z CMS
-            'map-pietro-1-powierzchnia-80-dodatki-balkon-cena_m2-10000-status-wolne-cena-1000000-nr_budynku-c-id-17-nr_lokalu-2.json' // Stary format
-        ];
-        
-        const allFiles = [...knownFiles, ...newFiles];
-        
-        for (const filename of allFiles) {
-            try {
-                console.log(`📁 Ładowanie: ${filename}`);
-                const timestamp = Date.now();
-                const url = `data/units/${filename}?t=${timestamp}`;
-                console.log(`🔗 URL: ${url}`);
-                
-                const response = await fetch(url, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Cache-Control': 'no-cache'
-                    }
-                });
-                
-                console.log(`📊 Status dla ${filename}:`, response.status, response.statusText);
-                
-                if (response.ok) {
-                    const unit = await response.json();
-                    console.log(`✅ Surowe dane ${filename}:`, unit);
-                    
-                    // Normalizuj status z CMS Netlify do formatu aplikacji
-                    const normalizedUnit = {
-                        ...unit,
-                        status: this.normalizeStatus(unit.status),
-                        pietro: parseInt(unit.pietro) || 0,
-                        powierzchnia: parseFloat(unit.powierzchnia) || 0,
-                        cena: parseInt(unit.cena) || 0,
-                        cena_m2: parseInt(unit.cena_m2) || Math.round(unit.cena / unit.powierzchnia) || 0
-                    };
-                    units.push(normalizedUnit);
-                    console.log(`✅ Załadowano: ${filename}`, normalizedUnit);
-                } else {
-                    console.error(`❌ Błąd dla ${filename}:`, response.status, response.statusText);
-                    // Ignoruj nieistniejące pliki
-                    continue;
+        try {
+            console.log('🔍 Ładowanie jednostek przez Netlify Function...');
+            const response = await fetch('/.netlify/functions/units-index', { 
+                cache: 'no-store',
+                headers: {
+                    'Accept': 'application/json'
                 }
-            } catch (error) {
-                console.error(`💥 Wyjątek dla ${filename}:`, error);
-                // Ignoruj błędy dla nieistniejących plików
-                continue;
+            });
+            
+            if (!response.ok) {
+                throw new Error(`Units index error: ${response.status} ${response.statusText}`);
             }
-        }
-        
-        console.log(`📋 Łącznie załadowano: ${units.length} jednostek z CMS`);
-        console.log('📋 Lista załadowanych jednostek:', units.map(u => `${u.id} (${u.nr_budynku}-${u.nr_lokalu})`));
-        
-        // Jeśli nie ma danych z CMS, użyj przykładowych danych
-        if (units.length === 0) {
-            console.log('⚠️ Brak danych z CMS - używam przykładowych danych');
+            
+            const { units } = await response.json();
+            console.log(`✅ Załadowano ${units.length} jednostek z Netlify Function`);
+            
+            if (!Array.isArray(units) || units.length === 0) {
+                console.log('⚠️ Brak danych z Netlify Function - używam przykładowych danych');
+                return this.getFallbackData();
+            }
+            
+            // Normalizuj dane
+            const normalizedUnits = units.map(unit => ({
+                ...unit,
+                status: this.normalizeStatus(unit.status),
+                pietro: parseInt(unit.pietro) || 0,
+                powierzchnia: parseFloat(unit.powierzchnia) || 0,
+                cena: parseInt(unit.cena) || 0,
+                cena_m2: parseInt(unit.cena_m2) || Math.round(unit.cena / unit.powierzchnia) || 0
+            }));
+            
+            console.log('📋 Lista załadowanych jednostek:', normalizedUnits.map(u => `${u.id} (${u.nr_budynku}-${u.nr_lokalu})`));
+            
+            return normalizedUnits;
+        } catch (error) {
+            console.error('❌ Błąd ładowania przez Netlify Function:', error);
+            console.log('⚠️ Używam przykładowych danych jako fallback');
             return this.getFallbackData();
         }
-        
-        return units.sort((a, b) => {
-            // Sortuj po ID, ale obsłuż zarówno string jak i number
-            const aId = String(a.id || '');
-            const bId = String(b.id || '');
-            return aId.localeCompare(bId);
-        });
     }
 
     // Normalizuj status z CMS Netlify do formatu aplikacji
