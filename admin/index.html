@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-store" />
   <title>Harmonia Rzaska - Panel Administracyjny</title>
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
@@ -10,35 +11,53 @@
   <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
   
   <script>
-    // Automatyczne generowanie ID i obliczanie ceny za m² - tylko preSave
-    CMS.registerEventListener({
-      name: 'preSave',
-      handler: ({ entry, author }) => {
-        // Sprawdź czy to kolekcja "units" (lokale)
-        if (entry.get('collection') === 'units') {
-          const nrBudynku = entry.getIn(['data', 'nr_budynku']);
-          const nrLokalu = entry.getIn(['data', 'nr_lokalu']);
-          
-          // Automatycznie generuj ID jeśli nie istnieje
-          if (nrBudynku && nrLokalu) {
-            const autoId = `${nrBudynku}-${nrLokalu}`;
-            entry.setIn(['data', 'id'], autoId);
-            console.log('✅ PreSave: Auto-generated ID:', autoId);
-          }
-          
-          // Automatycznie oblicz cenę za m²
-          const cena = entry.getIn(['data', 'cena']);
-          const powierzchnia = entry.getIn(['data', 'powierzchnia']);
-          
-          if (cena && powierzchnia && powierzchnia > 0) {
-            const cenaM2 = Math.round(cena / powierzchnia);
-            entry.setIn(['data', 'cena_m2'], cenaM2);
-            console.log('✅ PreSave: Auto-calculated cena_m2:', cenaM2);
-          }
+    // PreSave: musi zwracać Immutable Map, nie zwykły obiekt
+    (function () {
+      // Rejestrujemy hook preSave tylko raz
+      if (window.__hr_preSaveRegistered) return;
+      window.__hr_preSaveRegistered = true;
+
+      const isNum = v => typeof v === 'number' && !Number.isNaN(v);
+
+      CMS.registerEventListener({
+        name: 'preSave',
+        handler: ({ entry, collection }) => {
+          // Immutable.Map z danymi wpisu
+          const data = entry.get('data');
+
+          // Pola mogą mieć inne nazwy; zostaw bezpieczne obliczenia:
+          const cena = Number(data.get('cena'));
+          const pow  = Number(data.get('powierzchnia'));
+          const cena_m2 = (isNum(cena) && isNum(pow) && pow > 0)
+            ? Math.round(cena / pow)
+            : data.get('cena_m2');
+
+          // Automatyczne ID jeśli puste (np. "B1-L3" albo fallback timestamp)
+          const nrB = data.get('nr_budynku');
+          const nrL = data.get('nr_lokalu');
+          const fallback = `W-${Date.now()}`;
+          const autoId = data.get('id') || (nrB && nrL ? `${nrB}-${nrL}` : fallback);
+
+          // ZWRACAMY Immutable.Map (data.set...), NIE obiekt JS!
+          return data
+            .set('id', autoId)
+            .set('cena_m2', cena_m2);
         }
-        return { entry, author };
+      });
+    })();
+  </script>
+
+  <!-- Upewnij się, że /admin nie jest pod kontrolą Service Workera -->
+  <script>
+    (function () {
+      if (!('serviceWorker' in navigator)) return;
+      // Dla panelu admin wyrejestruj SW (chroni przed starymi cache'ami i błędami)
+      if (location.pathname.startsWith('/admin')) {
+        navigator.serviceWorker.getRegistrations().then(regs => {
+          regs.forEach(reg => reg.unregister());
+        });
       }
-    });
+    })();
   </script>
 
 </body>
