@@ -1,0 +1,16 @@
+{
+  "id": 1756224398929,
+  "timestamp": "2025-08-26T16:06:38.929Z",
+  "name": "Grzegorz Data",
+  "email": "data.grzegorz@gmail.com",
+  "phone": "792710010",
+  "subject": "mieszkanie",
+  "message": "Gdzie moje mieszkanie drogi panie ?",
+  "consent": true,
+  "marketing": true,
+  "status": "new",
+  "notes": "",
+  "source": "form-webhook",
+  "ip": "3.143.196.177",
+  "userAgent": "Nieznany"
+}
