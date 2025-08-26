@@ -1028,6 +1028,11 @@ class HarmoniaApp {
             
             // Jeśli formularz jest prawidłowy, pozwól Netlify obsłużyć submisję
             this.showToast('Wysyłanie wiadomości...', 'info');
+            
+            // Przekieruj na naszą stronę sukcesu po krótkim opóźnieniu
+            setTimeout(() => {
+                window.location.href = '/success.html';
+            }, 1000);
         });
     }
 
