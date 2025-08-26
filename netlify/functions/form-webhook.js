@@ -221,8 +221,9 @@ exports.handler = async (event, context) => {
         console.log('=== WEBHOOK COMPLETED ===');
 
         return {
-            statusCode: 200,
+            statusCode: 303,
             headers: {
+                'Location': '/success.html',
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Headers': 'Content-Type'
