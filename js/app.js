@@ -133,8 +133,13 @@ class HarmoniaApp {
 
     async loadUnitsFromFolder() {
         const units = [];
-        // Lista plików jednostek w folderze data/units/ (zarządzane przez CMS Netlify)
-        const unitFiles = [
+        
+        console.log('🔍 Próba ładowania plików z folderu data/units/ (CMS Netlify)');
+        console.log('📁 Protokół:', window.location.protocol);
+        console.log('🌐 URL:', window.location.href);
+        
+        // Lista znanych plików + próba automatycznego wykrywania
+        const knownFiles = [
             '1-a-1.json',
             '2-a-2.json', 
             '3-a-3.json',
@@ -142,11 +147,14 @@ class HarmoniaApp {
             '5-b-2.json'
         ];
         
-        console.log('🔍 Próba ładowania plików z folderu data/units/ (CMS Netlify)');
-        console.log('📁 Protokół:', window.location.protocol);
-        console.log('🌐 URL:', window.location.href);
+        // Dodaj nowy plik z CMS
+        const newFiles = [
+            'map-pietro-1-powierzchnia-80-dodatki-balkon-cena_m2-10000-status-wolne-cena-1000000-nr_budynku-c-id-17-nr_lokalu-2.json'
+        ];
         
-        for (const filename of unitFiles) {
+        const allFiles = [...knownFiles, ...newFiles];
+        
+        for (const filename of allFiles) {
             try {
                 console.log(`📁 Ładowanie: ${filename}`);
                 const timestamp = Date.now();
@@ -180,8 +188,8 @@ class HarmoniaApp {
                     console.log(`✅ Załadowano: ${filename}`, normalizedUnit);
                 } else {
                     console.error(`❌ Błąd dla ${filename}:`, response.status, response.statusText);
-                    // Spróbuj załadować z fallback
-                    console.log(`🔄 Próba fallback dla ${filename}`);
+                    // Ignoruj nieistniejące pliki
+                    continue;
                 }
             } catch (error) {
                 console.error(`💥 Wyjątek dla ${filename}:`, error);
@@ -198,7 +206,12 @@ class HarmoniaApp {
             return this.getFallbackData();
         }
         
-        return units.sort((a, b) => a.id.localeCompare(b.id));
+        return units.sort((a, b) => {
+            // Sortuj po ID, ale obsłuż zarówno string jak i number
+            const aId = String(a.id || '');
+            const bId = String(b.id || '');
+            return aId.localeCompare(bId);
+        });
     }
 
     // Normalizuj status z CMS Netlify do formatu aplikacji
