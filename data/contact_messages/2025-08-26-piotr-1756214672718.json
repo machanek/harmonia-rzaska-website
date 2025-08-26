@@ -1,0 +1,16 @@
+{
+  "id": 1756214672718,
+  "timestamp": "2025-08-26T13:24:32.718Z",
+  "name": "Piotr",
+  "email": "piotr@dim.org.pl",
+  "phone": "Nowak",
+  "subject": "mieszkanie",
+  "message": "Mam do was kilka pytan",
+  "consent": true,
+  "marketing": false,
+  "status": "new",
+  "notes": "",
+  "source": "form-webhook",
+  "ip": "3.143.196.177",
+  "userAgent": "Nieznany"
+}
