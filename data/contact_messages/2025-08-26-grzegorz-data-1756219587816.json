@@ -1,0 +1,16 @@
+{
+  "id": 1756219587816,
+  "timestamp": "2025-08-26T14:46:27.817Z",
+  "name": "Grzegorz Data",
+  "email": "data.grzegorz@gmail.com",
+  "phone": "792710010",
+  "subject": "prezentacja",
+  "message": "Proszę o termin prezentacji ",
+  "consent": true,
+  "marketing": false,
+  "status": "new",
+  "notes": "",
+  "source": "form-webhook",
+  "ip": "3.136.140.56",
+  "userAgent": "Nieznany"
+}
