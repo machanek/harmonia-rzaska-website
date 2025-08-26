@@ -1,10 +1,11 @@
 {
-  "nr_budynku": "J",
-  "nr_lokalu": "2",
   "pietro": 1,
   "powierzchnia": 44,
   "dodatki": "Piwnica",
-  "cena": 500010,
+  "cena_m2": 8000,
   "status": "WOLNE",
-  "id": "J-2"
+  "cena": 500010,
+  "nr_budynku": "J",
+  "id": "J-2",
+  "nr_lokalu": "2"
 }
