@@ -1,0 +1,16 @@
+{
+  "id": 1756225713300,
+  "timestamp": "2025-08-26T16:28:33.300Z",
+  "name": "Adam",
+  "email": "ad@domagala.pl",
+  "phone": "Domagała",
+  "subject": "prezentacja",
+  "message": "Proszę o info !",
+  "consent": true,
+  "marketing": true,
+  "status": "new",
+  "notes": "",
+  "source": "form-webhook",
+  "ip": "3.143.196.177",
+  "userAgent": "Nieznany"
+}
