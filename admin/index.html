@@ -23,7 +23,6 @@
           if (cena && powierzchnia && powierzchnia > 0) {
             const cenaM2 = Math.round(cena / powierzchnia);
             entry.setIn(['data', 'cena_m2'], cenaM2);
-            entry.setIn(['data', 'cena_m2_display'], cenaM2 + ' zł/m²');
           }
         }
         return { entry, author };
@@ -45,21 +44,14 @@
             if (cena && powierzchnia && powierzchnia > 0) {
               const cenaM2 = Math.round(cena / powierzchnia);
               entry.setIn(['data', 'cena_m2'], cenaM2);
-              entry.setIn(['data', 'cena_m2_display'], cenaM2 + ' zł/m²');
               
-              // Aktualizuj pola w interfejsie
+              // Aktualizuj pole w interfejsie
               setTimeout(() => {
                 const cenaM2Field = document.querySelector('[name="cena_m2"]');
-                const cenaM2DisplayField = document.querySelector('[name="cena_m2_display"]');
                 
                 if (cenaM2Field) {
                   cenaM2Field.value = cenaM2;
                   cenaM2Field.dispatchEvent(new Event('change', { bubbles: true }));
-                }
-                
-                if (cenaM2DisplayField) {
-                  cenaM2DisplayField.value = cenaM2 + ' zł/m²';
-                  cenaM2DisplayField.dispatchEvent(new Event('change', { bubbles: true }));
                 }
               }, 100);
             }

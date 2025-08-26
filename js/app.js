@@ -203,12 +203,8 @@ class HarmoniaApp {
 
     // Normalizuj status z CMS Netlify do formatu aplikacji
     normalizeStatus(cmsStatus) {
-        const statusMap = {
-            'wolny': 'WOLNE',
-            'sprzedany': 'SPRZEDANE', 
-            'zarezerwowany': 'REZERWACJA'
-        };
-        return statusMap[cmsStatus] || cmsStatus;
+        // Status jest już w odpowiednim formacie (WOLNE, SPRZEDANE, REZERWACJA)
+        return cmsStatus || 'WOLNE';
     }
 
     // Przykładowe dane jako fallback gdy CMS jest pusty
