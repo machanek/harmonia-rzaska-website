@@ -10,14 +10,9 @@
 [[plugins]]
   package = "@netlify/plugin-functions-install-core"
 
-# Form handling
+# Form handling - redirect Netlify's default success page to our custom page
 [[redirects]]
   from = "/success"
-  to = "/success.html"
-  status = 200
-
-[[redirects]]
-  from = "/dziekujemy"
   to = "/success.html"
   status = 200
 
