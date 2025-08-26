@@ -134,9 +134,15 @@
 # Netlify Forms configuration
 [context.production.environment]
   NETLIFY_FORMS_RECAPTCHA = "true"
+  GITHUB_TOKEN = ""
+  GITHUB_REPO = ""
 
 [context.deploy-preview.environment]
   NETLIFY_FORMS_RECAPTCHA = "true"
+  GITHUB_TOKEN = ""
+  GITHUB_REPO = ""
 
 [context.branch-deploy.environment]
   NETLIFY_FORMS_RECAPTCHA = "true"
+  GITHUB_TOKEN = ""
+  GITHUB_REPO = ""
