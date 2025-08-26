@@ -138,7 +138,7 @@ class HarmoniaApp {
         console.log('📁 Protokół:', window.location.protocol);
         console.log('🌐 URL:', window.location.href);
         
-        // Lista znanych plików + próba automatycznego wykrywania
+        // Lista znanych plików + automatyczne wykrywanie
         const knownFiles = [
             '1-a-1.json',
             '2-a-2.json', 
@@ -147,9 +147,10 @@ class HarmoniaApp {
             '5-b-2.json'
         ];
         
-        // Dodaj nowy plik z CMS
+        // Dodaj nowe pliki z CMS (z automatycznie generowanymi nazwami)
         const newFiles = [
-            'map-pietro-1-powierzchnia-80-dodatki-balkon-cena_m2-10000-status-wolne-cena-1000000-nr_budynku-c-id-17-nr_lokalu-2.json'
+            'C-2.json', // Nowy lokal z CMS
+            'map-pietro-1-powierzchnia-80-dodatki-balkon-cena_m2-10000-status-wolne-cena-1000000-nr_budynku-c-id-17-nr_lokalu-2.json' // Stary format
         ];
         
         const allFiles = [...knownFiles, ...newFiles];

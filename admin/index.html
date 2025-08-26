@@ -9,6 +9,34 @@
 <body>
   <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
   
+  <script>
+    // Automatyczne generowanie ID i obliczanie ceny za m²
+    CMS.registerEventListener({
+      name: 'change',
+      handler: ({ field, value, getField, setField }) => {
+        // Sprawdź czy to kolekcja "units" (lokale)
+        if (getField('collection') === 'units') {
+          const nrBudynku = getField('nr_budynku');
+          const nrLokalu = getField('nr_lokalu');
+          
+          // Automatycznie generuj ID gdy zmienią się nr_budynku lub nr_lokalu
+          if ((field === 'nr_budynku' || field === 'nr_lokalu') && nrBudynku && nrLokalu) {
+            const autoId = `${nrBudynku}-${nrLokalu}`;
+            setField('id', autoId);
+          }
+          
+          // Automatycznie oblicz cenę za m² gdy zmienią się cena lub powierzchnia
+          const cena = getField('cena');
+          const powierzchnia = getField('powierzchnia');
+          
+          if ((field === 'cena' || field === 'powierzchnia') && cena && powierzchnia && powierzchnia > 0) {
+            const cenaM2 = Math.round(cena / powierzchnia);
+            setField('cena_m2', cenaM2);
+          }
+        }
+      }
+    });
+  </script>
 
 </body>
 </html>
