@@ -10,7 +10,7 @@
   <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
   
   <script>
-    // Automatyczne obliczanie ceny za m²
+    // Automatyczne obliczanie ceny za m² przy zapisie
     CMS.registerEventListener({
       name: 'preSave',
       handler: ({ entry, author }) => {
@@ -26,37 +26,6 @@
           }
         }
         return { entry, author };
-      }
-    });
-
-    // Aktualizuj cenę za m² w czasie rzeczywistym podczas edycji
-    CMS.registerEventListener({
-      name: 'change',
-      handler: ({ collection, field, value, getAsset }) => {
-        // Sprawdź czy to kolekcja "units" i czy zmieniono cenę lub powierzchnię
-        if (collection === 'units' && (field === 'cena' || field === 'powierzchnia')) {
-          const entry = CMS.getEntry();
-          if (entry) {
-            const cena = entry.getIn(['data', 'cena']);
-            const powierzchnia = entry.getIn(['data', 'powierzchnia']);
-            
-            // Oblicz i zaktualizuj cenę za m²
-            if (cena && powierzchnia && powierzchnia > 0) {
-              const cenaM2 = Math.round(cena / powierzchnia);
-              entry.setIn(['data', 'cena_m2'], cenaM2);
-              
-              // Aktualizuj pole w interfejsie
-              setTimeout(() => {
-                const cenaM2Field = document.querySelector('[name="cena_m2"]');
-                
-                if (cenaM2Field) {
-                  cenaM2Field.value = cenaM2;
-                  cenaM2Field.dispatchEvent(new Event('change', { bubbles: true }));
-                }
-              }, 100);
-            }
-          }
-        }
       }
     });
   </script>
