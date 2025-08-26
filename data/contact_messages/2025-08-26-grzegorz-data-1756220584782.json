@@ -1,0 +1,16 @@
+{
+  "id": 1756220584782,
+  "timestamp": "2025-08-26T15:03:04.782Z",
+  "name": "Grzegorz Data",
+  "email": "data.grzegorz@gmail.com",
+  "phone": "792710010",
+  "subject": "finansowanie",
+  "message": "test developerski",
+  "consent": true,
+  "marketing": false,
+  "status": "new",
+  "notes": "",
+  "source": "form-webhook",
+  "ip": "3.143.196.177",
+  "userAgent": "Nieznany"
+}
