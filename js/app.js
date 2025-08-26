@@ -986,9 +986,7 @@ class HarmoniaApp {
         if (!form || !submitBtn) return;
         
         // Dodaj walidację formularza
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault(); // Zatrzymaj domyślne wysyłanie
-            
+        form.addEventListener('submit', (e) => {
             // Sprawdź czy wszystkie wymagane pola są wypełnione
             const requiredFields = form.querySelectorAll('[required]');
             let isValid = true;
@@ -1023,38 +1021,13 @@ class HarmoniaApp {
             
             // Jeśli formularz jest nieprawidłowy, zatrzymaj wysyłanie
             if (!isValid) {
+                e.preventDefault();
                 this.showToast('Proszę wypełnić wszystkie wymagane pola poprawnie.', 'error');
                 return;
             }
             
-            // Pokaż loading
-            submitBtn.disabled = true;
+            // Jeśli formularz jest prawidłowy, pozwól Netlify obsłużyć submisję
             this.showToast('Wysyłanie wiadomości...', 'info');
-            
-            try {
-                // Wyślij formularz przez AJAX
-                const formData = new FormData(form);
-                const response = await fetch('/', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: new URLSearchParams(formData).toString()
-                });
-                
-                if (response.ok) {
-                    this.showToast('Wiadomość wysłana pomyślnie!', 'success');
-                    // Przekieruj na naszą stronę sukcesu
-                    setTimeout(() => {
-                        window.location.href = '/success.html';
-                    }, 1500);
-                } else {
-                    throw new Error('Błąd wysyłania');
-                }
-            } catch (error) {
-                console.error('Błąd wysyłania formularza:', error);
-                this.showToast('Wystąpił błąd podczas wysyłania. Spróbuj ponownie.', 'error');
-            } finally {
-                submitBtn.disabled = false;
-            }
         });
     }
 
