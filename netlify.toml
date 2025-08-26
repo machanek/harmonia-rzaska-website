@@ -12,6 +12,12 @@
 
 # Form handling - using _redirect hidden field instead of redirects
 
+# Redirect Netlify's default success page to our custom page
+[[redirects]]
+  from = "/success"
+  to = "/success.html"
+  status = 301
+
 # Contact form handling - functions are automatically available at /.netlify/functions/
 
 # Form configuration

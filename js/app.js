@@ -58,7 +58,6 @@ class HarmoniaApp {
             this.setupEventListeners();
             this.setupMobileMenu();
             this.setupCookieBanner();
-            this.setupContactForm();
             this.setupOfflineIndicator();
             this.initLucideIcons();
             this.setupProspectButton();
@@ -979,57 +978,7 @@ class HarmoniaApp {
         }
     }
 
-    setupContactForm() {
-        const form = document.getElementById('contactForm');
-        const submitBtn = document.getElementById('contactSubmit');
-        
-        if (!form || !submitBtn) return;
-        
-        // Dodaj walidację formularza
-        form.addEventListener('submit', (e) => {
-            // Sprawdź czy wszystkie wymagane pola są wypełnione
-            const requiredFields = form.querySelectorAll('[required]');
-            let isValid = true;
-            
-            requiredFields.forEach(field => {
-                if (!field.value.trim()) {
-                    isValid = false;
-                    field.classList.add('error');
-                } else {
-                    field.classList.remove('error');
-                }
-            });
-            
-            // Sprawdź format email
-            const emailField = form.querySelector('input[type="email"]');
-            if (emailField && emailField.value) {
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(emailField.value)) {
-                    isValid = false;
-                    emailField.classList.add('error');
-                }
-            }
-            
-            // Sprawdź czy zgoda została zaznaczona
-            const consentCheckbox = document.getElementById('contactConsent');
-            if (!consentCheckbox.checked) {
-                isValid = false;
-                consentCheckbox.parentElement.classList.add('error');
-            } else {
-                consentCheckbox.parentElement.classList.remove('error');
-            }
-            
-            // Jeśli formularz jest nieprawidłowy, zatrzymaj wysyłanie
-            if (!isValid) {
-                e.preventDefault();
-                this.showToast('Proszę wypełnić wszystkie wymagane pola poprawnie.', 'error');
-                return;
-            }
-            
-            // Jeśli formularz jest prawidłowy, pozwól Netlify obsłużyć submisję
-            this.showToast('Wysyłanie wiadomości...', 'info');
-        });
-    }
+    // Netlify Forms handles form submission automatically - no JavaScript needed
 
     validateContactForm() {
         const form = document.getElementById('contactForm');
