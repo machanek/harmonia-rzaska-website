@@ -50,7 +50,7 @@ collections:
         - {label: "Status", name: "status", widget: "select", options: ["WOLNE", "SPRZEDANE", "REZERWACJA"]}
     summary: "{{id}}\n{{powierzchnia}}m²\n{{cena}}zł\n{{cena_m2}}zł/m²\nStatus: {{status}}"
     fields:
-      - {label: "ID (automatyczne)", name: "id", widget: "string", hint: "Automatycznie generowane jako Budynek-Lokal"}
+      - {label: "ID (automatyczne)", name: "id", widget: "string", required: false, hint: "Automatycznie generowane jako Budynek-Lokal"}
       - {label: "Numer budynku", name: "nr_budynku", widget: "string"}
       - {label: "Numer lokalu", name: "nr_lokalu", widget: "string"}
       - {label: "Piętro", name: "pietro", widget: "number"}

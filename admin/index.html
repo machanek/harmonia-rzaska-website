@@ -23,6 +23,7 @@
           if ((field === 'nr_budynku' || field === 'nr_lokalu') && nrBudynku && nrLokalu) {
             const autoId = `${nrBudynku}-${nrLokalu}`;
             setField('id', autoId);
+            console.log('✅ Auto-generated ID:', autoId);
           }
           
           // Automatycznie oblicz cenę za m² gdy zmienią się cena lub powierzchnia
@@ -32,8 +33,39 @@
           if ((field === 'cena' || field === 'powierzchnia') && cena && powierzchnia && powierzchnia > 0) {
             const cenaM2 = Math.round(cena / powierzchnia);
             setField('cena_m2', cenaM2);
+            console.log('✅ Auto-calculated cena_m2:', cenaM2);
           }
         }
+      }
+    });
+
+    // Dodatkowy listener dla preSave - jako backup
+    CMS.registerEventListener({
+      name: 'preSave',
+      handler: ({ entry, author }) => {
+        // Sprawdź czy to kolekcja "units" (lokale)
+        if (entry.get('collection') === 'units') {
+          const nrBudynku = entry.getIn(['data', 'nr_budynku']);
+          const nrLokalu = entry.getIn(['data', 'nr_lokalu']);
+          
+          // Automatycznie generuj ID jeśli nie istnieje
+          if (nrBudynku && nrLokalu) {
+            const autoId = `${nrBudynku}-${nrLokalu}`;
+            entry.setIn(['data', 'id'], autoId);
+            console.log('✅ PreSave: Auto-generated ID:', autoId);
+          }
+          
+          // Automatycznie oblicz cenę za m²
+          const cena = entry.getIn(['data', 'cena']);
+          const powierzchnia = entry.getIn(['data', 'powierzchnia']);
+          
+          if (cena && powierzchnia && powierzchnia > 0) {
+            const cenaM2 = Math.round(cena / powierzchnia);
+            entry.setIn(['data', 'cena_m2'], cenaM2);
+            console.log('✅ PreSave: Auto-calculated cena_m2:', cenaM2);
+          }
+        }
+        return { entry, author };
       }
     });
   </script>
